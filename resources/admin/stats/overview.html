@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - Media Downloader{% endblock %}
+{% block header %}Statistics{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500">Downloads Today</p>
+                <p class="text-2xl font-bold text-blue-600">{{ dashboard_stats.downloads_today }}</p>
+            </div>
+            <div class="p-3 bg-blue-100 rounded-full">
+                <i class="fas fa-download text-blue-600"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500">Active Users</p>
+                <p class="text-2xl font-bold text-green-600">{{ dashboard_stats.unique_users_today }}</p>
+            </div>
+            <div class="p-3 bg-green-100 rounded-full">
+                <i class="fas fa-users text-green-600"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500">Cache Hit Rate</p>
+                <p class="text-2xl font-bold text-purple-600">{{ dashboard_stats.cache_hit_rate }}%</p>
+            </div>
+            <div class="p-3 bg-purple-100 rounded-full">
+                <i class="fas fa-bolt text-purple-600"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500">Avg Time</p>
+                <p class="text-2xl font-bold text-orange-600">{{ dashboard_stats.avg_download_time_ms }}ms</p>
+            </div>
+            <div class="p-3 bg-orange-100 rounded-full">
+                <i class="fas fa-clock text-orange-600"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Downloads Chart -->
+    <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="text-lg font-semibold mb-4">📈 Downloads (Last 24 Hours)</h3>
+        <canvas id="downloadsChart" height="200"></canvas>
+    </div>
+
+    <!-- Platform Distribution -->
+    <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="text-lg font-semibold mb-4">🥧 By Platform</h3>
+        <canvas id="platformChart" height="200"></canvas>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Language Distribution -->
+    <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="text-lg font-semibold mb-4">🌍 Users by Language</h3>
+        <div class="space-y-3">
+            {% for lang, count in language_stats.items() %}
+            <div class="flex items-center justify-between">
+                <span class="flex items-center">
+                    {% if lang == 'ru' %}🇷🇺 Russian
+                    {% elif lang == 'en' %}🇺🇸 English
+                    {% elif lang == 'uk' %}🇺🇦 Ukrainian
+                    {% else %}{{ lang }}{% endif %}
+                </span>
+                <div class="flex items-center">
+                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                        <div class="bg-blue-600 h-2 rounded-full"
+                             style="width: {{ (count / total_users * 100) if total_users > 0 else 0 }}%"></div>
+                    </div>
+                    <span class="font-bold">{{ count }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="text-lg font-semibold mb-4">📊 Quick Stats</h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                <span class="text-gray-600">Total Bots</span>
+                <span class="font-bold text-lg">{{ total_bots }}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                <span class="text-gray-600">Total Users</span>
+                <span class="font-bold text-lg">{{ total_users }}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                <span class="text-gray-600">Cached Media</span>
+                <span class="font-bold text-lg">{{ total_media }}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                <span class="text-gray-600">Success Rate</span>
+                <span class="font-bold text-lg text-green-600">{{ dashboard_stats.success_rate }}%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Daily Downloads Table -->
+<div class="bg-white rounded-lg shadow">
+    <div class="p-4 border-b">
+        <h3 class="text-lg font-semibold">📅 Last 7 Days</h3>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Downloads</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Trend</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                {% for day in daily_stats %}
+                <tr>
+                    <td class="px-4 py-3 font-medium">{{ day.date }}</td>
+                    <td class="px-4 py-3">{{ day.downloads }}</td>
+                    <td class="px-4 py-3">
+                        <div class="w-24 bg-gray-200 rounded-full h-2">
+                            {% set max_downloads = daily_stats|map(attribute='downloads')|max %}
+                            <div class="bg-blue-600 h-2 rounded-full"
+                                 style="width: {{ (day.downloads / max_downloads * 100) if max_downloads > 0 else 0 }}%"></div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Downloads Chart
+const downloadsCtx = document.getElementById('downloadsChart').getContext('2d');
+new Chart(downloadsCtx, {
+    type: 'line',
+    data: {
+        labels: {{ hourly_stats|map(attribute='hour')|list|tojson }},
+        datasets: [{
+            label: 'Downloads',
+            data: {{ hourly_stats|map(attribute='downloads')|list|tojson }},
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            fill: true,
+            tension: 0.4,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+// Platform Chart
+const platformCtx = document.getElementById('platformChart').getContext('2d');
+new Chart(platformCtx, {
+    type: 'doughnut',
+    data: {
+        labels: {{ source_stats.keys()|list|tojson }},
+        datasets: [{
+            data: {{ source_stats.values()|list|tojson }},
+            backgroundColor: [
+                '#ef4444',  // YouTube
+                '#ec4899',  // Instagram
+                '#000000',  // TikTok
+                '#dc2626',  // Pinterest
+                '#3b82f6',  // VK
+            ],
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

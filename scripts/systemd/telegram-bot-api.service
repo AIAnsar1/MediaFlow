@@ -1,0 +1,48 @@
+[Unit]
+Description=Telegram Bot API Server (Local)
+Documentation=https://github.com/tdlib/telegram-bot-api
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${PROJECT_DIR}/storage/telegram-bot-api
+
+# Binary path — telegram-bot-api скомпилированный
+ExecStart=/usr/local/bin/telegram-bot-api \
+    --api-id=${TELEGRAM_API_ID} \
+    --api-hash=${TELEGRAM_API_HASH} \
+    --http-port=8081 \
+    --dir=${PROJECT_DIR}/storage/telegram-bot-api \
+    --temp-dir=${PROJECT_DIR}/storage/temp \
+    --local \
+    --verbosity=2
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Restart policy
+Restart=on-failure
+RestartSec=10s
+
+# Логи
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=telegram-bot-api
+
+# Лимиты (TdLib ест память)
+LimitNOFILE=65536
+MemoryMax=2G
+CPUQuota=80%
+
+# Безопасность
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=${PROJECT_DIR}/storage
+
+[Install]
+WantedBy=multi-user.target

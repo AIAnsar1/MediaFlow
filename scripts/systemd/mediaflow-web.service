@@ -1,0 +1,58 @@
+[Unit]
+Description=MediaFlow Web Server (Granian + Litestar)
+Documentation=https://github.com/emmett-framework/granian
+After=network-online.target postgresql.service redis.service telegram-bot-api.service
+Wants=network-online.target
+Requires=postgresql.service redis.service
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Type=notify
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${PROJECT_DIR}
+
+# Переменные окружения
+EnvironmentFile=${PROJECT_DIR}/.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+
+# Запуск через uv
+ExecStart=${PROJECT_DIR}/.venv/bin/granian \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --workers ${APP_WORKERS:-4} \
+    --interface asgi \
+    --loop uvloop \
+    --log-level warning \
+    --backlog 1024 \
+    main:app
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Restart
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+# Логи
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=mediaflow-web
+
+# Лимиты
+LimitNOFILE=65536
+MemoryMax=1G
+CPUQuota=90%
+
+# Безопасность
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=${PROJECT_DIR}/storage
+ReadWritePaths=/tmp
+
+[Install]
+WantedBy=multi-user.target

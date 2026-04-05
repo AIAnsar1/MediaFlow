@@ -1,0 +1,206 @@
+привет я делаю проект на Python Async Await Aiogram Litestar MiniJinja, Granian UvLoop, WinLoop SQL Alchemy Alembic Service Repository PyDantic,
+PyDanticSettings Event Listeneer Jobs Queue Controller и так далее и так что я в итоге хочу получить в первую очередь не будет one project one bot
+я хочу регистрировать через Админ Панель несколько ботов и база хранилише у меня будет один еще подключу TdLib Telegram Bot Api Server
+что бы не было 50 мб а было 4 гб и это проект Загрузчик из медиа из инсты тиктока пинтерест ютуб и так далее
+что я хочу несколько ботов боты и название разные но проект хранилише один в телеграм можно использовать закрытый канал
+как хранилише кеш если ссылка из бд одинаковая то выдаем из закрытого канала и не нагружаем сервер а если нет качаем и что бы не было нагрузки на сервер
+должно быть RateLimit и очередь и мультиязычность и кеширование пока что у меня нету структуры и я не знаю с чего начать но думаю давай ка начнем
+с Litestar Minijinja модели и миграции связи логирование loguru и создадим Админ панель с миграциями и данными потом после перейдем
+к созданию бота и так с чего начнем но мне нужно такие данные как
+
+Ads что бы с админки можно создать рекламу и выбрать ботов и что бы выбраные боты отправили рекламу по user_id
+пользователям Users у какого бота сколько пользователей и статистика какие медиа часто скачиваются из Instagram? Pinterest? TikTOk? YouTube? и так далее
+но у меня Windows по этому для кеша редиса fakeredis и вот моя конфигурация
+
+requires-python = ">=3.12"
+
+dependencies = [
+    "aiofiles>=25.1.0",
+    "aiogram>=3.26.0",
+    "alembic>=1.18.4",
+    "apscheduler>=3.11.2",
+    "arq>=0.27.0",
+    "asyncpg>=0.31.0",
+    "bcrypt>=5.0.0",
+    "cryptography>=46.0.6",
+    "fakeredis>=2.34.1",
+    "gallery-dl>=1.31.10",
+    "granian>=2.7.2",
+    "litestar[standard]>=2.21.1",
+    "loguru>=0.7.3",
+    "passlib>=1.7.4",
+    "psycopg[binary,pool]>=3.3.3",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.13.1",
+    "pyjwt>=2.12.1",
+    "redis[hiredis]>=4.5.0,<6.0",
+    "sqlalchemy>=2.0.48",
+    "yt-dlp>=2026.3.17",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.0",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.1.0",
+    "pytest-timeout>=2.0.0",
+    "pytest-xdist>=3.8.0",
+    "pytest-mock>=3.12.0",
+    "coverage[toml]>=7.0.0",
+    "faker>=22.0.0",
+    "aiosqlite>=0.19.0",
+    "httpx>=0.26.0",
+]
+test = [
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.1.0",
+    "pytest-timeout>=2.0.0",
+    "pytest-xdist>=3.8.0",
+    "pytest-mock>=3.12.0",
+    "coverage[toml]>=7.0.0",
+    "faker>=40.12.0",
+    "aiosqlite>=0.19.0",
+    "httpx>=0.26.0",
+]
+
+[tool.ruf]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["S101", "S104", "B008", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S106", "T20"]
+"benchmarks/**" = ["T20"]
+"config/**" = ["F401", "E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "core", "config"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "-x",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "e2e: marks tests as end-to-end tests",
+    "performance: marks tests as performance tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+timeout = 60
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "src/__init__.py",
+    "*/migrations/*",
+    "*/__pycache__/*",
+]
+concurrency = ["greenlet", "thread"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "@abstractmethod",
+]
+show_missing = true
+fail_under = 40
+
+и корень проекта
+
+app
+  |-> Controller ( Web )
+  |-> Middleware ( All )
+  |-> Handler ( Bot )
+bot
+database ( Alembic ) And Connection
+i18n
+   |-> locale ( uz ru en json )
+   |-> language.py
+models
+repositories
+services
+resources ( html )
+static js css
+storage
+      |-> logs
+      |-> temp
+tests
+workers
+.dockerignore
+.env ( for prod )
+.env.example
+.env.testing ( for test )
+.gitignore
+Dockerfile
+main.py
+pyproject.toml
+pytest.ini
+uv.lock
+
+и мой .env
+
+APP_NAME=MediaDownloader
+APP_ENV=local
+APP_KEY=change-me-to-32-chars-secret-key
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+APP_HOST=0.0.0.0
+APP_PORT=8000
+APP_WORKERS=4
+
+DB_CONNECTION=postgresql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=mediaflow
+DB_USERNAME=postgres
+DB_PASSWORD=localhost
+DB_POOL_SIZE=20
+DB_POOL_MAX_OVERFLOW=10
+DB_ECHO=false
+
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD=
+REDIS_CACHE_DB=0
+REDIS_QUEUE_DB=1
+REDIS_RATELIMIT_DB=2
+REDIS_STATS_DB=3
+
+TELEGRAM_API_BASE_URL=http://127.0.0.1:8081
+TELEGRAM_API_LOCAL=true
+CACHE_CHANNEL_ID=-1001234567890
+
+JWT_SECRET=your-jwt-secret-key
+JWT_ALGORITHM=HS256
+JWT_ACCESS_EXPIRE_MINUTES=60
+JWT_REFRESH_EXPIRE_DAYS=30
+
+DOWNLOAD_TEMP_DIR=storage/temp
+DOWNLOAD_TIMEOUT_SECONDS=300
+DOWNLOAD_MAX_FILE_SIZE_MB=2000
+
+LOG_LEVEL=DEBUG
+LOG_DIR=storage/logs
+
+и не думай много больше так как токены уходят а ты только думаешь а потом в чате ошибка
+поехали и еще думаю для начала полностью закрыть и завершить
+Веб Версию на Litestar с админкой и все и там жуе внутри создать вебхук для ботов какие у тебя мысли? или лучше разделить?

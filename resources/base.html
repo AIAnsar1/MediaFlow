@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Media Downloader Admin{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    {% block head %}{% endblock %}
+    <style>
+        .sidebar-link.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-left: 4px solid #3b82f6;
+            color: #60a5fa;
+        }
+        
+        /* Dark Theme Overrides */
+        .bg-white { background-color: #1e293b !important; }
+        .bg-gray-50 { background-color: #0f172a !important; }
+        .bg-gray-100 { background-color: #1e293b !important; }
+        .bg-gray-200 { background-color: #334155 !important; }
+        
+        .bg-blue-50 { background-color: rgba(59, 130, 246, 0.05) !important; }
+        .bg-blue-100 { background-color: rgba(59, 130, 246, 0.1) !important; }
+        .bg-green-50 { background-color: rgba(16, 185, 129, 0.05) !important; }
+        .bg-green-100 { background-color: rgba(16, 185, 129, 0.1) !important; }
+        .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.05) !important; }
+        .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.1) !important; }
+        .bg-yellow-50 { background-color: rgba(245, 158, 11, 0.05) !important; }
+        .bg-yellow-100 { background-color: rgba(245, 158, 11, 0.1) !important; }
+        .bg-red-50 { background-color: rgba(239, 68, 68, 0.05) !important; }
+        .bg-red-100 { background-color: rgba(239, 68, 68, 0.1) !important; }
+        .bg-purple-50 { background-color: rgba(139, 92, 246, 0.05) !important; }
+        .bg-purple-100 { background-color: rgba(139, 92, 246, 0.1) !important; }
+        .bg-orange-50 { background-color: rgba(249, 115, 22, 0.05) !important; }
+        .bg-orange-100 { background-color: rgba(249, 115, 22, 0.1) !important; }
+        
+        .text-gray-900 { color: #f8fafc !important; }
+        .text-gray-800 { color: #f1f5f9 !important; }
+        .text-gray-700 { color: #e2e8f0 !important; }
+        .text-gray-600 { color: #cbd5e1 !important; }
+        .text-gray-500 { color: #94a3b8 !important; }
+        .text-gray-400 { color: #64748b !important; }
+        
+        .text-blue-600 { color: #60a5fa !important; }
+        .text-green-600 { color: #34d399 !important; }
+        .text-yellow-600 { color: #fbbf24 !important; }
+        .text-red-600 { color: #f87171 !important; }
+        .text-purple-600 { color: #a78bfa !important; }
+        .text-orange-600 { color: #fb923c !important; }
+        
+        .border, .border-b, .border-t, .border-l, .border-r { border-color: #334155 !important; }
+        .divide-y > :not([hidden]) ~ :not([hidden]) { border-color: #334155 !important; }
+        
+        input, select, textarea {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .hover\:bg-gray-50:hover { background-color: #334155 !important; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-950 text-white flex flex-col border-r border-slate-800">
+            <div class="p-4 border-b border-slate-800">
+                <h1 class="text-xl font-bold flex items-center">
+                    <span class="text-2xl mr-2 text-blue-500">📥</span>
+                    MediaDownloader
+                </h1>
+            </div>
+
+            <nav class="flex-1 mt-4">
+                <a href="/admin" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if request.url.path == '/admin' %}active{% endif %}">
+                    <i class="fas fa-dashboard mr-3 w-5 text-center text-blue-400"></i>
+                    Dashboard
+                </a>
+                <a href="/admin/bots" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if '/bots' in request.url.path %}active{% endif %}">
+                    <i class="fas fa-robot mr-3 w-5 text-center text-blue-400"></i>
+                    Bots
+                </a>
+                <a href="/admin/users" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if '/users' in request.url.path %}active{% endif %}">
+                    <i class="fas fa-users mr-3 w-5 text-center text-blue-400"></i>
+                    Users
+                </a>
+                <a href="/admin/ads" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if '/ads' in request.url.path %}active{% endif %}">
+                    <i class="fas fa-bullhorn mr-3 w-5 text-center text-blue-400"></i>
+                    Advertising
+                </a>
+
+                <div class="border-t border-slate-800 my-4"></div>
+
+                <a href="/admin/queues" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if '/queues' in request.url.path %}active{% endif %}">
+                    <i class="fas fa-tasks mr-3 w-5 text-center text-blue-400"></i>
+                    Queues
+                    <span class="ml-auto bg-blue-600 text-xs px-2 py-0.5 rounded-full">Live</span>
+                </a>
+                <a href="/admin/stats" class="sidebar-link block px-4 py-3 hover:bg-slate-800 border-l-4 border-transparent flex items-center
+                   {% if '/stats' in request.url.path %}active{% endif %}">
+                    <i class="fas fa-chart-bar mr-3 w-5 text-center text-blue-400"></i>
+                    Statistics
+                </a>
+            </nav>
+
+            <!-- User section -->
+            <div class="p-4 border-t border-slate-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2 shadow-lg shadow-blue-900/50">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span class="text-sm font-medium">Admin</span>
+                    </div>
+                    <form action="/admin/logout" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <button type="submit" class="text-slate-500 hover:text-white transition-colors" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-slate-900">
+            <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-10 border-b border-slate-800 p-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-white">{% block header %}Dashboard{% endblock %}</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-slate-400">
+                        <i class="fas fa-clock mr-1"></i>
+                        {{ now().strftime('%H:%M') }}
+                    </span>
+                    <button onclick="location.reload()" class="text-slate-400 hover:text-white transition-colors" title="Refresh">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Flash Messages -->
+            {% if request.query_params.get('message') %}
+            <div class="mx-6 mt-4 p-4 bg-emerald-900/30 border border-emerald-500/50 text-emerald-400 rounded-lg">
+                <i class="fas fa-check-circle mr-2"></i>
+                {{ request.query_params.get('message') }}
+            </div>
+            {% endif %}
+
+            {% if request.query_params.get('error') %}
+            <div class="mx-6 mt-4 p-4 bg-rose-900/30 border border-rose-500/50 text-rose-400 rounded-lg">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                {{ request.query_params.get('error') }}
+            </div>
+            {% endif %}
+
+            <div class="p-6">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

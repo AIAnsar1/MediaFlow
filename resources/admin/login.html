@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Media Downloader Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white">📥 MediaDownloader</h1>
+                <p class="text-gray-400 mt-2">Admin Panel</p>
+            </div>
+
+            {% if error %}
+            <div class="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded mb-6">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/admin/login" method="post" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        name="username"
+                        required
+                        autocomplete="username"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter username"
+                    >
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="current-password"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter password"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200"
+                >
+                    Sign In
+                </button>
+            </form>
+        </div>
+
+        <p class="text-center text-gray-500 text-sm mt-4">
+            Media Downloader v1.0
+        </p>
+    </div>
+</body>
+</html>

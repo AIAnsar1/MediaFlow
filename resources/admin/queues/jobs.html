@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Jobs List - Media Downloader Admin{% endblock %}
+{% block header %}Jobs: {{ status_filter|capitalize }}{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="flex justify-between items-center p-4 border-b">
+        <h3 class="text-xl font-semibold text-gray-800">Job History</h3>
+        <div class="flex space-x-2">
+            <a href="/admin/queues/jobs?status=all" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'all' else 'bg-gray-200 text-gray-700' }}">All</a>
+            <a href="/admin/queues/jobs?status=pending" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'pending' else 'bg-gray-200 text-gray-700' }}">Pending</a>
+            <a href="/admin/queues/jobs?status=running" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'running' else 'bg-gray-200 text-gray-700' }}">Running</a>
+            <a href="/admin/queues/jobs?status=failed" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'failed' else 'bg-gray-200 text-gray-700' }}">Failed</a>
+        </div>
+    </div>
+
+    <table class="w-full text-left">
+        <thead class="bg-gray-50 uppercase text-xs text-gray-500 font-semibold border-b">
+            <tr>
+                <th class="px-6 py-3">ID / Function</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3">Created / Finished</th>
+                <th class="px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y">
+            {% for job in jobs %}
+            <tr>
+                <td class="px-6 py-4">
+                    <div class="text-sm font-medium text-gray-900">{{ job.job_id }}</div>
+                    <div class="text-xs text-gray-500">{{ job.function }}</div>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold
+                        {{ 'bg-gray-100 text-gray-800' if job.status == JobState.deferred }}
+                        {{ 'bg-blue-100 text-blue-800' if job.status == JobState.queued }}
+                        {{ 'bg-indigo-100 text-indigo-800' if job.status == JobState.in_progress }}
+                        {{ 'bg-green-100 text-green-800' if job.status == JobState.complete }}
+                        {{ 'bg-red-100 text-red-800' if job.status == JobState.not_found }}">
+                        {{ job.status.name|capitalize }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-500">
+                    <div class="text-xs">{{ job.enqueue_time.strftime('%Y-%m-%d %H:%M') if job.enqueue_time else 'N/A' }}</div>
+                    {% if job.finish_time %}
+                    <div class="text-xs text-gray-400">{{ job.finish_time.strftime('%Y-%m-%d %H:%M') }}</div>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    <a href="/admin/queues/jobs/{{ job.job_id }}" class="text-blue-600 hover:text-blue-900 text-sm font-medium">Details</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="px-6 py-10 text-center text-gray-500">No jobs found in this category.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="p-4 border-t bg-gray-50 flex justify-between items-center text-sm">
+        <p class="text-gray-500">Showing 20 items per page</p>
+        <div class="flex space-x-2">
+            {% if page > 1 %}
+            <a href="?status={{ status_filter }}&page={{ page - 1 }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Prev</a>
+            {% endif %}
+            <span class="px-3 py-1 bg-white border border-gray-300 rounded font-medium">{{ page }}</span>
+            <a href="?status={{ status_filter }}&page={{ page + 1 }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Next</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

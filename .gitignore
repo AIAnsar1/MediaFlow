@@ -1,0 +1,72 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+.idea
+.vscode
+.cursor
+.trae
+.windsurf
+.zed
+.fleet
+.ruff_cache
+
+# pdm
+.pdm.toml
+.pdm-python
+.pdm-build/
+# pdm - PEP 582
+__pypackages__/
+
+# pyenv / rtx / asdf
+.tool-versions
+.python-version
+/.dmypy.json
+
+# test certificates
+certs/
+pdm.toml
+
+# files
+**/*.so
+**/*.sqlite
+**/*.sqlite*
+*.iml
+.DS_Store
+.coverage
+.ruff_cache
+.pytest_cache
+.pytest_cache/
+.venv/
+.venv*
+.vscode/
+.auto_pytabs_cache/
+.hypothesis/
+.idea/
+.trae/
+.cursor/
+.mypy_cache/
+.pytest_cache/
+.scannerwork/
+.unasyncd_cache/
+.vscode
+.cursor
+.antigravity
+.env

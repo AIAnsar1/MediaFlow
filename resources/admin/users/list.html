@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Users List - Media Downloader Admin{% endblock %}
+{% block header %}Users Management{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="flex justify-between items-center p-4 border-b">
+        <h3 class="text-xl font-semibold text-gray-800">Total Users: {{ total }}</h3>
+        <form action="/admin/users" method="get" class="flex">
+            <input type="text" name="search" value="{{ search or '' }}" placeholder="Search by ID or name..." 
+                   class="border rounded-l px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded-r text-sm hover:bg-blue-700">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+
+    <table class="w-full text-left">
+        <thead class="bg-gray-50 uppercase text-xs text-gray-500 font-semibold border-b">
+            <tr>
+                <th class="px-6 py-3">User</th>
+                <th class="px-6 py-3">Language</th>
+                <th class="px-6 py-3">Downloads</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3">Joined</th>
+                <th class="px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y">
+            {% for user in users %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3 font-bold text-xs">
+                            {{ (user.first_name or "U")[0] | upper }}
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name or '' }}</div>
+                            <div class="text-xs text-gray-500">
+                                {{ "@" + user.username if user.username else "ID: " + user.telegram_id|string }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">
+                    <span class="px-2 py-0.5 bg-gray-100 rounded uppercase text-xs">{{ user.language or 'en' }}</span>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">
+                    <div class="flex items-center">
+                        <i class="fas fa-download mr-2 text-gray-400"></i>
+                        {{ user.total_downloads }}
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    {% if user.is_banned %}
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">Banned</span>
+                    {% elif user.is_blocked %}
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">Blocked</span>
+                    {% else %}
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">Active</span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-500">
+                    {{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'N/A' }}
+                </td>
+                <td class="px-6 py-4">
+                    <a href="/admin/users/{{ user.id }}" class="text-blue-600 hover:text-blue-900 text-sm font-medium">View</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="px-6 py-10 text-center text-gray-500">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="p-4 border-t bg-gray-50 flex justify-between items-center text-sm">
+        <p class="text-gray-500">Showing {{ users|length }} of {{ total }} users</p>
+        <div class="flex space-x-2">
+            {% if page > 1 %}
+            <a href="?page={{ page - 1 }}&search={{ search or '' }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Prev</a>
+            {% endif %}
+            <span class="px-3 py-1 bg-white border border-gray-300 rounded font-medium">{{ page }}</span>
+            <a href="?page={{ page + 1 }}&search={{ search or '' }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Next</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+htmlcov
+dist
+build
+*.egg-info
+.env.local
+.env.*.local
+node_modules
+.DS_Store
+Thumbs.db
+storage/logs/*
+storage/cache/*
+storage/locks/*
+!storage/logs/.gitkeep
+!storage/cache/.gitkeep
+!storage/locks/.gitkeep
+tests/
+docs/
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+.idea
+.vscode
+.cursor
+.trae
+.windsurf
+.zed
+.fleet
+
+# pdm
+.pdm.toml
+.pdm-python
+.pdm-build/
+# pdm - PEP 582
+__pypackages__/
+
+# pyenv / rtx / asdf
+.tool-versions
+.python-version
+/.dmypy.json
+
+# test certificates
+certs/
+pdm.toml
+
+# files
+**/*.so
+**/*.sqlite
+**/*.sqlite*
+*.iml
+.DS_Store
+.coverage
+.ruff_cache
+
+.venv/
+.venv*
+.vscode/
+.auto_pytabs_cache/
+.hypothesis/
+.idea/
+.trae/
+.cursor/
+.mypy_cache/
+.pytest_cache/
+.scannerwork/
+.unasyncd_cache/
+
+.ruff_cache

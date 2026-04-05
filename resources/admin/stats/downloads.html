@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Download Stats - Media Downloader Admin{% endblock %}
+{% block header %}Download Statistics (Last {{ days }} days){% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-6">By Platform</h3>
+        <ul class="space-y-4">
+            {% for platform, count in platform_stats.items() %}
+            <li class="flex items-center justify-between">
+                <span class="flex items-center">
+                    <span class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                        <i class="fab fa-{{ platform }} text-{{ 'red' if platform in ['youtube', 'instagram', 'pinterest'] else 'blue' }}-600"></i>
+                    </span>
+                    <span class="text-gray-700 capitalize font-medium">{{ platform }}</span>
+                </span>
+                <span class="text-lg font-bold text-gray-900">{{ count }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-6">Top Media Files</h3>
+        <ul class="divide-y text-sm">
+            {% for m in top_media %}
+            <li class="py-3 flex justify-between items-center">
+                <div class="flex-1 truncate mr-4">
+                    <div class="font-medium text-gray-900 truncate">{{ m.title or m.file_id }}</div>
+                    <div class="text-xs text-gray-500">{{ m.source.value|capitalize }} • {{ m.created_at.strftime('%Y-%m-%d') }}</div>
+                </div>
+                <div class="text-blue-600 font-bold">{{ m.download_count }} <i class="fas fa-download ml-1 text-xs"></i></div>
+            </li>
+            {% else %}
+            <li class="py-10 text-center text-gray-500">No media found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-6">Daily Downloads</h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-gray-50 uppercase text-xs text-gray-500 font-semibold border-b">
+                <tr>
+                    <th class="px-6 py-3">Date</th>
+                    {% for platform in platform_stats.keys() %}
+                    <th class="px-6 py-3 capitalize">{{ platform }}</th>
+                    {% endfor %}
+                    <th class="px-6 py-3">Total</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                {% for d in daily_downloads %}
+                {% set day_total = 0 %}
+                <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ d.date }}</td>
+                    {% for platform in platform_stats.keys() %}
+                    {% set count = d.get(platform, 0) %}
+                    <td class="px-6 py-4 text-gray-700">{{ count }}</td>
+                    {% set day_total = day_total + count %}
+                    {% endfor %}
+                    <td class="px-6 py-4 font-bold text-blue-800">{{ day_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

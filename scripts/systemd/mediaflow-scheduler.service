@@ -1,0 +1,43 @@
+[Unit]
+Description=MediaFlow Scheduler (APScheduler Jobs)
+After=network-online.target postgresql.service redis.service mediaflow-web.service
+Wants=network-online.target
+Requires=postgresql.service redis.service
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${PROJECT_DIR}
+
+EnvironmentFile=${PROJECT_DIR}/.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+
+ExecStart=${PROJECT_DIR}/.venv/bin/python \
+    -m workers.scheduler
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=mediaflow-scheduler
+
+LimitNOFILE=16384
+MemoryMax=512M
+CPUQuota=50%
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=${PROJECT_DIR}/storage
+
+[Install]
+WantedBy=multi-user.target
