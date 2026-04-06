@@ -1,6 +1,6 @@
-from src.workers.worker import WorkerSettings
-from src.workers.scheduler import scheduler, SchedulerService
-from src.workers.tasks import (
+from workers.worker import WorkerSettings
+from workers.scheduler import scheduler, SchedulerService
+from workers.tasks import (
     broadcast_ad,
     delete_ad_messages,
     cleanup_temp_files,

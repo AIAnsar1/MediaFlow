@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.connection import get_session
 from repositories import UserRepository
-from middleware.auth import admin_guard
+from app.middleware.auth import admin_guard
 
 
 class UserController(Controller):

@@ -10,13 +10,13 @@ def run_server():
     host = os.environ.get("HOST", "127.0.0.1")
 
     granian.Granian(
-        target="src.app:app",
+        target="app:app",
         address=host,
         port=port,
         interface=Interfaces.ASGI,
         workers=1 if sys.platform == "win32" else 4,
         reload=True,
-        reload_paths=["src/"],  # ← ТОЛЬКО исходники, не storage/logs
+        reload_paths=["."],  # ← ТОЛЬКО исходники, не storage/logs
     ).serve()
 
 

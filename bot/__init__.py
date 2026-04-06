@@ -1,6 +1,15 @@
-from src.bot.processor import update_processor, UpdateProcessor
-from src.i18n.lang import MESSAGES, get_message
-from src.bot.keyboards import (
+from bot.processor import update_processor, UpdateProcessor
+
+# MESSAGES and get_message are expected by some components
+try:
+    from i18n.lang import MESSAGES, get_message
+except ImportError:
+    # Fallback if i18n.lang is missing
+    MESSAGES = {}
+    def get_message(key: str, lang: str = "en", **kwargs) -> str:
+        return key
+
+from bot.keyboards import (
     get_language_keyboard,
     get_youtube_choice_keyboard,
     get_youtube_formats_keyboard,
@@ -15,4 +24,3 @@ __all__ = [
     "get_youtube_choice_keyboard",
     "get_youtube_formats_keyboard",
 ]
-

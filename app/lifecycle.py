@@ -13,9 +13,9 @@ from database.connection import db
 from services import cache, bot_manager, queue_service
 from services.rate_limiter import rate_limiter
 from workers.scheduler import scheduler
-from middleware.rate_limit import RateLimitMiddleware
-from middleware.auth import AuthMiddleware
-from controllers import (
+from app.middleware.rate_limit import RateLimitMiddleware
+from app.middleware.auth import AuthMiddleware
+from app.controllers import (
     AdminController,
     AuthController,
     BotController,
@@ -82,7 +82,7 @@ def create_app(lifespan_handlers=None) -> Litestar:       # ← Добавь п�
         ],
         template_config=TemplateConfig(
             engine=JinjaTemplateEngine,
-            directory=Path("src/web/templates"),
+            directory=Path("resources"),
             engine_callback=lambda engine: engine.register_template_callable("now", _get_now),
         ),
         middleware=[

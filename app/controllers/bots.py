@@ -8,7 +8,6 @@ from aiogram import Bot as AiogramBot
 
 from database.connection import get_session
 from repositories import BotRepository
-from schemas.bot import BotCreate
 from models import BotStatus
 
 

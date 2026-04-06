@@ -204,7 +204,7 @@ class SchedulerService:
     async def _refresh_webhooks(self) -> None:
         """Обновить webhook'и"""
         from services import bot_manager
-        from config import settings
+        from app.config import settings
 
         if not settings.webhook_base_url:
             return

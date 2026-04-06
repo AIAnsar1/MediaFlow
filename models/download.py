@@ -1,11 +1,14 @@
+from typing import TYPE_CHECKING
 from enum import StrEnum
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import Base, TimestampMixin
 from models.media import Media, MediaSource
-from models.user import TelegramUser
-from models.bot import Bot
+
+if TYPE_CHECKING:
+    from models.user import TelegramUser
+    from models.bot import Bot
 
 
 class DownloadStatus(StrEnum):
@@ -23,7 +26,7 @@ class Download(Base, TimestampMixin):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("telegram_users.id", ondelete="CASCADE"), index=True)
     bot_id: Mapped[int] = mapped_column(ForeignKey("bots.id", ondelete="CASCADE"), index=True)
     media_id: Mapped[int | None] = mapped_column(ForeignKey("media.id", ondelete="SET NULL"), index=True)
 

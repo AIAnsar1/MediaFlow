@@ -5,7 +5,7 @@ from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.sql import Select
 
 from models.base import Base
-from logging import get_logger
+from app.logging import get_logger
 
 ModelType = TypeVar("ModelType", bound=Base)
 

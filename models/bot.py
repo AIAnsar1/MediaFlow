@@ -1,9 +1,12 @@
+from typing import TYPE_CHECKING
 from enum import StrEnum
 from sqlalchemy import String, Text, Boolean, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models.base import Base, TimestampMixin
-from models.download import Download
-from models.user import TelegramUser
+
+if TYPE_CHECKING:
+    from models.download import Download
+    from models.user import TelegramUser
 
 
 class BotStatus(StrEnum):

@@ -4,8 +4,8 @@ from litestar.di import Provide
 
 from services.queue_monitor import queue_monitor, JobState
 from services.metrics import metrics
-from middleware.auth import admin_guard
-from logging import get_logger
+from app.middleware.auth import admin_guard
+from app.logging import get_logger
 
 log = get_logger("controller.queues")
 

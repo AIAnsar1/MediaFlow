@@ -1,13 +1,13 @@
-from controllers.admin import AdminController
-from controllers.auth import AuthController
-from controllers.bots import BotController
-from controllers.ads import AdController
-from controllers.stats import StatsController
-from controllers.queues import QueueController
-from controllers.webhook import WebhookController
-from controllers.health import HealthController
-from controllers.index import IndexController
-from controllers.users import UserController
+from app.controllers.admin import AdminController
+from app.controllers.auth import AuthController
+from app.controllers.bots import BotController
+from app.controllers.ads import AdController
+from app.controllers.stats import StatsController
+from app.controllers.queues import QueueController
+from app.controllers.webhook import WebhookController
+from app.controllers.health import HealthController
+from app.controllers.index import IndexController
+from app.controllers.users import UserController
 
 __all__ = [
     "AdminController",

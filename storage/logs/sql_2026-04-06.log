@@ -1,0 +1,8 @@
+2026-04-06 21:42:22.715 | ERROR    | database | database.connection:session:105 | Session rollback | error=500: Template admin/dashboard.html not found.
+2026-04-06 21:42:23.135 | ERROR    | database | database.connection:session:105 | Session rollback | error=500: Template admin/bots/list.html not found.
+2026-04-06 21:42:23.569 | ERROR    | database | database.connection:session:105 | Session rollback | error=500: Template admin/ads/list.html not found.
+2026-04-06 21:42:23.719 | ERROR    | database | database.connection:session:105 | Session rollback | error=500: Template admin/ads/create.html not found.
+2026-04-06 21:42:24.644 | ERROR    | database | database.connection:session:105 | Session rollback | error=500: Template admin/stats/overview.html not found.
+2026-04-06 21:42:24.957 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+2026-04-06 21:43:08.037 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+2026-04-06 21:44:39.911 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')

@@ -1,3 +1,4 @@
+from typing import TYPE_CHECKING
 import uuid as uuid_lib
 from enum import StrEnum
 from datetime import datetime
@@ -5,8 +6,10 @@ from sqlalchemy import String, Text, ForeignKey, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import Base, TimestampMixin
-from models.bot import Bot
-from models.user import TelegramUser
+
+if TYPE_CHECKING:
+    from models.bot import Bot
+    from models.user import TelegramUser
 
 
 class AdMediaType(StrEnum):
@@ -85,7 +88,7 @@ class AdDelivery(Base, TimestampMixin):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     ad_id: Mapped[int] = mapped_column(ForeignKey("ads.id", ondelete="CASCADE"), index=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("telegram_users.id", ondelete="CASCADE"), index=True)
     bot_id: Mapped[int] = mapped_column(ForeignKey("bots.id", ondelete="CASCADE"), index=True)
 
     # Telegram message info (for deletion)

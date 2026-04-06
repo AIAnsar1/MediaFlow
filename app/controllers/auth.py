@@ -5,8 +5,8 @@ from litestar.enums import RequestEncodingType
 from litestar.params import Body
 from litestar.datastructures import Cookie
 
-from src.services.auth import auth_service
-from src.logging import get_logger
+from services.auth import auth_service
+from app.logging import get_logger
 
 log = get_logger("controller.auth")
 

@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-from aiogram.types import User as TelegramUser
+from aiogram.types import User as AiogramUser
 
-from src.logging import get_logger
-from src.repositories import UserRepository
-from src.repositories.uow import UnitOfWork
-from src.models import User
+from app.logging import get_logger
+from repositories import UserRepository
+from repositories.uow import UnitOfWork
+from models import TelegramUser as User
 
 log = get_logger("service.user")
 
@@ -60,7 +60,7 @@ class UserService:
 
     async def get_or_create(
         self,
-        telegram_user: TelegramUser,
+        telegram_user: AiogramUser,
         bot_id: int,
     ) -> tuple[UserDTO, bool]:
         """

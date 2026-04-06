@@ -10,8 +10,8 @@ from services.metrics import metrics
 from services.queue_monitor import queue_monitor
 from repositories import BotRepository, UserRepository, MediaRepository
 from models import Download, Media, MediaSource, DailyStats
-from middleware.auth import admin_guard
-from logging import get_logger
+from app.middleware.auth import admin_guard
+from app.logging import get_logger
 
 log = get_logger("controller.stats")
 

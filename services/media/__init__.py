@@ -1,8 +1,8 @@
-from src.services.media.youtube import YouTubeDownloader
-from src.services.media.instagram import InstagramDownloader
-from src.services.media.tiktok import TikTokDownloader
-from src.services.media.pinterest import PinterestDownloader
-from src.services.media.vk import VKDownloader
+from services.media.youtube import YouTubeDownloader
+from services.media.instagram import InstagramDownloader
+from services.media.tiktok import TikTokDownloader
+from services.media.pinterest import PinterestDownloader
+from services.media.vk import VKDownloader
 
 __all__ = [
     "YouTubeDownloader",

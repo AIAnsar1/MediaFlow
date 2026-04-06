@@ -60,7 +60,7 @@ class CacheService:
     async def disconnect(self) -> None:
         """Отключение"""
         if self._redis:
-            try:
+            try:  # noqa: SIM105
                 await self._redis.close()
             except Exception:
                 pass
