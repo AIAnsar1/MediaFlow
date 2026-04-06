@@ -7,3 +7,87 @@
 2026-04-06 21:43:08.037 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
 2026-04-06 21:44:39.911 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
 2026-04-06 21:58:14.731 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+2026-04-06 22:15:50.096 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.114 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.154 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.165 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.433 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.718 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.915 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.996 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:24.794 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:25.542 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:26.255 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:26.400 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

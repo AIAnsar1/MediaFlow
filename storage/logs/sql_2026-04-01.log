@@ -80,7 +80,7 @@
 2026-04-01 12:36:27.894 | ERROR    | database | src.database.connection:connect:96 | Failed to connect to database | error=Not an executable object: 'SELECT 1'
 Traceback (most recent call last):
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1415, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1415, in execute
     meth = statement._execute_on_connection
            └ 'SELECT 1'
 
@@ -108,17 +108,17 @@ Traceback (most recent call last):
     │    │        └ <Thread(asyncio-portal-2768f49e2a0, started daemon 102628)>
     │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000002768F4CAFC0>
     └ <Thread(asyncio-portal-2768f49e2a0, started daemon 102628)>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\from_thread.py", line 532, in run_blocking_portal
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\from_thread.py", line 532, in run_blocking_portal
     run_eventloop(
     └ <function run at 0x0000027683D45940>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 77, in run
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 77, in run
     return async_backend.run(func, args, {}, backend_options)
            │             │   │     │         └ {}
            │             │   │     └ ()
            │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000002768F35AFC0>
            │             └ <classmethod(<function AsyncIOBackend.run at 0x0000027686B805E0>)>
            └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2358, in run
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2358, in run
     return runner.run(wrapper())
            │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000002768F5A9120>
            │      └ <function Runner.run at 0x00000276840789A0>
@@ -151,10 +151,10 @@ Traceback (most recent call last):
     │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
     │    └ <member '_context' of 'Handle' objects>
     └ <Handle Task.task_wakeup(<Future finished result=None>)>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\from_thread.py", line 259, in _call_func
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\from_thread.py", line 259, in _call_func
     retval = await retval_or_awaitable
                    └ <coroutine object LifeSpanHandler.lifespan at 0x000002768F620120>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\testing\life_span_handler.py", line 128, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\testing\life_span_handler.py", line 128, in lifespan
     await self.client.app(scope, self.stream_receive.receive, self.stream_send.send)
           │    │          │      │    │                       │    └ <member 'stream_send' of 'LifeSpanHandler' objects>
           │    │          │      │    │                       └ <litestar.testing.life_span_handler.LifeSpanHandler object at 0x000002768F5DB5B0>
@@ -163,13 +163,13 @@ Traceback (most recent call last):
           │    │          └ {'type': 'lifespan'}
           │    └ <member 'client' of 'LifeSpanHandler' objects>
           └ <litestar.testing.life_span_handler.LifeSpanHandler object at 0x000002768F5DB5B0>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\app.py", line 618, in __call__
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\app.py", line 618, in __call__
     await self.asgi_router.lifespan(receive=receive, send=send)  # type: ignore[arg-type]
           │    │                            │             └ <bound method StapledObjectStream.send of StapledObjectStream(send_stream=MemoryObjectSendStream(_state=_MemoryObjectStreamSt...
           │    │                            └ <bound method StapledObjectStream.receive of StapledObjectStream(send_stream=MemoryObjectSendStream(_state=_MemoryObjectStrea...
           │    └ <member 'asgi_router' of 'Litestar' objects>
           └ <litestar.app.Litestar object at 0x000002768F35E640>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\_asgi\asgi_router.py", line 181, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\_asgi\asgi_router.py", line 181, in lifespan
     async with self.app.lifespan():
                │    └ <member 'app' of 'ASGIRouter' objects>
                └ <litestar._asgi.asgi_router.ASGIRouter object at 0x000002768F5875A0>
@@ -177,7 +177,7 @@ Traceback (most recent call last):
     return await anext(self.gen)
                        │    └ <async_generator object Litestar.lifespan at 0x000002768F5E5740>
                        └ <contextlib._AsyncGeneratorContextManager object at 0x000002768F49EB10>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\app.py", line 654, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\app.py", line 654, in lifespan
     await exit_stack.enter_async_context(manager)
           │          │                   └ <contextlib._AsyncGeneratorContextManager object at 0x000002768F49D4F0>
           │          └ <function AsyncExitStack.enter_async_context at 0x0000027682781760>
@@ -191,30 +191,30 @@ Traceback (most recent call last):
                        │    └ <async_generator object lifespan at 0x000002768F2C8040>
                        └ <contextlib._AsyncGeneratorContextManager object at 0x000002768F49D4F0>
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\src\app.py", line 37, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\src\app.py", line 37, in lifespan
     await db.connect()
           │  └ <function Database.connect at 0x000002768AB67B00>
           └ <src.database.connection.Database object at 0x00000276888ECB00>
 
-> File "D:\MyProjects\projects\TelegramBots\MediaDownloader\src\database\connection.py", line 93, in connect
+> File "D:\MyProjects\projects\TelegramBots\MediaFlow\src\database\connection.py", line 93, in connect
     await conn.execute("SELECT 1")
           │    └ <function AsyncConnection.execute at 0x000002768A9B5300>
           └ <sqlalchemy.ext.asyncio.engine.AsyncConnection object at 0x000002768F624AA0>
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 659, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 659, in execute
     result = await greenlet_spawn(
                    └ <function greenlet_spawn at 0x0000027686B1FE20>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
     result = context.switch(*args, **kwargs)
              │       │       │       └ {'execution_options': None}
              │       │       └ ('SELECT 1', None)
              │       └ <method 'switch' of 'greenlet.greenlet' objects>
              └ <_AsyncIoGreenlet object at 0x000002768F675100 (otid=0x000002768F3D2340) dead>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1417, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1417, in execute
     raise exc.ObjectNotExecutableError(statement) from err
           │   │                        └ 'SELECT 1'
           │   └ <class 'sqlalchemy.exc.ObjectNotExecutableError'>
-          └ <module 'sqlalchemy.exc' from 'D:\\MyProjects\\projects\\TelegramBots\\MediaDownloader\\.venv\\Lib\\site-packages\\sqlalchemy...
+          └ <module 'sqlalchemy.exc' from 'D:\\MyProjects\\projects\\TelegramBots\\MediaFlow\\.venv\\Lib\\site-packages\\sqlalchemy...
 
 sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'
 2026-04-01 12:36:28.274 | WARNING  | database | src.database.connection:connect:57 | Database already connected
@@ -421,7 +421,7 @@ WHERE bots.status = ? ORDER BY bots.created_at DESC
 2026-04-01 13:18:30.601 | ERROR    | database | src.database.connection:connect:96 | Failed to connect to database | error=Not an executable object: 'SELECT 1'
 Traceback (most recent call last):
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1415, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1415, in execute
     meth = statement._execute_on_connection
            └ 'SELECT 1'
 
@@ -449,17 +449,17 @@ Traceback (most recent call last):
     │    │        └ <Thread(asyncio-portal-1f8f292a3f0, started daemon 101860)>
     │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000001F8F294EFC0>
     └ <Thread(asyncio-portal-1f8f292a3f0, started daemon 101860)>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\from_thread.py", line 532, in run_blocking_portal
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\from_thread.py", line 532, in run_blocking_portal
     run_eventloop(
     └ <function run at 0x000001F8E7269940>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 77, in run
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 77, in run
     return async_backend.run(func, args, {}, backend_options)
            │             │   │     │         └ {}
            │             │   │     └ ()
            │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001F8F27D7060>
            │             └ <classmethod(<function AsyncIOBackend.run at 0x000001F8E90B05E0>)>
            └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2358, in run
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2358, in run
     return runner.run(wrapper())
            │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001F8F2AA9120>
            │      └ <function Runner.run at 0x000001F8E75949A0>
@@ -492,10 +492,10 @@ Traceback (most recent call last):
     │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
     │    └ <member '_context' of 'Handle' objects>
     └ <Handle Task.task_wakeup(<Future finished result=None>)>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\anyio\from_thread.py", line 259, in _call_func
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\anyio\from_thread.py", line 259, in _call_func
     retval = await retval_or_awaitable
                    └ <coroutine object LifeSpanHandler.lifespan at 0x000001F8F2A1C120>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\testing\life_span_handler.py", line 128, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\testing\life_span_handler.py", line 128, in lifespan
     await self.client.app(scope, self.stream_receive.receive, self.stream_send.send)
           │    │          │      │    │                       │    └ <member 'stream_send' of 'LifeSpanHandler' objects>
           │    │          │      │    │                       └ <litestar.testing.life_span_handler.LifeSpanHandler object at 0x000001F8F2A20090>
@@ -504,13 +504,13 @@ Traceback (most recent call last):
           │    │          └ {'type': 'lifespan'}
           │    └ <member 'client' of 'LifeSpanHandler' objects>
           └ <litestar.testing.life_span_handler.LifeSpanHandler object at 0x000001F8F2A20090>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\app.py", line 618, in __call__
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\app.py", line 618, in __call__
     await self.asgi_router.lifespan(receive=receive, send=send)  # type: ignore[arg-type]
           │    │                            │             └ <bound method StapledObjectStream.send of StapledObjectStream(send_stream=MemoryObjectSendStream(_state=_MemoryObjectStreamSt...
           │    │                            └ <bound method StapledObjectStream.receive of StapledObjectStream(send_stream=MemoryObjectSendStream(_state=_MemoryObjectStrea...
           │    └ <member 'asgi_router' of 'Litestar' objects>
           └ <litestar.app.Litestar object at 0x000001F8F27DA640>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\_asgi\asgi_router.py", line 181, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\_asgi\asgi_router.py", line 181, in lifespan
     async with self.app.lifespan():
                │    └ <member 'app' of 'ASGIRouter' objects>
                └ <litestar._asgi.asgi_router.ASGIRouter object at 0x000001F8F2AC3300>
@@ -518,7 +518,7 @@ Traceback (most recent call last):
     return await anext(self.gen)
                        │    └ <async_generator object Litestar.lifespan at 0x000001F8F2B15740>
                        └ <contextlib._AsyncGeneratorContextManager object at 0x000001F8F292AC90>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\litestar\app.py", line 654, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\litestar\app.py", line 654, in lifespan
     await exit_stack.enter_async_context(manager)
           │          │                   └ <contextlib._AsyncGeneratorContextManager object at 0x000001F8F292AF00>
           │          └ <function AsyncExitStack.enter_async_context at 0x000001F8E5CA1760>
@@ -532,30 +532,30 @@ Traceback (most recent call last):
                        │    └ <async_generator object lifespan at 0x000001F8F2748040>
                        └ <contextlib._AsyncGeneratorContextManager object at 0x000001F8F292AF00>
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\src\app.py", line 37, in lifespan
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\src\app.py", line 37, in lifespan
     await db.connect()
           │  └ <function Database.connect at 0x000001F8EDD47B00>
           └ <src.database.connection.Database object at 0x000001F8EBE5C6B0>
 
-> File "D:\MyProjects\projects\TelegramBots\MediaDownloader\src\database\connection.py", line 93, in connect
+> File "D:\MyProjects\projects\TelegramBots\MediaFlow\src\database\connection.py", line 93, in connect
     await conn.execute("SELECT 1")
           │    └ <function AsyncConnection.execute at 0x000001F8EDF39300>
           └ <sqlalchemy.ext.asyncio.engine.AsyncConnection object at 0x000001F8F2A21630>
 
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 659, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 659, in execute
     result = await greenlet_spawn(
                    └ <function greenlet_spawn at 0x000001F8E904FE20>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
     result = context.switch(*args, **kwargs)
              │       │       │       └ {'execution_options': None}
              │       │       └ ('SELECT 1', None)
              │       └ <method 'switch' of 'greenlet.greenlet' objects>
              └ <_AsyncIoGreenlet object at 0x000001F8F2A41440 (otid=0x000001F8F2853D50) dead>
-  File "D:\MyProjects\projects\TelegramBots\MediaDownloader\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1417, in execute
+  File "D:\MyProjects\projects\TelegramBots\MediaFlow\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1417, in execute
     raise exc.ObjectNotExecutableError(statement) from err
           │   │                        └ 'SELECT 1'
           │   └ <class 'sqlalchemy.exc.ObjectNotExecutableError'>
-          └ <module 'sqlalchemy.exc' from 'D:\\MyProjects\\projects\\TelegramBots\\MediaDownloader\\.venv\\Lib\\site-packages\\sqlalchemy...
+          └ <module 'sqlalchemy.exc' from 'D:\\MyProjects\\projects\\TelegramBots\\MediaFlow\\.venv\\Lib\\site-packages\\sqlalchemy...
 
 sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'
 2026-04-01 13:18:31.084 | WARNING  | database | src.database.connection:connect:57 | Database already connected

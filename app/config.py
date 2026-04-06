@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     )
 
     # App
-    app_name: str = "MediaDownloader"
+    app_name: str = "MediaFlow"
     debug: bool = False
     secret_key: str = Field(..., min_length=32)
 

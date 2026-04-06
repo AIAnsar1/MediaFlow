@@ -1,6 +1,6 @@
 
 from app.config import get_settings, settings
-from app.lifecycle import create_app, lifespan
+from app.lifecycle import app, create_app, lifespan
 from app.logging import (
     BoundLogger,
     LoggerManager,
@@ -9,6 +9,7 @@ from app.logging import (
 )
 
 __all__ = [
+    "app",
     "BoundLogger",
     "LoggerManager",
     "create_app",

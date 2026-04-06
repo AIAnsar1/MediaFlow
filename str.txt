@@ -158,7 +158,7 @@ uv.lock
 
 и мой .env
 
-APP_NAME=MediaDownloader
+APP_NAME=MediaFlow
 APP_ENV=local
 APP_KEY=change-me-to-32-chars-secret-key
 APP_DEBUG=true

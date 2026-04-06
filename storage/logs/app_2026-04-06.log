@@ -1632,3 +1632,466 @@
 2026-04-06 21:58:27.126 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
 2026-04-06 21:58:27.134 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
 2026-04-06 21:58:27.137 | INFO     | service.ad | services.ad:create:76 | Ad created | ad_id=1 | name=Test Campaign
+2026-04-06 22:11:09.419 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:09.426 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:09.549 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:09.647 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:14.609 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:14.643 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:14.698 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:14.717 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:20.269 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:20.300 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:20.315 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:20.320 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:26.525 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:26.541 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:26.542 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:26.622 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:32.926 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:32.932 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:32.970 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:33.020 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:39.518 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:39.527 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:39.573 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:39.610 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:46.885 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:47.351 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:47.479 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:47.657 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:56.322 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:56.334 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:56.395 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:11:56.604 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:05.209 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:05.235 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:05.324 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:05.445 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:13.843 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:14.051 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:14.160 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:14.268 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:23.580 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:23.578 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:23.683 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:23.744 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:35.634 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:35.948 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:36.168 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:36.338 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:50.759 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:50.764 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:50.857 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:12:50.964 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:00.168 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:00.374 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:00.457 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:00.541 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:23.567 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:23.570 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:23.618 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:23.781 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:41.217 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:41.223 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:41.223 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:41.294 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:47.902 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:47.965 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:47.971 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:47.999 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:55.976 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:56.063 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:56.099 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:13:56.168 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:03.616 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:03.639 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:03.646 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:03.792 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:11.528 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:11.643 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:11.642 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:11.639 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:19.518 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:19.529 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:19.589 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:19.612 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:29.270 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:29.292 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:29.467 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:29.487 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:39.500 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:39.537 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:39.561 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:39.616 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:48.253 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:48.290 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:48.437 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:48.454 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:57.118 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:57.141 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:57.199 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:14:57.315 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:06.118 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:06.166 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:06.263 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:06.277 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:18.343 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:18.364 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:18.445 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:19.124 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:29.124 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:29.197 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:29.222 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:29.378 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:40.445 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:40.504 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:40.585 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:40.746 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:49.163 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:15:49.164 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:15:49.194 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:15:49.598 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:15:49.599 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:15:49.630 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:15:49.645 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:15:49.646 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:15:49.679 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:15:49.740 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:15:49.740 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:15:49.761 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:15:49.834 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:15:49.833 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:15:49.834 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:15:49.835 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:15:49.835 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:15:49.834 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:15:49.836 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:15:49.834 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:15:50.018 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:15:50.033 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:15:50.044 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:15:50.081 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:15:50.096 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.114 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.154 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:50.165 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:15:51.887 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:52.188 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:52.224 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:15:52.307 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:00.206 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:00.207 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:00.234 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:00.238 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:00.238 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:00.363 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:00.411 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:00.412 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:00.433 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.438 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:00.445 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:00.446 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:00.613 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:00.614 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:00.634 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:00.665 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:00.676 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:00.676 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:00.718 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.762 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:00.763 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:00.797 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:00.803 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:00.803 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:00.844 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:00.915 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:00.925 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:00.996 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:03.062 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:03.252 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:03.286 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:03.329 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:10.410 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:10.454 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:10.491 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:10.679 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:16:22.080 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:22.081 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:22.103 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:22.111 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:22.113 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:24.745 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:24.794 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:25.430 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:25.431 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:25.448 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:25.451 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:25.452 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:25.507 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:25.542 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:26.119 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:26.119 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:26.135 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:26.137 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:26.137 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:26.207 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:26.255 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:16:26.264 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:16:26.264 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=sqlite+aiosqlite:///database.db
+2026-04-06 22:16:26.282 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:16:26.286 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:16:26.286 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:16:26.356 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:16:26.400 | ERROR    | database | database.connection:session:105 | Session rollback | error=(sqlite3.OperationalError) no such table: bots
+[SQL: SELECT bots.id, bots.token, bots.bot_id, bots.username, bots.name, bots.description, bots.status, bots.is_webhook, bots.webhook_url, bots.webhook_secret, bots.total_users, bots.active_users, bots.total_downloads, bots.created_at, bots.updated_at 
+FROM bots 
+WHERE bots.status = ? ORDER BY bots.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: ('ACTIVE', 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-06 22:21:23.108 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:21:23.109 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:21:23.109 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:21:23.111 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:21:27.679 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:21:27.680 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:21:28.044 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:21:28.045 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:21:28.266 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:21:28.266 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:21:28.314 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:21:28.315 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:29:46.277 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:29:46.335 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:29:46.346 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:29:46.381 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:29:54.418 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:29:54.418 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:29:54.859 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:29:54.859 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:29:54.962 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:29:54.967 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:29:54.968 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:29:55.079 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:29:55.086 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:29:55.086 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:29:55.099 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:29:55.164 | INFO     | service.bot_manager | services.bot_manager:_preload_active_bots:85 | Preloaded bots | count=0
+2026-04-06 22:29:55.170 | INFO     | service.queue | services.queue:start:74 | Queue started | workers=10
+2026-04-06 22:29:55.196 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:29:55.234 | INFO     | scheduler | workers.scheduler:start:47 | Scheduler started
+2026-04-06 22:29:55.236 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=0
+2026-04-06 22:29:55.239 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=1
+2026-04-06 22:29:55.239 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=2
+2026-04-06 22:29:55.240 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=3
+2026-04-06 22:29:55.240 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=4
+2026-04-06 22:29:55.243 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=5
+2026-04-06 22:29:55.243 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=6
+2026-04-06 22:29:55.244 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=7
+2026-04-06 22:29:55.244 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=8
+2026-04-06 22:29:55.246 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=9
+2026-04-06 22:29:55.276 | INFO     | app | app.lifecycle:lifespan:49 | Webhooks setup | results={}
+2026-04-06 22:29:55.278 | INFO     | app | app.lifecycle:lifespan:51 | Application started successfully
+2026-04-06 22:29:55.282 | INFO     | service.bot_manager | services.bot_manager:_preload_active_bots:85 | Preloaded bots | count=0
+2026-04-06 22:29:55.284 | INFO     | service.queue | services.queue:start:74 | Queue started | workers=10
+2026-04-06 22:29:55.286 | INFO     | scheduler | workers.scheduler:start:47 | Scheduler started
+2026-04-06 22:29:55.287 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=0
+2026-04-06 22:29:55.288 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=1
+2026-04-06 22:29:55.289 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=2
+2026-04-06 22:29:55.289 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=3
+2026-04-06 22:29:55.289 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=4
+2026-04-06 22:29:55.290 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=5
+2026-04-06 22:29:55.290 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=6
+2026-04-06 22:29:55.291 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=7
+2026-04-06 22:29:55.292 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=8
+2026-04-06 22:29:55.292 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=9
+2026-04-06 22:29:55.318 | INFO     | app | app.lifecycle:lifespan:49 | Webhooks setup | results={}
+2026-04-06 22:29:55.319 | INFO     | app | app.lifecycle:lifespan:51 | Application started successfully
+2026-04-06 22:29:55.667 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:29:55.667 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:29:55.867 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:29:55.981 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:29:55.983 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:29:56.047 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:29:56.115 | INFO     | service.bot_manager | services.bot_manager:_preload_active_bots:85 | Preloaded bots | count=0
+2026-04-06 22:29:56.117 | INFO     | service.queue | services.queue:start:74 | Queue started | workers=10
+2026-04-06 22:29:56.119 | INFO     | scheduler | workers.scheduler:start:47 | Scheduler started
+2026-04-06 22:29:56.121 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=0
+2026-04-06 22:29:56.122 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=1
+2026-04-06 22:29:56.123 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=2
+2026-04-06 22:29:56.123 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=3
+2026-04-06 22:29:56.123 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=4
+2026-04-06 22:29:56.124 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=5
+2026-04-06 22:29:56.124 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=6
+2026-04-06 22:29:56.124 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=7
+2026-04-06 22:29:56.125 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=8
+2026-04-06 22:29:56.125 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=9
+2026-04-06 22:29:56.128 | INFO     | app | app.lifecycle:lifespan:38 | Starting application...
+2026-04-06 22:29:56.128 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-06 22:29:56.168 | INFO     | app | app.lifecycle:lifespan:49 | Webhooks setup | results={}
+2026-04-06 22:29:56.169 | INFO     | app | app.lifecycle:lifespan:51 | Application started successfully
+2026-04-06 22:29:56.270 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-06 22:29:56.272 | INFO     | service.cache | services.cache:connect:58 | Connected to Redis | url=redis://localhost:6379/0
+2026-04-06 22:29:56.273 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 22:29:56.339 | INFO     | service.bot_manager | services.bot_manager:setup:53 | Using custom Telegram API server | url=http://127.0.0.1:8081
+2026-04-06 22:29:56.412 | INFO     | service.bot_manager | services.bot_manager:_preload_active_bots:85 | Preloaded bots | count=0
+2026-04-06 22:29:56.414 | INFO     | service.queue | services.queue:start:74 | Queue started | workers=10
+2026-04-06 22:29:56.416 | INFO     | scheduler | workers.scheduler:start:47 | Scheduler started
+2026-04-06 22:29:56.417 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=0
+2026-04-06 22:29:56.418 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=1
+2026-04-06 22:29:56.418 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=2
+2026-04-06 22:29:56.418 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=3
+2026-04-06 22:29:56.418 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=4
+2026-04-06 22:29:56.419 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=5
+2026-04-06 22:29:56.419 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=6
+2026-04-06 22:29:56.420 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=7
+2026-04-06 22:29:56.421 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=8
+2026-04-06 22:29:56.421 | DEBUG    | service.queue | services.queue:_worker:147 | Worker started | worker_id=9
+2026-04-06 22:29:56.446 | INFO     | app | app.lifecycle:lifespan:49 | Webhooks setup | results={}
+2026-04-06 22:29:56.447 | INFO     | app | app.lifecycle:lifespan:51 | Application started successfully
+2026-04-06 22:30:07.575 | INFO     | controller.auth | app.controllers.auth:login:42 | Admin logged in | username=admin
+2026-04-06 22:31:03.660 | INFO     | app | app.lifecycle:lifespan:54 | Shutting down application...
+2026-04-06 22:31:03.661 | INFO     | scheduler | workers.scheduler:stop:56 | Scheduler stopped
+2026-04-06 22:31:03.659 | INFO     | app | app.lifecycle:lifespan:54 | Shutting down application...
+2026-04-06 22:31:03.660 | INFO     | scheduler | workers.scheduler:stop:56 | Scheduler stopped
+2026-04-06 22:31:03.661 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=0
+2026-04-06 22:31:03.661 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=1
+2026-04-06 22:31:03.664 | INFO     | app | app.lifecycle:lifespan:54 | Shutting down application...
+2026-04-06 22:31:03.661 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=2
+2026-04-06 22:31:03.662 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=3
+2026-04-06 22:31:03.662 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=4
+2026-04-06 22:31:03.663 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=5
+2026-04-06 22:31:03.663 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=6
+2026-04-06 22:31:03.664 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=7
+2026-04-06 22:31:03.665 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=8
+2026-04-06 22:31:03.666 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=9
+2026-04-06 22:31:03.665 | INFO     | app | app.lifecycle:lifespan:54 | Shutting down application...
+2026-04-06 22:31:03.664 | INFO     | scheduler | workers.scheduler:stop:56 | Scheduler stopped
+2026-04-06 22:31:03.666 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=0
+2026-04-06 22:31:03.667 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=1
+2026-04-06 22:31:03.666 | INFO     | service.queue | services.queue:stop:88 | Queue stopped
+2026-04-06 22:31:03.667 | INFO     | service.bot_manager | services.bot_manager:shutdown:62 | Shutting down bot manager...
+2026-04-06 22:31:03.669 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 22:31:03.666 | INFO     | scheduler | workers.scheduler:stop:56 | Scheduler stopped
+2026-04-06 22:31:03.661 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=0
+2026-04-06 22:31:03.670 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=1
+2026-04-06 22:31:03.670 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=2
+2026-04-06 22:31:03.670 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 22:31:03.670 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-06 22:31:03.667 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=2
+2026-04-06 22:31:03.667 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=3
+2026-04-06 22:31:03.671 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=3
+2026-04-06 22:31:03.668 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=4
+2026-04-06 22:31:03.670 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=0
+2026-04-06 22:31:03.672 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=4
+2026-04-06 22:31:03.668 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=5
+2026-04-06 22:31:03.671 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=1
+2026-04-06 22:31:03.672 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=5
+2026-04-06 22:31:03.668 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=6
+2026-04-06 22:31:03.671 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=2
+2026-04-06 22:31:03.672 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=6
+2026-04-06 22:31:03.668 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=7
+2026-04-06 22:31:03.671 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=3
+2026-04-06 22:31:03.673 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=7
+2026-04-06 22:31:03.669 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=8
+2026-04-06 22:31:03.673 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=8
+2026-04-06 22:31:03.669 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=9
+2026-04-06 22:31:03.673 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=9
+2026-04-06 22:31:03.672 | INFO     | service.queue | services.queue:stop:88 | Queue stopped
+2026-04-06 22:31:03.672 | INFO     | service.bot_manager | services.bot_manager:shutdown:62 | Shutting down bot manager...
+2026-04-06 22:31:03.672 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 22:31:03.673 | INFO     | service.queue | services.queue:stop:88 | Queue stopped
+2026-04-06 22:31:03.674 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 22:31:03.674 | INFO     | service.bot_manager | services.bot_manager:shutdown:62 | Shutting down bot manager...
+2026-04-06 22:31:03.675 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-06 22:31:03.675 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 22:31:03.675 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 22:31:03.675 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-06 22:31:03.676 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-06 22:31:03.677 | INFO     | app | app.lifecycle:lifespan:61 | Application stopped
+2026-04-06 22:31:03.677 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-06 22:31:03.677 | INFO     | app | app.lifecycle:lifespan:61 | Application stopped
+2026-04-06 22:31:03.674 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=4
+2026-04-06 22:31:03.678 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=5
+2026-04-06 22:31:03.678 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=6
+2026-04-06 22:31:03.678 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=7
+2026-04-06 22:31:03.678 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=8
+2026-04-06 22:31:03.679 | DEBUG    | service.queue | services.queue:_worker:197 | Worker stopped | worker_id=9
+2026-04-06 22:31:03.679 | INFO     | service.queue | services.queue:stop:88 | Queue stopped
+2026-04-06 22:31:03.679 | INFO     | service.bot_manager | services.bot_manager:shutdown:62 | Shutting down bot manager...
+2026-04-06 22:31:03.679 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 22:31:05.065 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:31:05.068 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:31:05.069 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 22:31:05.140 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 23:13:07.208 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 23:13:07.241 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 23:13:07.269 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 23:13:07.289 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs

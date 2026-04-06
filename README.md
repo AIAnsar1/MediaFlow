@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📥 MediaDownloader
+# 📥 MediaFlow
 ### Advanced Multi-Platform Telegram Bot Manager & Downloader
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)](https://python.org)
@@ -42,8 +42,8 @@
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/AIAnsar1/MediaDownloader.git
-cd MediaDownloader
+git clone https://github.com/AIAnsar1/MediaFlow.git
+cd MediaFlow
 uv venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 uv sync

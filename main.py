@@ -16,7 +16,7 @@ def run_server():
         interface=Interfaces.ASGI,
         workers=1 if sys.platform == "win32" else 4,
         reload=True,
-        reload_paths=["."],  # ← ТОЛЬКО исходники, не storage/logs
+        reload_paths=["app", "bot", "database", "models", "repositories", "schemas", "services", "workers", "main.py"],
     ).serve()
 
 
