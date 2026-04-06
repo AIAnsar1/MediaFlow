@@ -23,7 +23,7 @@ os.environ["STORAGE_CHANNEL_ID"] = "-1001234567890"
 os.environ["TEMP_DOWNLOAD_PATH"] = "/tmp/mediadownloader_test"
 
 from app.lifecycle import create_app
-from database.base import Base
+from models.base import Base
 from database.connection import db
 from models import (
     Ad,
@@ -34,7 +34,7 @@ from models import (
     Media,
     MediaSource,
     MediaType,
-    User,
+    TelegramUser,
 )
 from services.cache import CacheService, cache
 from services.metrics import MetricsService, metrics
@@ -195,7 +195,7 @@ def user_factory():
             "is_banned": False,
         }
         defaults.update(kwargs)
-        return User(**defaults)
+        return TelegramUser(**defaults)
     return _create
 
 

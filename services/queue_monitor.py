@@ -7,9 +7,9 @@ from enum import Enum
 from arq.jobs import Job, JobStatus
 from arq.connections import ArqRedis
 
-from src.services.cache import cache
-from src.logging import get_logger
-from src.workers.config import get_redis_settings
+from services.cache import cache
+from app.logging import get_logger
+from workers.config import get_redis_settings
 
 log = get_logger("service.queue_monitor")
 
@@ -69,7 +69,7 @@ class QueueMonitorService:
     async def get_pool(self) -> ArqRedis:
         """Получить ARQ pool"""
         import asyncio
-        from src.config import settings
+        from app.config import settings
         
         current_loop = asyncio.get_running_loop()
         
@@ -87,7 +87,7 @@ class QueueMonitorService:
                 self._pool = cache.redis
             else:
                 from arq import create_pool
-                from src.workers.config import get_redis_settings
+                from workers.config import get_redis_settings
                 self._pool = await create_pool(get_redis_settings())
                 
         return self._pool
@@ -398,7 +398,7 @@ class QueueMonitorService:
 
     async def get_active_broadcasts(self) -> list[dict]:
         """Получить активные рассылки"""
-        from src.services.metrics import metrics
+        from services.metrics import metrics
 
         broadcasts = []
 

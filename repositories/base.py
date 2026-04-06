@@ -4,8 +4,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.sql import Select
 
-from src.database.base import Base
-from src.logging import get_logger
+from models.base import Base
+from logging import get_logger
 
 ModelType = TypeVar("ModelType", bound=Base)
 

@@ -1,7 +1,7 @@
 from sqlalchemy import select, func
 from sqlalchemy.orm import selectinload
-from src.repositories.base import BaseRepository
-from src.models import Ad, AdBot, AdDelivery, AdStatus
+from repositories.base import BaseRepository
+from models import Ad, AdBot, AdDelivery, AdStatus
 
 
 class AdRepository(BaseRepository[Ad]):

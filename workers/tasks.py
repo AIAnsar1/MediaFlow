@@ -5,12 +5,12 @@ from typing import Any
 from aiogram import Bot
 from aiogram.exceptions import TelegramForbiddenError, TelegramBadRequest
 
-from src.logging import get_logger
-from src.database.connection import db
-from src.repositories.uow import UnitOfWork
-from src.services import bot_manager, cache
-from src.services.rate_limiter import rate_limiter, RateLimitType
-from src.models import Ad, AdStatus, User
+from app.logging import get_logger
+from database.connection import db
+from repositories.uow import UnitOfWork
+from services import bot_manager, cache
+from services.rate_limiter import rate_limiter, RateLimitType
+from models import Ad, AdStatus, TelegramUser
 
 log = get_logger("workers.tasks")
 
@@ -65,7 +65,7 @@ async def broadcast_ad(
         log.info("Broadcasting to users", ad_id=ad_id, total=total_users)
 
         # Группируем по ботам
-        users_by_bot: dict[int, list[User]] = {}
+        users_by_bot: dict[int, list[TelegramUser]] = {}
         for user in users:
             users_by_bot.setdefault(user.bot_id, []).append(user)
 
@@ -135,13 +135,13 @@ async def broadcast_ad(
 async def _send_ad_to_user(
     uow: UnitOfWork,
     ad: Ad,
-    user: User,
+    user: TelegramUser,
     bot: Bot,
     delay_ms: int,
 ) -> bool:
     """Отправить рекламу одному пользователю"""
     from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-    from src.models import AdMediaType
+    from models import AdMediaType
 
     try:
         # Небольшая задержка для rate limiting
@@ -285,7 +285,7 @@ async def cleanup_temp_files(ctx: dict) -> dict[str, Any]:
     import os
     import shutil
     from pathlib import Path
-    from src.config import settings
+    from app.config import settings
 
     log.info("Starting temp files cleanup")
 
@@ -316,7 +316,7 @@ async def cleanup_temp_files(ctx: dict) -> dict[str, Any]:
 async def cleanup_old_downloads(ctx: dict, days: int = 30) -> dict[str, Any]:
     """Очистка старых записей о загрузках"""
     from sqlalchemy import delete
-    from src.models import Download
+    from models import Download
 
     log.info("Cleaning old downloads", days=days)
 
@@ -339,7 +339,7 @@ async def cleanup_old_downloads(ctx: dict, days: int = 30) -> dict[str, Any]:
 async def update_bot_stats(ctx: dict) -> dict[str, Any]:
     """Обновить статистику ботов"""
     from sqlalchemy import select, func
-    from src.models import Bot, User, Download
+    from models import Bot, TelegramUser, Download
 
     log.info("Updating bot stats")
 
@@ -361,10 +361,10 @@ async def update_bot_stats(ctx: dict) -> dict[str, Any]:
             # Активные пользователи (за последние 30 дней)
             active_cutoff = datetime.now() - timedelta(days=30)
             active_count = await uow.session.execute(
-                select(func.count()).select_from(User).where(
-                    User.bot_id == bot.id,
-                    User.updated_at >= active_cutoff,
-                    User.is_banned == False,
+                select(func.count()).select_from(TelegramUser).where(
+                    TelegramUser.bot_id == bot.id,
+                    TelegramUser.updated_at >= active_cutoff,
+                    TelegramUser.is_banned == False,
                 )
             )
             active = active_count.scalar() or 0
@@ -386,7 +386,7 @@ async def update_bot_stats(ctx: dict) -> dict[str, Any]:
 async def aggregate_daily_stats(ctx: dict) -> dict[str, Any]:
     """Агрегация ежедневной статистики"""
     from sqlalchemy import select, func
-    from src.models import Download, User, DailyStats, MediaSource
+    from models import Download, TelegramUser, DailyStats, MediaSource
 
     log.info("Aggregating daily stats")
 
@@ -401,9 +401,9 @@ async def aggregate_daily_stats(ctx: dict) -> dict[str, Any]:
             for source in MediaSource:
                 # Новые пользователи
                 new_users = await uow.session.execute(
-                    select(func.count()).select_from(User).where(
-                        User.bot_id == bot.id,
-                        func.date(User.created_at) == yesterday,
+                    select(func.count()).select_from(TelegramUser).where(
+                        TelegramUser.bot_id == bot.id,
+                        func.date(TelegramUser.created_at) == yesterday,
                     )
                 )
 

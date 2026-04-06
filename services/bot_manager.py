@@ -8,11 +8,11 @@ from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.types import Update
 
-from src.config import settings
-from src.logging import get_logger
-from src.database.connection import db
-from src.repositories import BotRepository
-from src.models import Bot as BotModel, BotStatus
+from app.config import settings
+from app.logging import get_logger
+from database.connection import db
+from repositories import BotRepository
+from models import Bot as BotModel, BotStatus
 
 log = get_logger("service.bot_manager")
 

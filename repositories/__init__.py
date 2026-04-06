@@ -1,8 +1,8 @@
-from src.repositories.base import BaseRepository
-from src.repositories.bot import BotRepository
-from src.repositories.user import UserRepository
-from src.repositories.media import MediaRepository
-from src.repositories.ad import AdRepository, AdDeliveryRepository
+from repositories.base import BaseRepository
+from repositories.bot import BotRepository
+from repositories.user import UserRepository
+from repositories.media import MediaRepository
+from repositories.ad import AdRepository, AdDeliveryRepository
 
 __all__ = [
     "BaseRepository",

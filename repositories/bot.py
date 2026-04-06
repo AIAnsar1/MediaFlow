@@ -1,6 +1,6 @@
 from sqlalchemy import select, func
-from src.repositories.base import BaseRepository
-from src.models import Bot, BotStatus, User, Download
+from repositories.base import BaseRepository
+from models import Bot, BotStatus, TelegramUser, Download
 
 
 class BotRepository(BaseRepository[Bot]):
@@ -22,7 +22,7 @@ class BotRepository(BaseRepository[Bot]):
         """Пересчитать статистику бота"""
         # Считаем пользователей
         user_count = await self.session.execute(
-            select(func.count()).select_from(User).where(User.bot_id == bot_id)
+            select(func.count()).select_from(TelegramUser).where(TelegramUser.bot_id == bot_id)
         )
         total_users = user_count.scalar() or 0
 

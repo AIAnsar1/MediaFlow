@@ -5,10 +5,10 @@ from typing import Any
 from aiogram import Bot
 from aiogram.types import Update, Message, CallbackQuery, User as TgUser
 
-from src.logging import get_logger
-from src.database.connection import db
-from src.repositories.uow import UnitOfWork
-from src.services import (
+from app.logging import get_logger
+from database.connection import db
+from repositories.uow import UnitOfWork
+from services import (
     bot_manager,
     cache,
     download_service,
@@ -16,8 +16,8 @@ from src.services import (
     MediaPlatform,
     DownloadRequest,
 )
-from src.services.user import UserService
-from src.models import Bot as BotModel
+from services.user import UserService
+from models import Bot as BotModel
 
 log = get_logger("bot.processor")
 
@@ -174,8 +174,8 @@ class UpdateProcessor:
 
     async def _handle_start(self, ctx: ProcessingContext, message: Message) -> bool:
         """Обработка /start"""
-        from src.bot.keyboards import get_language_keyboard
-        from src.bot.messages import MESSAGES
+        from bot.keyboards import get_language_keyboard
+        from bot.messages import MESSAGES
 
         async with UnitOfWork() as uow:
             user_service = UserService(uow)
@@ -195,7 +195,7 @@ class UpdateProcessor:
 
     async def _handle_language_callback(self, ctx: ProcessingContext, callback: CallbackQuery) -> bool:
         """Обработка выбора языка"""
-        from src.bot.messages import MESSAGES
+        from bot.messages import MESSAGES
 
         language = callback.data.split(":")[1]
 
@@ -224,7 +224,7 @@ class UpdateProcessor:
 
     async def _handle_url(self, ctx: ProcessingContext, message: Message, url: str) -> bool:
         """Обработка URL"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         # Определяем платформу
         platform = download_service.detect_platform(url)
@@ -243,9 +243,9 @@ class UpdateProcessor:
 
     async def _handle_youtube_url(self, ctx: ProcessingContext, message: Message, url: str) -> bool:
         """Обработка YouTube URL - показываем выбор video/audio"""
-        from src.bot.keyboards import get_youtube_choice_keyboard
-        from src.bot.messages import MESSAGES
-        from src.services.media.youtube import YouTubeDownloader
+        from bot.keyboards import get_youtube_choice_keyboard
+        from bot.messages import MESSAGES
+        from services.media.youtube import YouTubeDownloader
 
         # Извлекаем video_id
         downloader = YouTubeDownloader()
@@ -264,7 +264,7 @@ class UpdateProcessor:
 
     async def _handle_youtube_callback(self, ctx: ProcessingContext, callback: CallbackQuery) -> bool:
         """Обработка YouTube callback (video/audio)"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         parts = callback.data.split(":")
         action = parts[1]  # video or audio
@@ -279,9 +279,9 @@ class UpdateProcessor:
 
     async def _show_youtube_formats(self, ctx: ProcessingContext, callback: CallbackQuery, url: str) -> bool:
         """Показать доступные форматы YouTube"""
-        from src.bot.keyboards import get_youtube_formats_keyboard
-        from src.bot.messages import MESSAGES
-        from src.services.media.youtube import YouTubeDownloader
+        from bot.keyboards import get_youtube_formats_keyboard
+        from i18n import translator
+        from services.media.youtube import YouTubeDownloader
 
         # Обновляем сообщение - "Getting formats..."
         progress_msg = await callback.message.edit_text(
@@ -315,7 +315,7 @@ class UpdateProcessor:
 
     async def _handle_format_callback(self, ctx: ProcessingContext, callback: CallbackQuery) -> bool:
         """Обработка выбора формата"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         parts = callback.data.split(":")
         format_id = parts[1]
@@ -344,7 +344,7 @@ class UpdateProcessor:
 
     async def _download_youtube_audio(self, ctx: ProcessingContext, callback: CallbackQuery, url: str) -> bool:
         """Скачать аудио с YouTube"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         progress_msg = await callback.message.edit_text(
             MESSAGES["start_download"].get(ctx.language, "⏬ Downloading..."),
@@ -371,7 +371,7 @@ class UpdateProcessor:
         platform: MediaPlatform,
     ) -> bool:
         """Прямое скачивание (Instagram, TikTok, Pinterest, VK)"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         # Создаём progress сообщение
         platform_msgs = {
@@ -403,7 +403,7 @@ class UpdateProcessor:
         request: DownloadRequest,
     ) -> bool:
         """Основной процесс скачивания"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         async def update_progress(text: str):
             try:
@@ -457,7 +457,7 @@ class UpdateProcessor:
 
     async def _handle_unknown(self, ctx: ProcessingContext, message: Message) -> bool:
         """Обработка неизвестного сообщения"""
-        from src.bot.messages import MESSAGES
+        from i18n import translator
 
         text = MESSAGES["send_link"].get(ctx.language, MESSAGES["send_link"]["en"])
         await message.reply(text)

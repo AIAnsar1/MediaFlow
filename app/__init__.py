@@ -1,7 +1,7 @@
 
-from .config import get_settings, settings
-from .lifecycle import create_app, lifespan
-from .logging import (
+from app.config import get_settings, settings
+from app.lifecycle import create_app, lifespan
+from app.logging import (
     BoundLogger,
     LoggerManager,
     get_logger,

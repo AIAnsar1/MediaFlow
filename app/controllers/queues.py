@@ -2,10 +2,10 @@ from litestar import Controller, get, post
 from litestar.response import Template, Redirect
 from litestar.di import Provide
 
-from src.services.queue_monitor import queue_monitor, JobState
-from src.services.metrics import metrics
-from src.web.middleware.auth import admin_guard
-from src.logging import get_logger
+from services.queue_monitor import queue_monitor, JobState
+from services.metrics import metrics
+from middleware.auth import admin_guard
+from logging import get_logger
 
 log = get_logger("controller.queues")
 

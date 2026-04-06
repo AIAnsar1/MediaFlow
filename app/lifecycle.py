@@ -7,15 +7,15 @@ from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.static_files import create_static_files_router
 from litestar.template import TemplateConfig
 
-from src.config import settings
-from src.logging import setup_logging, get_logger
-from src.database.connection import db
-from src.services import cache, bot_manager, queue_service
-from src.services.rate_limiter import rate_limiter
-from src.workers.scheduler import scheduler
-from src.web.middleware.rate_limit import RateLimitMiddleware
-from src.web.middleware.auth import AuthMiddleware
-from src.web.controllers import (
+from app.config import settings
+from app.logging import setup_logging, get_logger
+from database.connection import db
+from services import cache, bot_manager, queue_service
+from services.rate_limiter import rate_limiter
+from workers.scheduler import scheduler
+from middleware.rate_limit import RateLimitMiddleware
+from middleware.auth import AuthMiddleware
+from controllers import (
     AdminController,
     AuthController,
     BotController,

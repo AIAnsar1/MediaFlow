@@ -3,9 +3,9 @@ from litestar.response import Template
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.connection import get_session
-from src.repositories import UserRepository
-from src.web.middleware.auth import admin_guard
+from database.connection import get_session
+from repositories import UserRepository
+from middleware.auth import admin_guard
 
 
 class UserController(Controller):

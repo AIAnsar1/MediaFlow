@@ -1,9 +1,13 @@
 from enum import StrEnum
+from typing import TYPE_CHECKING
+
 from sqlalchemy import String, Text, BigInteger, Integer, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import Base, TimestampMixin
-from models.download import Download
+
+if TYPE_CHECKING:
+    from models.download import Download
 
 
 class MediaSource(StrEnum):

@@ -5,9 +5,9 @@ from enum import Enum
 from typing import Callable, Any
 from functools import wraps
 
-from src.services.cache import cache
-from src.logging import get_logger
-from src.config import settings
+from services.cache import cache
+from app.logging import get_logger
+from app.config import settings
 
 log = get_logger("service.rate_limiter")
 

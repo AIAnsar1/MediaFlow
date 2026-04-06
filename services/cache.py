@@ -4,18 +4,17 @@ import hashlib
 from typing import Any
 from datetime import timedelta
 
-from src.config import settings
-from src.logging import get_logger
+from app.config import settings
+from app.logging import get_logger
 
 log = get_logger("service.cache")
- 
+
 # Shared FakeServer for persistence across reconnections in tests
 _fake_server = None
 
 
 class CacheService:
     """
-    Сервис кеширования с поддержкой Redis/FakeRedis
 
     Использование:
         cache = CacheService()

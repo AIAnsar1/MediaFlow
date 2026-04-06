@@ -6,10 +6,10 @@ from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 from aiogram import Bot as AiogramBot
 
-from src.database.connection import get_session
-from src.repositories import BotRepository
-from src.schemas.bot import BotCreate
-from src.models import BotStatus
+from database.connection import get_session
+from repositories import BotRepository
+from schemas.bot import BotCreate
+from models import BotStatus
 
 
 class BotController(Controller):

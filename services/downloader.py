@@ -9,9 +9,9 @@ from typing import Callable, Any
 from aiogram import Bot
 from aiogram.types import FSInputFile
 
-from src.config import settings
-from src.logging import get_logger
-from src.services.cache import cache
+from app.config import settings
+from app.logging import get_logger
+from services.cache import cache
 
 log = get_logger("service.downloader")
 
@@ -116,11 +116,11 @@ class DownloadService:
 
     def _register_downloaders(self) -> None:
         """Регистрация загрузчиков"""
-        from src.services.media.youtube import YouTubeDownloader
-        from src.services.media.instagram import InstagramDownloader
-        from src.services.media.tiktok import TikTokDownloader
-        from src.services.media.pinterest import PinterestDownloader
-        from src.services.media.vk import VKDownloader
+        from services.media.youtube import YouTubeDownloader
+        from services.media.instagram import InstagramDownloader
+        from services.media.tiktok import TikTokDownloader
+        from services.media.pinterest import PinterestDownloader
+        from services.media.vk import VKDownloader
 
         self.downloaders = [
             YouTubeDownloader(),

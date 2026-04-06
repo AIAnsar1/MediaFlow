@@ -7,9 +7,9 @@ from urllib.parse import urlparse, parse_qs
 from dataclasses import dataclass
 
 
-from src.services.downloader import BaseDownloader, DownloadRequest, DownloadResult, MediaPlatform
-from src.logging import get_logger
-from src.config import settings
+from services.downloader import BaseDownloader, DownloadRequest, DownloadResult, MediaPlatform
+from app.logging import get_logger
+from app.config import settings
 
 log = get_logger("downloader.youtube")
 

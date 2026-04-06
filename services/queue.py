@@ -4,8 +4,8 @@ from datetime import datetime
 from typing import Callable, Any
 from collections import defaultdict
 
-from src.logging import get_logger
-from src.services.cache import cache
+from app.logging import get_logger
+from services.cache import cache
 
 log = get_logger("service.queue")
 

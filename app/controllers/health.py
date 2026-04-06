@@ -1,8 +1,8 @@
 from litestar import Controller, get
 from litestar.response import Response
 
-from src.database.connection import db
-from src.services import cache
+from database.connection import db
+from services import cache
 
 
 class HealthController(Controller):

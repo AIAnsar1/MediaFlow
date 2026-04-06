@@ -2,8 +2,8 @@ from litestar import Controller, post
 from litestar.response import Response
 from litestar.status_codes import HTTP_200_OK
 
-from src.logging import get_logger
-from src.bot.processor import update_processor
+from logging import get_logger
+from bot.processor import update_processor
 
 log = get_logger("webhook")
 

@@ -5,9 +5,9 @@ from litestar.params import Body
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.connection import get_session
-from src.repositories import AdRepository, BotRepository, UserRepository
-from src.models import AdStatus, AdMediaType
+from database.connection import get_session
+from repositories import AdRepository, BotRepository, UserRepository
+from models import AdStatus, AdMediaType
 
 
 class AdController(Controller):
@@ -96,7 +96,7 @@ class AdController(Controller):
     @post("/{ad_id:int}/send", name="ads:send")
     async def send_ad(self, session: AsyncSession, ad_id: int) -> Redirect:
         """Queue ad for background sending"""
-        from src.services import queue_service
+        from services import queue_service
 
         ad_repo = AdRepository(session)
         ad = await ad_repo.get_with_relations(ad_id)
@@ -117,7 +117,7 @@ class AdController(Controller):
     @post("/{ad_id:int}/delete-with-messages", name="ads:delete_with_messages")
     async def delete_with_messages(self, session: AsyncSession, ad_id: int) -> Redirect:
         """Delete ad and all sent messages"""
-        from src.services import queue_service
+        from services import queue_service
 
         job_id = await queue_service.enqueue_delete_ad(ad_id)
 

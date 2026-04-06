@@ -5,13 +5,13 @@ from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
-from src.database.connection import get_session
-from src.services.metrics import metrics
-from src.services.queue_monitor import queue_monitor
-from src.repositories import BotRepository, UserRepository, MediaRepository
-from src.models import Download, Media, MediaSource, DailyStats
-from src.web.middleware.auth import admin_guard
-from src.logging import get_logger
+from database.connection import get_session
+from services.metrics import metrics
+from services.queue_monitor import queue_monitor
+from repositories import BotRepository, UserRepository, MediaRepository
+from models import Download, Media, MediaSource, DailyStats
+from middleware.auth import admin_guard
+from logging import get_logger
 
 log = get_logger("controller.stats")
 

@@ -8,8 +8,8 @@ from litestar.status_codes import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 from litestar.exceptions import NotAuthorizedException
 from litestar.datastructures import State
 
-from src.services.auth import auth_service, AuthUser
-from src.logging import get_logger
+from services.auth import auth_service, AuthUser
+from app.logging import get_logger
 
 log = get_logger("middleware.auth")
 

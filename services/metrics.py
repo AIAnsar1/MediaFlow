@@ -4,8 +4,8 @@ from typing import Any
 from dataclasses import dataclass
 from enum import Enum
 
-from src.services.cache import cache
-from src.logging import get_logger
+from services.cache import cache
+from app.logging import get_logger
 
 log = get_logger("service.metrics")
 

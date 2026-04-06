@@ -4,12 +4,12 @@ from typing import Any
 from arq import cron
 from arq.connections import RedisSettings
 
-from src.logging import setup_logging, get_logger
-from src.database.connection import db
-from src.services import cache, bot_manager
-from src.services.rate_limiter import rate_limiter
-from src.workers.config import get_redis_settings
-from src.workers.tasks import (
+from app.logging import setup_logging, get_logger
+from database.connection import db
+from services import cache, bot_manager
+from services.rate_limiter import rate_limiter
+from workers.config import get_redis_settings
+from workers.tasks import (
     broadcast_ad,
     delete_ad_messages,
     cleanup_temp_files,

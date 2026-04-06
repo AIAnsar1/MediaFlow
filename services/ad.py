@@ -7,11 +7,11 @@ from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.exceptions import TelegramForbiddenError, TelegramBadRequest
 
-from src.logging import get_logger
-from src.repositories import AdRepository, AdDeliveryRepository, UserRepository
-from src.repositories.uow import UnitOfWork
-from src.models import Ad, AdStatus, AdMediaType, User
-from src.services.bot_manager import bot_manager
+from app.logging import get_logger
+from repositories import AdRepository, AdDeliveryRepository, UserRepository
+from repositories.uow import UnitOfWork
+from models import Ad, AdStatus, AdMediaType, TelegramUser
+from services.bot_manager import bot_manager
 
 log = get_logger("service.ad")
 
@@ -144,7 +144,7 @@ class AdService:
         )
 
         # Группируем по ботам
-        users_by_bot: dict[int, list[User]] = {}
+        users_by_bot: dict[int, list[TelegramUser]] = {}
         for user in users:
             users_by_bot.setdefault(user.bot_id, []).append(user)
 
@@ -212,7 +212,7 @@ class AdService:
 
         return result
 
-    async def _send_to_user(self, ad: Ad, user: User, bot: Bot) -> bool:
+    async def _send_to_user(self, ad: Ad, user: TelegramUser, bot: Bot) -> bool:
         """Отправить рекламу пользователю"""
         try:
             keyboard = None

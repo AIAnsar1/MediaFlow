@@ -3,8 +3,8 @@ from litestar.response import Template
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.connection import get_session
-from src.repositories import BotRepository, UserRepository, MediaRepository
+from database.connection import get_session
+from repositories import BotRepository, UserRepository, MediaRepository
 
 
 class AdminController(Controller):

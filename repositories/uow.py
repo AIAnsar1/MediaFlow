@@ -1,15 +1,15 @@
 from types import TracebackType
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.connection import db
-from src.repositories import (
+from database.connection import db
+from repositories import (
     BotRepository,
     UserRepository,
     MediaRepository,
     AdRepository,
     AdDeliveryRepository,
 )
-from src.logging import get_logger
+from app.logging import get_logger
 
 log = get_logger("uow")
 

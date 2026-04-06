@@ -1,12 +1,12 @@
 from sqlalchemy import select, func
-from src.repositories.base import BaseRepository
-from src.models import User
+from repositories.base import BaseRepository
+from models import TelegramUser
 
 
-class UserRepository(BaseRepository[User]):
-    model = User
+class UserRepository(BaseRepository[TelegramUser]):
+    model = TelegramUser
 
-    async def get_by_telegram_id(self, telegram_id: int, bot_id: int) -> User | None:
+    async def get_by_telegram_id(self, telegram_id: int, bot_id: int) -> TelegramUser | None:
         return await self.get_one(telegram_id=telegram_id, bot_id=bot_id)
 
     async def get_or_create(
@@ -14,7 +14,7 @@ class UserRepository(BaseRepository[User]):
         telegram_id: int,
         bot_id: int,
         **defaults,
-    ) -> tuple[User, bool]:
+    ) -> tuple[TelegramUser, bool]:
         """Получить или создать пользователя"""
         return await self.upsert(
             lookup={"telegram_id": telegram_id, "bot_id": bot_id},
@@ -28,7 +28,7 @@ class UserRepository(BaseRepository[User]):
         exclude_blocked: bool = True,
         offset: int = 0,
         limit: int = 100,
-    ) -> list[User]:
+    ) -> list[TelegramUser]:
         """Получить пользователей бота"""
         filters = {"bot_id": bot_id}
         if language:
@@ -43,24 +43,24 @@ class UserRepository(BaseRepository[User]):
         self,
         bot_ids: list[int],
         language: str | None = None,
-    ) -> list[User]:
+    ) -> list[TelegramUser]:
         """Получить всех пользователей для рассылки"""
-        stmt = select(User).where(
-            User.bot_id.in_(bot_ids),
-            User.is_blocked == False,
-            User.is_banned == False,
+        stmt = select(TelegramUser).where(
+            TelegramUser.bot_id.in_(bot_ids),
+            TelegramUser.is_blocked == False,
+            TelegramUser.is_banned == False,
         )
         if language:
-            stmt = stmt.where(User.language == language)
+            stmt = stmt.where(TelegramUser.language == language)
 
         result = await self.session.execute(stmt)
         return list(result.scalars().all())
 
     async def get_language_stats(self, bot_id: int | None = None) -> dict[str, int]:
         """Статистика по языкам"""
-        stmt = select(User.language, func.count(User.id)).group_by(User.language)
+        stmt = select(TelegramUser.language, func.count(TelegramUser.id)).group_by(TelegramUser.language)
         if bot_id:
-            stmt = stmt.where(User.bot_id == bot_id)
+            stmt = stmt.where(TelegramUser.bot_id == bot_id)
 
         result = await self.session.execute(stmt)
         return dict(result.all())

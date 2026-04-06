@@ -1,6 +1,6 @@
 from sqlalchemy import select, func
-from src.repositories.base import BaseRepository
-from src.models import Media, MediaSource, MediaType
+from repositories.base import BaseRepository
+from models import Media, MediaSource, MediaType
 
 
 class MediaRepository(BaseRepository[Media]):

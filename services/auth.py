@@ -6,9 +6,9 @@ import hashlib
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 
-from src.config import settings
-from src.logging import get_logger
-from src.services.cache import cache
+from app.config import settings
+from app.logging import get_logger
+from services.cache import cache
 
 log = get_logger("service.auth")
 

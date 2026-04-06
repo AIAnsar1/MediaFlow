@@ -3,8 +3,8 @@ import asyncio, os, re, subprocess, shutil
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from src.services.downloader import BaseDownloader, DownloadRequest, DownloadResult, MediaPlatform
-from src.logging import get_logger
+from services.downloader import BaseDownloader, DownloadRequest, DownloadResult, MediaPlatform
+from app.logging import get_logger
 
 log = get_logger("downloader.pinterest")
 

@@ -7,9 +7,9 @@ from collections import defaultdict
 from arq import create_pool
 from arq.connections import ArqRedis
 
-from src.logging import get_logger
-from src.workers.config import get_redis_settings
-from src.services.rate_limiter import rate_limiter, RateLimitType
+from app.logging import get_logger
+from workers.config import get_redis_settings
+from services.rate_limiter import rate_limiter, RateLimitType
 
 log = get_logger("service.queue")
 

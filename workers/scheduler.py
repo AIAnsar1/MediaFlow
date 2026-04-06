@@ -7,10 +7,10 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.jobstores.memory import MemoryJobStore
 
-from src.logging import get_logger
-from src.database.connection import db
-from src.repositories.uow import UnitOfWork
-from src.services import cache
+from app.logging import get_logger
+from database.connection import db
+from repositories.uow import UnitOfWork
+from services import cache
 
 log = get_logger("scheduler")
 
@@ -143,8 +143,8 @@ class SchedulerService:
 
     async def _check_bots_health(self) -> None:
         """Проверить здоровье ботов"""
-        from src.services import bot_manager
-        from src.models import BotStatus
+        from services import bot_manager
+        from models import BotStatus
 
         try:
             async with UnitOfWork() as uow:
@@ -203,8 +203,8 @@ class SchedulerService:
 
     async def _refresh_webhooks(self) -> None:
         """Обновить webhook'и"""
-        from src.services import bot_manager
-        from src.config import settings
+        from services import bot_manager
+        from config import settings
 
         if not settings.webhook_base_url:
             return

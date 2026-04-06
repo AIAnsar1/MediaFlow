@@ -1,0 +1,5 @@
+2026-04-06 20:02:24.001 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 20:03:22.670 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 20:04:40.374 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 20:05:23.486 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 20:08:36.494 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs

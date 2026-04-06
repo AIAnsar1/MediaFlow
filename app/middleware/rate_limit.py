@@ -4,8 +4,8 @@ from litestar.types import ASGIApp, Receive, Scope, Send
 from litestar.status_codes import HTTP_429_TOO_MANY_REQUESTS
 from litestar.datastructures import MutableScopeHeaders
 
-from src.services.rate_limiter import rate_limiter, RateLimitType, RateLimitConfig
-from src.logging import get_logger
+from services.rate_limiter import rate_limiter, RateLimitType, RateLimitConfig
+from app.logging import get_logger
 
 log = get_logger("middleware.rate_limit")
 
