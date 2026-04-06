@@ -37,10 +37,17 @@ COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
 COPY --from=builder /app/.venv /app/.venv
 
 # Копируем код
-COPY src/ ./src/
-COPY run.py run_worker.py alembic.ini ./
-COPY alembic/ ./alembic/
-COPY static/ ./static/
+COPY app/ ./app/
+COPY bot/ ./bot/
+COPY database/ ./database/
+COPY i18n/ ./i18n/
+COPY models/ ./models/
+COPY repositories/ ./repositories/
+COPY resources/ ./resources/
+COPY schemas/ ./schemas/
+COPY services/ ./services/
+COPY workers/ ./workers/
+COPY main.py alembic.ini ./
 
 # Создаём директории
 RUN mkdir -p storage/logs storage/temp
@@ -56,4 +63,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 EXPOSE 8000
 
-CMD ["python", "run.py"]
+CMD ["python", "main.py"]

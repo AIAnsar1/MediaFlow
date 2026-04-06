@@ -100,10 +100,10 @@ filterwarnings = [
 timeout = 60
 
 [tool.coverage.run]
-source = ["src"]
+source = ["app", "bot", "database", "models", "repositories", "schemas", "services", "workers"]
 branch = true
 omit = [
-    "src/__init__.py",
+    "*/__init__.py",
     "*/migrations/*",
     "*/__pycache__/*",
 ]

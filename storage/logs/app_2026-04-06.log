@@ -1179,3 +1179,456 @@
 2026-04-06 21:44:52.686 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
 2026-04-06 21:44:52.694 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
 2026-04-06 21:44:52.697 | INFO     | service.ad | services.ad:create:76 | Ad created | ad_id=1 | name=Test Campaign
+2026-04-06 21:55:18.248 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 21:55:32.456 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:33.609 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:33.737 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:33.865 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:33.989 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.069 | DEBUG    | service.auth | services.auth:decode_token:119 | Invalid token | error=Not enough segments
+2026-04-06 21:55:34.101 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.230 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.350 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.465 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.599 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.720 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.848 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:34.974 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.100 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.225 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.336 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.507 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.621 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.754 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.883 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:35.978 | DEBUG    | service.cache | services.cache:cache_media:164 | Cached media | url=https://example.com/video.mp4 | quality=720p
+2026-04-06 21:55:35.979 | DEBUG    | service.cache | services.cache:get_cached_media:141 | Cache HIT | url=https://example.com/video.mp4 | quality=720p
+2026-04-06 21:55:36.013 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.134 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.271 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.433 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.570 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.701 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.842 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:36.970 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.104 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.226 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.364 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.492 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.625 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.749 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:37.884 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.022 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.163 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.298 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.430 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.555 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.692 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.835 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:38.976 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.112 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.253 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.376 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.518 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.640 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.780 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:39.921 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.067 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.203 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.335 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.481 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.622 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.774 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:40.928 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.057 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.205 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.387 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.642 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.786 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:41.916 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.036 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.170 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.290 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.384 | INFO     | service.queue_monitor | services.queue_monitor:delete_job:325 | Job deleted | job_id=non_existent_job_id
+2026-04-06 21:55:42.427 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.564 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.692 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.827 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:42.983 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.128 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.268 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.400 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.531 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.694 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:43.855 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.001 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.249 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.296 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.427 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.477 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.593 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.600 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:44.607 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=3
+2026-04-06 21:55:44.654 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.768 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.785 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.829 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:44.942 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:44.960 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.004 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.117 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.155 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.266 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.314 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.418 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.424 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:45.476 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.596 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.645 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.765 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.815 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:45.942 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:45.983 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:46.096 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.108 | DEBUG    | repository.bot | repositories.base:update:130 | Updated | id=1
+2026-04-06 21:55:46.148 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:46.272 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.290 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.300 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:46.312 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=3
+2026-04-06 21:55:46.320 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=4
+2026-04-06 21:55:46.330 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=5
+2026-04-06 21:55:46.378 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:46.497 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.512 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.519 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:46.527 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=3
+2026-04-06 21:55:46.536 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=4
+2026-04-06 21:55:46.543 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=5
+2026-04-06 21:55:46.591 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:46.707 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.720 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.767 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:46.896 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:46.948 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.062 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.111 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.232 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.239 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:47.246 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=3
+2026-04-06 21:55:47.254 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=4
+2026-04-06 21:55:47.262 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=5
+2026-04-06 21:55:47.310 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.423 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.490 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.603 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.610 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=2
+2026-04-06 21:55:47.616 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=3
+2026-04-06 21:55:47.666 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.785 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.812 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.813 | INFO     | service.user | services.user:get_or_create:82 | New user registered | telegram_id=123456789 | bot_id=1 | language=en
+2026-04-06 21:55:47.854 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:47.964 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:47.982 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:48.039 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:55:48.149 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:48.166 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:55:48.173 | INFO     | service.ad | services.ad:create:76 | Ad created | ad_id=1 | name=Test Campaign
+2026-04-06 21:58:06.346 | INFO     | app | app.logging:setup:143 | Logger initialized | Level: DEBUG | Path: storage/logs
+2026-04-06 21:58:10.445 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:10.538 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:10.600 | DEBUG    | service.cache | services.cache:cache_media:164 | Cached media | url=https://www.youtube.com/watch?v=cached123 | quality=720p
+2026-04-06 21:58:10.601 | DEBUG    | service.cache | services.cache:get_cached_media:141 | Cache HIT | url=https://www.youtube.com/watch?v=cached123 | quality=720p
+2026-04-06 21:58:10.601 | DEBUG    | service.downloader | services.downloader:check_cache:160 | Cache HIT | url=https://www.youtube.com/watch?v=cached123
+2026-04-06 21:58:10.623 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:10.678 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 21:58:11.030 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 21:58:11.058 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.138 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.235 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:11.243 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:11.243 | INFO     | service.user | services.user:get_or_create:82 | New user registered | telegram_id=123456789 | bot_id=1 | language=ru
+2026-04-06 21:58:11.248 | DEBUG    | repository.telegramuser | repositories.base:update:130 | Updated | id=1
+2026-04-06 21:58:11.249 | DEBUG    | service.user | services.user:update_language:108 | Language updated | user_id=1 | language=en
+2026-04-06 21:58:11.266 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.366 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:11.367 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:11.368 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.443 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.585 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:11.585 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:11.586 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.589 | INFO     | controller.auth | app.controllers.auth:login:42 | Admin logged in | username=admin
+2026-04-06 21:58:11.622 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.766 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:11.767 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:11.767 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:11.770 | WARNING  | controller.auth | app.controllers.auth:login:35 | Failed login attempt | username=admin
+2026-04-06 21:58:11.799 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.060 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.060 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.061 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.080 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.194 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.194 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.195 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.254 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.353 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.353 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.354 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.356 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=fake_token | update_id=123456789
+2026-04-06 21:58:12.361 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=fake_token
+2026-04-06 21:58:12.387 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.502 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.502 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.503 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.530 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.649 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:12.650 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.651 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.652 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.713 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.862 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:12.863 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:12.864 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:12.920 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.064 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:13.065 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:13.065 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.088 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.195 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:13.195 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:13.196 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.251 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.354 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:13.354 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:13.355 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.408 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.540 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:13.541 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:13.541 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.565 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.687 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:13.688 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:13.688 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:13.769 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.038 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.039 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.040 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.088 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.189 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.190 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.190 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.213 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.309 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.310 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.311 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.417 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.561 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.562 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.562 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.609 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.729 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.729 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.730 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.731 | ERROR    | database | database.connection:session:105 | Session rollback | error=Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+2026-04-06 21:58:14.760 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.873 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:14.874 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:14.875 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:14.899 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.026 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.027 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.027 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.054 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.161 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.161 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.162 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.164 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=123456789: | update_id=123456789
+2026-04-06 21:58:15.169 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=123456789:
+2026-04-06 21:58:15.189 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.283 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.283 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.284 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.286 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=123456789: | update_id=123456790
+2026-04-06 21:58:15.291 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=123456789:
+2026-04-06 21:58:15.319 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.433 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.434 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.435 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.439 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=123456789: | update_id=123456791
+2026-04-06 21:58:15.444 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=123456789:
+2026-04-06 21:58:15.468 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.609 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.610 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.610 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.613 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=invalid_to | update_id=123456792
+2026-04-06 21:58:15.619 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=invalid_to
+2026-04-06 21:58:15.642 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.776 | WARNING  | service.cache | services.cache:connect:37 | Loop changed, reconnecting cache
+2026-04-06 21:58:15.777 | INFO     | service.cache | services.cache:disconnect:69 | Disconnected from Redis
+2026-04-06 21:58:15.778 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:15.780 | DEBUG    | webhook | app.controllers.webhook:handle_webhook:25 | Received webhook | token=123456789: | update_id=None
+2026-04-06 21:58:15.786 | WARNING  | bot.processor | bot.processor:process:77 | Bot not found | token=123456789:
+2026-04-06 21:58:15.816 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:16.426 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:16.470 | INFO     | service.rate_limiter | services.rate_limiter:start:97 | Rate limiter started
+2026-04-06 21:58:16.755 | INFO     | service.rate_limiter | services.rate_limiter:stop:107 | Rate limiter stopped
+2026-04-06 21:58:16.772 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:17.629 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:17.689 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:18.658 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:18.744 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:18.837 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:18.932 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:18.998 | DEBUG    | service.auth | services.auth:decode_token:119 | Invalid token | error=Not enough segments
+2026-04-06 21:58:19.016 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.073 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.126 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.181 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.236 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.289 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.366 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.423 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.487 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.564 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.643 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.705 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.778 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.852 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:19.938 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.008 | DEBUG    | service.cache | services.cache:cache_media:164 | Cached media | url=https://example.com/video.mp4 | quality=720p
+2026-04-06 21:58:20.009 | DEBUG    | service.cache | services.cache:get_cached_media:141 | Cache HIT | url=https://example.com/video.mp4 | quality=720p
+2026-04-06 21:58:20.024 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.101 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.179 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.240 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.294 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.367 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.439 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.531 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.603 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.676 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.748 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.829 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:20.918 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.009 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.112 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.205 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.268 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.325 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.391 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.460 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.542 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.612 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.690 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.782 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.879 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:21.980 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.078 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.171 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.241 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.295 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.365 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.451 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.531 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.600 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.674 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.759 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.855 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:22.947 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.034 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.139 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.321 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.413 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.506 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.598 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.689 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.778 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.850 | INFO     | service.queue_monitor | services.queue_monitor:delete_job:325 | Job deleted | job_id=non_existent_job_id
+2026-04-06 21:58:23.879 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:23.983 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.082 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.178 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.252 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.310 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.389 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.466 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.559 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.639 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.724 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.817 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.889 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:24.915 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:24.995 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.022 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.087 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.092 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:25.095 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=3
+2026-04-06 21:58:25.113 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.174 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.180 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.202 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.257 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.264 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.283 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.336 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.356 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.422 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.448 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.520 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.524 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:25.556 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.635 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.662 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.740 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.772 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.840 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.869 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:25.945 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:25.949 | DEBUG    | repository.bot | repositories.base:update:130 | Updated | id=1
+2026-04-06 21:58:25.968 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.042 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.047 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.051 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:26.054 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=3
+2026-04-06 21:58:26.057 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=4
+2026-04-06 21:58:26.060 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=5
+2026-04-06 21:58:26.081 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.150 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.155 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.159 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:26.162 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=3
+2026-04-06 21:58:26.166 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=4
+2026-04-06 21:58:26.169 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=5
+2026-04-06 21:58:26.187 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.242 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.247 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.266 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.314 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.342 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.414 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.446 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.517 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.522 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:26.527 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=3
+2026-04-06 21:58:26.532 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=4
+2026-04-06 21:58:26.536 | DEBUG    | repository.media | repositories.base:create:41 | Created | id=5
+2026-04-06 21:58:26.567 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.646 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.691 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.767 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.773 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=2
+2026-04-06 21:58:26.777 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=3
+2026-04-06 21:58:26.814 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:26.895 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.908 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:26.908 | INFO     | service.user | services.user:get_or_create:82 | New user registered | telegram_id=123456789 | bot_id=1 | language=en
+2026-04-06 21:58:26.937 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:27.015 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:27.024 | DEBUG    | repository.telegramuser | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:27.059 | INFO     | service.cache | services.cache:connect:48 | Connected to FakeRedis (dev mode)
+2026-04-06 21:58:27.126 | DEBUG    | repository.bot | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:27.134 | DEBUG    | repository.ad | repositories.base:create:41 | Created | id=1
+2026-04-06 21:58:27.137 | INFO     | service.ad | services.ad:create:76 | Ad created | ad_id=1 | name=Test Campaign

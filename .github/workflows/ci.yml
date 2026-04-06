@@ -36,7 +36,7 @@ jobs:
           STORAGE_CHANNEL_ID: "-1001234567890"
         run: |
           uv run pytest tests/unit/ \
-            --cov=src \
+            --cov \
             --cov-report=xml \
             -v \
             --timeout=30
@@ -160,7 +160,7 @@ jobs:
           STORAGE_CHANNEL_ID: "-1001234567890"
         run: |
           uv run pytest tests/ \
-            --cov=src \
+            --cov \
             --cov-report=html \
             --cov-report=term-missing \
             -v
