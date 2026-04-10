@@ -1,0 +1,1498 @@
+
+youtube.py
+
+import asyncio, uvloop, tempfile, shutil
+from core.youtube.yt_video import YTVideo
+from core.youtube.yt_audio import YTAudio
+from core.youtube.yt_video_playlist import YTVideoPlaylist
+from handler.logger import LoggerHandler
+from typing import Optional, Dict
+from pathlib import Path
+
+
+
+class YouTube(YTAudio, YTVideo):
+    def __init__(self, download_dir: str = None, playlist_dir: str = None):
+        self.logger_handler = LoggerHandler("YouTube")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.logger.info(f"YouTube Downloader Initialized")
+
+        if download_dir is None:
+            download_dir = tempfile.mkdtemp(prefix="yt_cache_")
+        if playlist_dir is None:
+            playlist_dir = tempfile.mkdtemp(prefix="yt_cache_")
+
+        YTAudio.__init__(self, playlist_dir)
+        YTVideo.__init__(self, download_dir)
+
+
+    async def __aenter__(self):
+        """Асинхронный вход в контекстный менеджер."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Асинхронный выход из контекстного менеджера."""
+        self.cleanup()
+
+
+    async def cleanup(self):
+        try:
+            await asyncio.to_thread(shutil.rmtree, self.download_dir, ignore_errors=True)
+            await asyncio.to_thread(shutil.rmtree, self.playlist_dir, ignore_errors=True)
+            self.logger.info("Temporary files cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error cleaning up: {e}", exc_info=True)
+
+
+
+yt_music.py
+
+from concurrent.futures.thread import ThreadPoolExecutor
+from functools import partial
+import asyncio, uvloop, tempfile, shutil, asyncio, yt_dlp, os
+from handler.logger import LoggerHandler
+from typing import Optional, Dict
+from pathlib import Path
+from pathlib import Path
+from sqlalchemy.ext.asyncio import AsyncSession
+from yt_dlp import YoutubeDL
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime
+from database.database import DataBase
+from typing import Optional, Callable, List
+
+
+
+
+
+
+
+
+class YTAudio:
+    def __init__(self, playlist_dir: str = None):
+        self.playlist_dir = playlist_dir or tempfile.mkdtemp(prefix="yt_cache_")
+        self.executor  = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
+        self.logger_handler = LoggerHandler("YouTube Audio")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.logger.info(f"YouTube Audio Initialized")
+
+        self.ffmpeg_args = [
+            '-threads', '0',
+            '-preset', 'ultrafast',
+            '-b:a', '320k',
+            '-ar', '44100',
+        ]
+
+        self.postprocessors = [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '320',
+        }]
+
+        self.aria2c_args = [
+            '-x', '16', '-s', '16',
+            '-k', '2M', '--min-split-size=2M',
+            '--max-connection-per-server=16',
+            '--max-concurrent-downloads=16',
+            '--max-tries=10', '--retry-wait=1', '--timeout=10',
+            '--summary-interval=0', '--download-result=hide',
+            '--quiet=true', '--enable-http-keep-alive=true',
+            '--enable-http-pipelining=true', '--file-allocation=none',
+            '--no-conf=true', '--auto-file-renaming=false',
+            '--allow-overwrite=true', '--continue=true',
+        ]
+
+        self.base_ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': self.postprocessors,
+            'merge_output_format': 'mp3',
+            'ffmpeg_location': '/usr/local/bin/ffmpeg',
+            'ffmpeg_args': self.ffmpeg_args,
+            'logger': self.logger,
+            'quiet': True,
+            'no_warnings': True,
+            'ignoreerrors': True,
+            'noprogress': True,
+            'socket_timeout': 10,
+            'retries': 20,
+            'fragment_retries': 20,
+            'extractor_retries': 3,
+            'concurrent_fragments': 16,
+            'outtmpl': os.path.join(self.playlist_dir, '%(title)s.%(ext)s'),
+            'external_downloader': '/usr/local/bin/aria2c',
+            'external_downloader_args': self.aria2c_args,
+            'writethumbnail': False,
+            'writeinfojson': False,
+            'writesubtitles': False,
+            'writeautomaticsub': False,
+            'playlistreverse': True,
+            'playlist_items': None,
+            'playlist_start': 1,
+            'playlist_end': None,
+            'prefer_ffmpeg': True,
+            'add_metadata': True,
+            'embed_thumbnail': False,
+            'embed_chapters': False,
+            'embed_info_json': False,
+        }
+
+
+    async def __aenter__(self):
+        """Асинхронный вход в контекстный менеджер."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Асинхронный выход из контекстного менеджера."""
+        await self.cleanup()
+
+    async def download_audio_from_video(self, url):
+        async with self.semaphore:
+            def _download_audio():
+                audio_opts = {
+                    **self.base_ydl_opts,
+                    'format': 'bestaudio/best',
+                    'postprocessors': [
+                        {
+                            'key': 'FFmpegExtractAudio',
+                            'preferredcodec': 'mp3',
+                            'preferredquality': '320',
+                        }
+                    ],
+                    'skip_download': False,
+                }
+
+                with yt_dlp.YoutubeDL(audio_opts) as ydl:
+                    info = ydl.extract_info(url, download=True)
+                    filename = os.path.splitext(ydl.prepare_filename(info))[0] + ".mp3"
+                    if not os.path.exists(filename):
+                        self.logger.error(f"Файл не был найден: {filename}")
+                        return None
+                    return filename
+
+            return await self._run_in_executor(_download_audio)
+
+    # Метод для скачивания всех аудиотреков из плейлиста
+    async def download_audio_playlist(self, playlist_url):
+        def _download_playlist():
+            # Создаем директорию, если она не существует
+            os.makedirs(self.playlist_dir, exist_ok=True)
+
+            playlist_opts = {
+                **self.base_ydl_opts,
+                'format': 'bestaudio/best',
+                'postprocessors': [
+                    {
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': '320',
+                    }
+                ],
+                'skip_download': False,
+                'outtmpl': os.path.join(self.playlist_dir, '%(title)s.%(ext)s'),
+            }
+
+            with yt_dlp.YoutubeDL(playlist_opts) as ydl:
+                try:
+                    # Скачиваем плейлист
+                    ydl.download([playlist_url])
+
+                    # Даем время на конвертацию
+                    import time
+                    time.sleep(3)
+
+                    # Получаем список MP3 файлов
+                    files = []
+                    self.logger.info(f"Checking directory: {self.playlist_dir}")
+
+                    for file_name in os.listdir(self.playlist_dir):
+                        self.logger.info(f"Found file: {file_name}")
+                        if file_name.endswith('.mp3'):
+                            full_path = os.path.join(self.playlist_dir, file_name)
+                            if os.path.exists(full_path):
+                                self.logger.info(f"Adding file to list: {full_path}")
+                                files.append(full_path)
+
+                    if not files:
+                        self.logger.error(f"No MP3 files found in {self.playlist_dir}")
+                        return None
+
+                    self.logger.info(f"Found {len(files)} MP3 files")
+                    return files
+
+                except Exception as e:
+                    self.logger.error(f"Error downloading playlist: {str(e)}")
+                    return None
+
+        return await self._run_in_executor(_download_playlist)
+
+    # Вспомогательный метод
+    async def _run_in_executor(self, func, *args, **kwargs):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(self.executor, partial(func, *args, **kwargs))
+
+    async def cleanup(self):
+        try:
+            await asyncio.to_thread(shutil.rmtree, self.playlist_dir, ignore_errors=True)
+            self.logger.info("Temporary files cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error cleaning up: {e}", exc_info=True)
+
+
+
+
+
+
+
+async def main():
+    yt_music = YTAudio()
+
+    video_url = "https://www.youtube.com/watch?v=Nb2Z4UqBZg8"
+    playlist_url = "https://www.youtube.com/playlist?list=PLfFbb6n4yK_vktV1P-OwcmBdILualfnZN"
+
+    # Скачиваем одно аудио
+    # await yt_music.download_audio_from_video(video_url)
+    await yt_music.download_audio_playlist(playlist_url)
+
+    # Скачиваем весь плейлист в mp3
+    # await yt_music.download_audio_playlist(playlist_url)
+
+
+if __name__ == "__main__":
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    uvloop.install()
+    asyncio.run(main())
+
+yt_video.py
+
+from functools import partial
+import asyncio, uvloop, tempfile, os, shutil, yt_dlp, asyncio, resource, socket, tempfile, uvloop
+from handler.logger import LoggerHandler
+from typing import Optional, Dict
+from pathlib import Path
+from pathlib import Path
+from sqlalchemy.ext.asyncio import AsyncSession
+from yt_dlp import YoutubeDL
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime
+from database.database import DataBase
+from typing import Optional, Callable, List
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Dict, Callable
+
+
+
+
+
+
+
+class YTVideo:
+    def __init__(self, download_dir: str = None):
+        self.download_dir = download_dir or tempfile.mkdtemp(prefix="yt_cache_")
+        self.executor = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
+        self.logger_handler = LoggerHandler("YouTube Video")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.logger.info(f"YouTube Downloader Initialized")
+
+        self.base_ydl_opts = {
+            # Вывод и логирование
+            'logger': self.logger,
+            'outtmpl': os.path.join(self.download_dir, '%(title).200s.%(ext)s'),
+            'quiet': True,
+            'noprogress': True,
+            'ignoreerrors': True,
+            'no_warnings': True,
+
+            # Форматы
+            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+            'merge_output_format': 'mp4',
+
+            # Скачивание
+            'http_chunk_size': 500 * 1024 * 1024,
+            'concurrent_fragments': 16,
+            'keepvideo': True,
+            'nopart': False,
+
+            # Повторные попытки
+            'retries': 10,
+            'fragment_retries': 10,
+            'file_access_retries': 10,
+            'extractor_retries': 10,
+            'socket_timeout': 30,
+            'extractor_timeout': 30,
+
+            # Кэш
+            'cachedir': os.path.join(self.download_dir, '.cache'),
+            'cache_archive': True,
+            'cache_archive_path': os.path.join(self.download_dir, '.cache', 'archive.txt'),
+            'skip_download_archive': True,
+
+            # Безопасность
+            'nocheckcertificate': True,
+            'prefer_insecure': True,
+            'geo_bypass': True,
+
+            # Метаданные
+            'writethumbnail': False,
+            'writeinfojson': False,
+            'writesubtitles': False,
+            'writeautomaticsub': False,
+
+            # Внешние загрузчики
+            'external_downloader': '/usr/local/bin/aria2c',
+            'external_downloader_args': [
+                '-x', '16', '-s', '16', '-k', '2M',
+                '--min-split-size=2M',
+                '--max-connection-per-server=16',
+                '--max-concurrent-downloads=16',
+                '--max-tries=10',
+                '--retry-wait=1',
+                '--timeout=10',
+                '--summary-interval=0',
+                '--download-result=hide',
+                '--quiet=true',
+                '--enable-http-keep-alive=true',
+                '--enable-http-pipelining=true',
+                '--file-allocation=none',
+                '--no-conf=true',
+                '--remote-time=false',
+                '--conditional-get=false',
+            ],
+
+            'ffmpeg_location': '/usr/local/bin/ffmpeg',
+            'ffmpeg_args': ['-threads', '0', '-preset', 'ultrafast'],
+
+            # Отключение cookies
+            'cookiesfrombrowser': None,
+            'cookiefile': None,
+        }
+
+    async def __aenter__(self):
+        """Асинхронный вход в контекстный менеджер."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Асинхронный выход из контекстного менеджера."""
+        await self.cleanup()
+
+    async def _run_in_executor(self, func, *args, **kwargs):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(self.executor, partial(func, *args, **kwargs))
+
+    async def get_available_formats(self, url: str):
+        """Get available video formats with retry mechanism"""
+        formats, _ = await self.get_formats_with_retry(url)
+        return formats
+
+    async def _get_formats_internal(self, url: str):
+        """Internal method for getting formats without retry"""
+        def _get_formats():
+            with yt_dlp.YoutubeDL(self.base_ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+                formats = info.get("formats", [])
+                seen = set()
+                filtered = []
+
+                valid_resolutions = {"360p", "480p", "720p", "1080p", "1440p", "2160p"}
+                audio_formats = [f for f in formats if f.get("acodec") != "none" and f.get("vcodec") == "none"]
+                best_audio = max(audio_formats, key=lambda x: x.get("abr") or 0) if audio_formats else None
+                audio_size = best_audio.get("filesize") or best_audio.get("filesize_approx") or 0 if best_audio else 0
+
+                for f in formats:
+                    if f.get("vcodec") == "none":
+                        continue
+
+                    res = f.get("format_note") or f.get("resolution") or f.get("height")
+                    if isinstance(res, int):
+                        res = f"{res}p"
+                    if not res or res not in valid_resolutions or res in seen:
+                        continue
+
+                    seen.add(res)
+                    video_size = f.get("filesize") or f.get("filesize_approx") or 0
+                    total_size = video_size + audio_size if video_size and audio_size else video_size or 0
+
+                    # Format size for display
+                    if total_size < 1024 * 1024:  # Less than 1MB
+                        size_str = f"{round(total_size / 1024, 2)} KB"
+                    else:
+                        size_str = f"{round(total_size / (1024 * 1024), 2)} MB"
+
+                    filtered.append({
+                        "format_id": f["format_id"],
+                        "resolution": res,
+                        "filesize": total_size,
+                        "size_str": size_str
+                    })
+
+                filtered.sort(key=lambda x: int(x["resolution"].rstrip("p")))
+                return filtered
+
+        return await self._run_in_executor(_get_formats)
+
+    async def get_formats_with_retry(self, url: str, max_retries: int = 3) -> tuple[list, bool]:
+        """Get video formats with retries and auto-update"""
+        formats = []
+        updated = False
+
+        for attempt in range(max_retries):
+            try:
+                formats = await self._get_formats_internal(url)
+                if formats:
+                    return formats, updated
+
+                if attempt == 0:
+                    updated = await self.update_ytdlp()
+                    if updated:
+                        self.logger.info("yt-dlp updated successfully, retrying...")
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(1)
+
+            except Exception as e:
+                self.logger.warning(f"Format fetch attempt {attempt + 1} failed: {e}")
+                if attempt == max_retries - 1:
+                    raise
+
+        return formats, updated
+
+    async def download_video_by_format(self, url: str, format_id: str, progress_callback=None):
+        """Download video in specific format with audio"""
+        async with self.semaphore:
+            def _download():
+                ydl_opts = {
+                    **self.base_ydl_opts,
+                    'format': f"{format_id}+bestaudio",
+                    'progress_hooks': [progress_callback] if progress_callback else [],
+                    'merge_output_format': 'mp4',
+                    'postprocessors': [{
+                        'key': 'FFmpegVideoConvertor',
+                        'preferedformat': 'mp4'
+                    }]
+                }
+
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    try:
+                        info = ydl.extract_info(url, download=True)
+                        if not info:
+                            self.logger.error(f"Failed to download video: {url}")
+                            return None
+
+                        filename = ydl.prepare_filename(info)
+                        if not os.path.exists(filename):
+                            self.logger.error(f"File not found: {filename}")
+                            return None
+
+                        return filename
+                    except Exception as e:
+                        self.logger.error(f"Download error: {e}")
+                        return None
+
+            return await self._run_in_executor(_download)
+
+    async def update_ytdlp(self):
+        """Update yt-dlp to the latest version"""
+        try:
+            self.logger.info("Updating yt-dlp...")
+            process = await asyncio.create_subprocess_exec(
+                'yt-dlp', '-U',
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            await process.communicate()
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to update yt-dlp: {e}")
+            return False
+
+    async def cleanup(self):
+        """Clean up temporary files"""
+        try:
+            await asyncio.to_thread(shutil.rmtree, self.download_dir, ignore_errors=True)
+            self.logger.info("Temporary files cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error cleaning up: {e}", exc_info=True)
+
+
+
+
+# vide: https://www.youtube.com/shorts/7LtB04wjzcg
+# Playlist: https://www.youtube.com/playlist?list=PLfFbb6n4yK_vktV1P-OwcmBdILualfnZN
+
+async def main():
+    yt = YTVideo()
+    playlist_url = "https://www.youtube.com/playlist?list=PLfFbb6n4yK_vktV1P-OwcmBdILualfnZN"
+
+    # Если это плейлист — получаем первое видео
+    urls = await yt.extract_video_urls_from_playlist(playlist_url)
+    test_url = urls[0] if urls else playlist_url  # если одиночное видео
+
+    # Получаем доступные форматы
+    formats = await yt.get_available_formats(test_url)
+    if not formats:
+        print("❌ Не удалось получить форматы.")
+        return
+
+    # Выводим список
+    print("\n📺 Доступные качества:")
+    for i, f in enumerate(formats):
+        size = round((f['filesize'] or 0) / 1024 / 1024, 2)
+        print(f"{i + 1}. {f['resolution']} — {size} MB (format_id={f['format_id']})")
+
+    # Выбор пользователя
+    choice = int(input("\nВыбери номер качества: ")) - 1
+    if not 0 <= choice < len(formats):
+        print("❌ Неверный выбор.")
+        return
+    selected_format_id = formats[choice]['format_id']
+
+    # Выбор — одиночное видео или плейлист
+    if urls:
+        print("\n🔽 Скачивание плейлиста...\n")
+        await yt.download_playlist(playlist_url, selected_format_id)
+    else:
+        print("\n🔽 Скачивание видео...\n")
+        await yt.download_video_by_format(playlist_url, selected_format_id)
+
+
+if __name__ == "__main__":
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    uvloop.install()
+    asyncio.run(main())
+
+vk.py
+
+import os, re, yt_dlp, asyncio, subprocess, shutil, tempfile, uvloop
+from typing import Optional, Dict, Any, Union, List
+from handler.logger import LoggerHandler
+from concurrent.futures import ThreadPoolExecutor
+
+
+class Vk:
+    def __init__(self, output_path: str = None):
+        self.output_path = output_path or tempfile.mkdtemp(prefix="vk_cache_")
+        self.HEADERS = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': '*/*',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'DNT': '1',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'Upgrade-Insecure-Requests': '1',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Referer': 'https://vk.com/',
+        }
+        self.logger_handler = LoggerHandler("VK")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.executor = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
+        self.logger.info("VK Downloader Initialized")
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+
+    @staticmethod
+    def is_valid_url(url: str) -> bool:
+        patterns = [
+            r'https?://(www\.)?vk\.com/(video|audio|clip|wall).+',
+            r'https?://(www\.)?vk\.ru/(video|audio|clip|wall).+',
+            r'https?://(www\.)?m\.vk\.com/(video|audio|clip|wall).+',
+        ]
+        return any(bool(re.match(pattern, url)) for pattern in patterns)
+
+    async def download(self, urls: Union[str, List[str]], remove_watermark: bool = False) -> Optional[Dict[str, Any]]:
+        if isinstance(urls, str):
+            urls = [url.strip() for url in urls.split(',') if url.strip()]
+
+        valid_urls = [url for url in urls if self.is_valid_url(url)]
+        if not valid_urls:
+            self.logger.error("❌ No valid VK URLs provided")
+            return None
+
+        loop = asyncio.get_event_loop()
+        tasks = [loop.run_in_executor(None, self._download_video, url, remove_watermark) for url in valid_urls]
+        results = await asyncio.gather(*tasks)
+
+        for res in results:
+            if res:  # Если хоть один файл скачался — возвращаем
+                return res
+        return None
+
+    def _download_video(self, url: str, remove_watermark: bool = False) -> Optional[Dict[str, Any]]:
+        try:
+            is_audio = 'audio' in url
+            ydl_opts = {
+                'ffmpeg_location': '/usr/local/bin/ffmpeg',
+                'ffmpeg_args': ['-threads', '0', '-preset', 'ultrafast'],
+                'format': 'bestaudio/best' if is_audio else 'best',
+                'outtmpl': f'{self.output_path}/%(title)s.%(ext)s',
+                'quiet': False,
+                'retries': 10,
+                'fragment_retries': 10,
+                'progress_hooks': [self._progress_hook],
+                'http_headers': self.HEADERS,
+                'cookiesfrombrowser': ('chrome',),
+                'concurrent_fragment_downloads': 5,
+                'downloader': '/usr/local/bin/aria2c',
+                'downloader_args': {
+                    'aria2c': [
+                        '--min-split-size=1M',
+                        '--max-connection-per-server=16',
+                        '--max-concurrent-downloads=16',
+                        '--split=16',
+                        '--max-tries=10',
+                        '--retry-wait=1',
+                        '--timeout=10',
+                        '--connect-timeout=10',
+                        '--file-allocation=none',
+                        '--disk-cache=64M',
+                        '--summary-interval=0',
+                        '--auto-file-renaming=false',
+                        '--allow-overwrite=true',
+                        '--continue=true'
+                    ]
+                },
+                'external_downloader': '/usr/local/bin/aria2c',  # Дополнительно укажи это
+                'external_downloader_args': [
+                    '--min-split-size=1M',
+                    '--max-connection-per-server=16',
+                    '--max-concurrent-downloads=16',
+                    '--split=16',
+                    '--max-tries=10',
+                    '--retry-wait=1',
+                    '--timeout=10',
+                    '--connect-timeout=10',
+                    '--file-allocation=none',
+                    '--disk-cache=64M',
+                    '--summary-interval=0',
+                    '--auto-file-renaming=false',
+                    '--allow-overwrite=true',
+                    '--continue=true'
+                ],
+            }
+
+            if is_audio:
+                ydl_opts.update({
+                    'postprocessors': [{
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': '320',
+                    }],
+                })
+
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                title = info.get('title', 'Без названия')
+                ext = info.get('ext')
+                filename = f"{title}.{ext}"
+                filepath = os.path.join(self.output_path, filename)
+
+                if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                    self.logger.error("❌ Download failed: File not found")
+                    return None
+
+                if not is_audio and remove_watermark:
+                    filepath = self._remove_watermark(filepath)
+
+                if os.path.exists(filepath) and os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
+                    self.logger.info(f"✅ {'Аудио' if is_audio else 'Видео'} успешно скачано: «{title}»")
+                    return {
+                        "success": True,
+                        "file_path": filepath,  # <-- вот так!
+                        "title": title,
+                        "duration": info.get('duration'),
+                        "thumbnail": info.get('thumbnail'),
+                        "uploader": info.get('uploader'),
+                        "upload_date": info.get('upload_date'),
+                        "type": "audio" if is_audio else "video",
+                    }
+                else:
+                    self.logger.error("❌ Download failed: File is empty or not created")
+                    return None
+
+        except yt_dlp.utils.DownloadError as e:
+            self.logger.error(f"❌ Ошибка при загрузке {url}: {e}")
+        except Exception as e:
+            self.logger.error(f"❌ Неизвестная ошибка при загрузке {url}: {e}")
+            self.logger.exception(e)
+        return None
+
+
+    def _remove_watermark(self, file_path: str) -> str:
+        if not os.path.exists(file_path) or not os.path.isfile(file_path):
+            self.logger.error("❌ File not found or is not a file for watermark removal")
+            return file_path
+
+        new_file_path = file_path.replace(".mp4", "_nowm.mp4")
+
+        try:
+            command = [
+                'ffmpeg',
+                '-i', file_path,
+                '-filter:v', 'crop=in_w:in_h-185',
+                '-c:a', 'copy',
+                '-preset', 'ultrafast',
+                '-movflags', '+faststart',
+                '-y',
+                new_file_path
+            ]
+
+            self.logger.info("🧼 Removing watermark using ffmpeg...")
+
+            process = subprocess.Popen(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True
+            )
+
+            stdout, stderr = process.communicate()
+
+            if process.returncode != 0:
+                self.logger.error(f"❌ Failed to remove watermark: {stderr}")
+                return file_path
+
+            if os.path.exists(new_file_path) and os.path.isfile(new_file_path) and os.path.getsize(new_file_path) > 0:
+                try:
+                    os.remove(file_path)
+                    return new_file_path
+                except Exception as e:
+                    self.logger.error(f"❌ Failed to remove original file: {e}")
+                    return new_file_path
+            else:
+                self.logger.error("❌ Watermark removal failed: Output file is empty or not created")
+                return file_path
+
+        except Exception as e:
+            self.logger.error(f"❌ Error during watermark removal: {e}")
+            return file_path
+
+    def _progress_hook(self, d: Dict[str, Any]) -> None:
+        if d['status'] == 'downloading':
+            percent = d.get('_percent_str', '0%').strip()
+            speed = d.get('_speed_str', 'N/A').strip()
+            eta = d.get('_eta_str', 'N/A').strip()
+            self.logger.info(f"⬇️  {percent} at {speed} {eta}")
+        elif d['status'] == 'finished':
+            self.logger.info("✅ Download complete. Finalizing...")
+        elif d['status'] == 'error':
+            self.logger.error(f"❌ Download error: {d.get('error', 'Unknown error')}")
+
+    async def cleanup(self):
+        try:
+            if os.path.exists(self.output_path):
+                await asyncio.to_thread(shutil.rmtree, self.output_path, ignore_errors=True)
+            self.executor.shutdown(wait=False)
+            self.logger.info("Resources cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error during cleanup: {e}", exc_info=True)
+
+
+
+
+
+async def main():
+    async with Vk() as vk:
+        try:
+            # Для видео
+            video_result = await vk.download(
+                "https://vk.com/video-147845620_456247134",
+                remove_watermark=True
+            )
+            if video_result and video_result.get('success'):
+                print(f"Video downloaded successfully to: {video_result['path']}")
+                print(f"Title: {video_result['title']}")
+                print(f"Duration: {video_result['duration']} seconds")
+            else:
+                print("Video download failed")
+
+        except Exception as e:
+            print(f"Error during download process: {e}")
+
+if __name__ == "__main__":
+    try:
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+        uvloop.install()
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nDownload interrupted by user")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+tiktok.py
+
+import os, re, yt_dlp, asyncio, aiohttp, subprocess, shutil, tempfile, uvloop
+
+from typing import Optional, Dict, Any
+from handler.logger import LoggerHandler
+from datetime import datetime
+from sqlalchemy.ext.asyncio import AsyncSession
+from concurrent.futures import ThreadPoolExecutor
+
+
+class TikTok:
+    def __init__(self, output_path: str = None):
+        self.output_path = output_path or tempfile.mkdtemp(prefix="tiktok_cache_")
+        self.HEADERS = {
+            'user-agent': (
+                'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.146.3-Gen4_12000410) '
+                'AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
+            )
+        }
+        self.logger_handler = LoggerHandler("TikTok")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.executor = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
+        self.logger.info("TikTok Downloader Initialized")
+
+
+    async def __aenter__(self):
+        """Асинхронный вход в контекстный менеджер."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+
+    @staticmethod
+    def is_valid_url(url: str) -> bool:
+        pattern = r'https?://(www\.)?tiktok\.com/.+'
+        return bool(re.match(pattern, url))
+
+    @staticmethod
+    def _progress_hook(cls, d: Dict[str, Any]) -> None:
+        if d['status'] == 'downloading':
+            cls.logger.info(f"⬇️  {d.get('_percent_str', '')} at {d.get('_speed_str', '')} {d.get('_eta_str', '')}")
+        elif d['status'] == 'finished':
+            cls.logger.info("\n✅ Download complete. Finalizing...")
+
+    def _download_video(self, ydl_opts: Dict[str, Any], url: str) -> None:
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([url])
+        except Exception as e:
+            self.logger.error(f"❌ Download failed: {e}")
+            raise
+
+    async def download(self, url: str, remove_watermark: bool = False) -> Optional[Dict[str, Any]]:
+        if not self.is_valid_url(url):
+            self.logger.error("❌ Invalid TikTok URL.")
+            return None
+
+        # Используем временный файл для загрузки
+        temp_file = os.path.join(self.output_path, "temp_video.mp4")
+
+        ydl_opts = {
+            'format': 'best',
+            'outtmpl': temp_file,
+            'http_chunk_size': 500 * 1024 * 1024,
+            'retries': 10,
+            'fragment_retries': 10,
+            'concurrent_fragments': 5,
+            'noplaylist': True,
+            'quiet': False,
+            'http_headers': self.HEADERS,
+            'socket_timeout': 30,
+            'extractor_retries': 3,
+            'ignoreerrors': True,
+            'no_warnings': True,
+            'extract_flat': False,
+            'external_downloader': '/usr/local/bin/aria2c',
+            'external_downloader_args': [
+                '-x', '16', '-s', '16', '-k', '2M',
+                '--min-split-size=2M',
+                '--max-connection-per-server=16',
+                '--max-concurrent-downloads=16',
+                '--max-tries=10',
+                '--retry-wait=1',
+                '--timeout=10',
+                '--summary-interval=0',
+                '--download-result=hide',
+                '--quiet=true',
+                '--enable-http-keep-alive=true',
+                '--enable-http-pipelining=true',
+                '--file-allocation=none',
+                '--no-conf=true',
+            ],
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4',
+            }],
+            'ffmpeg_location': '/usr/local/bin/ffmpeg',
+            'ffmpeg_args': [
+                '-threads', '0',
+                '-preset', 'ultrafast',
+                '-b:v', '2M',
+                '-maxrate', '2M',
+                '-bufsize', '2M',
+                '-b:a', '192k',
+            ],
+            'dns_servers': ['8.8.8.8', '8.8.4.4'],
+        }
+
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, self._download_video, ydl_opts, url)
+
+            if not os.path.exists(temp_file) or not os.path.isfile(temp_file):
+                self.logger.error("❌ Download failed: File not found")
+                return None
+
+            if remove_watermark:
+                final_path = await self._remove_watermark(temp_file)
+            else:
+                final_path = temp_file
+
+            if os.path.exists(final_path) and os.path.isfile(final_path) and os.path.getsize(final_path) > 0:
+                self.logger.info(f"✅ Saved to: {final_path}")
+                return {
+                    "success": True,
+                    "file_path": final_path,
+                    "title": os.path.basename(final_path),
+                    "type": "video"
+                }
+            else:
+                self.logger.error("❌ Download failed: File is empty or not created")
+                return None
+
+        except yt_dlp.utils.DownloadError as e:
+            self.logger.error(f"❌ Download error: {e}")
+        except Exception as e:
+            self.logger.error(f"⚠️ Unexpected error: {e}")
+            self.logger.exception(e)
+
+        return None
+
+    async def _remove_watermark(self, file_path: str) -> str:
+        if not os.path.exists(file_path) or not os.path.isfile(file_path):
+            self.logger.error("❌ File not found or is not a file for watermark removal")
+            return file_path
+
+        new_file_path = file_path.replace(".mp4", "_nowm.mp4")
+
+        try:
+            command = [
+                'ffmpeg',
+                '-i', file_path,
+                '-filter:v', 'crop=in_w:in_h-185',
+                '-c:a', 'copy',
+                '-preset', 'ultrafast',
+                '-movflags', '+faststart',
+                '-y',
+                new_file_path
+            ]
+
+            self.logger.info("🧼 Removing watermark using ffmpeg...")
+
+            process = subprocess.Popen(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True
+            )
+
+            stdout, stderr = process.communicate()
+
+            if process.returncode != 0:
+                self.logger.error(f"❌ Failed to remove watermark: {stderr}")
+                return file_path
+
+            if os.path.exists(new_file_path) and os.path.isfile(new_file_path) and os.path.getsize(new_file_path) > 0:
+                try:
+                    os.remove(file_path)
+                    return new_file_path
+                except Exception as e:
+                    self.logger.error(f"❌ Failed to remove original file: {e}")
+                    return new_file_path
+            else:
+                self.logger.error("❌ Watermark removal failed: Output file is empty or not created")
+                return file_path
+
+        except Exception as e:
+            self.logger.error(f"❌ Error during watermark removal: {e}")
+            return file_path
+
+    async def cleanup(self):
+        """Очистка ресурсов"""
+        try:
+            if os.path.exists(self.output_path):
+                await asyncio.to_thread(shutil.rmtree, self.output_path, ignore_errors=True)
+            self.executor.shutdown(wait=False)
+            self.logger.info("Resources cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error during cleanup: {e}", exc_info=True)
+
+
+
+
+
+
+async def main():
+    async with TikTok() as tiktok:
+        result = await tiktok.download(
+            "https://www.tiktok.com/@akirandy/video/7496071027382816008",
+            remove_watermark=True
+        )
+        if result:
+            print(f"Video downloaded successfully to: {result}")
+        else:
+            print("Download failed")
+
+
+
+
+if __name__ == "__main__":
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    uvloop.install()
+    asyncio.run(main())
+
+pinterest.py
+
+import os.path, re, aiohttp, asyncio, os, json, datetime, tempfile, shutil, uvloop, aiofiles
+
+from handler.logger import LoggerHandler
+from pathlib import Path
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+from database.database import DataBase
+from typing import Optional, Callable, List, AsyncGenerator,  Dict, Any
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import asynccontextmanager
+
+
+class Pinterest:
+    def __init__(self, output_path: str = None):
+        self.output_path = output_path or tempfile.mkdtemp(prefix="yt_cache_")
+        self.executor = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
+        self.BASE_API_URL = "https://www.pinterest.com/resource/BaseSearchResource/get/"
+        self.HEADERS = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        self.logger_handler = LoggerHandler("Pinterest Downloader")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.logger.info(f"Pinterest Downloader Initialized")
+
+    async def __aenter__(self):
+        """Асинхронный вход в контекстный менеджер."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Асинхронный выход из контекстного менеджера."""
+        self.cleanup()
+
+    @asynccontextmanager
+    async def aiohttp_session_scope(self) -> AsyncGenerator[aiohttp.ClientSession, None]:
+        """Асинхронный контекстный менеджер для aiohttp сессии с обработкой SSL-ошибок."""
+        timeout = aiohttp.ClientTimeout(total=30, connect=10, sock_read=10)
+        connector = aiohttp.TCPConnector(limit=16,ttl_dns_cache=300,use_dns_cache=True,force_close=False,enable_cleanup_closed=True,ssl=False)
+        session = aiohttp.ClientSession(headers=self.HEADERS,timeout=timeout,connector=connector,trust_env=True)
+
+        try:
+            yield session
+        except aiohttp.ClientError as e:
+            self.logger.error(f"Network error: {e}")
+            raise
+        except Exception as e:
+            self.logger.error(f"Unexpected error: {e}")
+            raise
+        finally:
+            try:
+                if not session.closed:
+                    await session.close()
+            except Exception as e:
+                self.logger.error(f"Error closing session: {e}")
+
+    async def search(self, query: str) -> List[Dict[str, str]]:
+        async with self.aiohttp_session_scope() as session:
+            try:
+                self.logger.debug(f"Searching for: {query}")
+                params = {
+                    "source_url": f"/search/pins/?q={query}&rs=typed",
+                    "data": json.dumps({"options": {"query": query, "scope": "pins"}})
+                }
+                async with session.get(self.BASE_API_URL, params=params, headers=self.HEADERS) as response:
+                    data = await response.json()
+                    results = [
+                        {
+                            "url": item["images"]["orig"]["url"],
+                            "thumbnail": item["images"]["236x"]["url"]
+                        }
+                        for item in data.get("resource_response", {}).get("data", {}).get("results", [])
+                        if "images" in item and "orig" in item["images"] and "236x" in item["images"]
+                    ]
+                    self.logger.info(f"Found {len(results)} results for query: {query}")
+                    return results
+            except Exception as e:
+                self.logger.error(f"Search failed for query '{query}': {e}")
+                return []
+
+    async def download(self, pin_url: str, return_url: bool = False) -> Dict[str, Any]:
+        async with self.aiohttp_session_scope() as session:
+            try:
+                self.logger.debug(f"Starting download for: {pin_url}")
+                async with session.head(pin_url, allow_redirects=True) as response:
+                    full_url = str(response.url)
+
+                async with session.get(full_url, headers=self.HEADERS) as response:
+                    page = await response.text()
+
+                # Try extract video
+                video_match = re.search(r'"contentUrl"\s*:\s*"([^"]+\.mp4[^"]*)"', page)
+                if video_match:
+                    video_url = video_match.group(1).replace('\\u002F', '/').replace('\\', '')
+                    self.logger.info(f"Found video: {video_url}")
+                    if return_url:
+                        return {"success": True, "type": "video", "url": video_url}
+
+                    return await self._save_file(session, video_url, "pinterest_video_")
+
+                # Try extract image
+                image_match = re.search(r'https://i\.pinimg\.com/originals/[^"]+', page)
+                if image_match:
+                    image_url = image_match.group(0)
+                    self.logger.info(f"Found image: {image_url}")
+                    if return_url:
+                        return {"success": True, "type": "image", "url": image_url}
+
+                    return await self._save_file(session, image_url, "pinterest_image_")
+
+                self.logger.warning(f"No media found for {pin_url}")
+            except Exception as e:
+                self.logger.exception(f"Download failed for {pin_url}: {e}")
+
+    async def _save_file(self, session: aiohttp.ClientSession, media_url: str, prefix: str) -> Dict[str, Any]:
+        try:
+            self.logger.debug(f"Saving file from: {media_url}")
+            async with session.get(media_url, headers=self.HEADERS) as resp:
+                data = await resp.read()
+
+            filename = prefix + os.path.basename(media_url)
+            filepath = os.path.join(self.output_path, filename)
+            async with aiofiles.open(filepath, 'wb') as f:
+                await f.write(data)
+
+            self.logger.info(f"Saved {'video' if prefix == 'pinterest_video_' else 'image'} to {filepath}")
+
+            return {
+                "success": True,
+                "file_path": filepath,
+                "title": os.path.basename(filepath),
+                "type": "video" if prefix == "pinterest_video_" else "image"
+            }
+        except Exception as e:
+            self.logger.exception(f"Failed to save file from {media_url}: {e}")
+            return {"success": False}
+
+    async def cleanup(self):
+        """Очистка ресурсов"""
+        try:
+            if os.path.exists(self.output_path):
+                await asyncio.to_thread(shutil.rmtree, self.output_path, ignore_errors=True)
+            self.executor.shutdown(wait=False)
+            self.logger.info("Resources cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error during cleanup: {e}", exc_info=True)
+
+
+
+
+
+async def main():
+    async with Pinterest() as pinterest:
+        result = await pinterest.download("https://pin.it/5plgh0A5G")
+        if result["success"]:
+            print(f"Downloaded successfully to: {result['path']}")
+        else:
+            print(f"Download failed: {result.get('error', 'Unknown error')}")
+
+
+
+if __name__ == "__main__":
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    uvloop.install()
+    asyncio.run(main())
+
+instagram.py
+
+import asyncio, instaloader, tempfile, shutil
+from pathlib import Path
+from handler import logger
+from typing import Optional, Dict, List, Union
+from instaloader import Post, Profile, StoryItem
+from urllib.parse import urlparse
+
+
+class Instagram:
+    def __init__(self, url: str):
+        self.url = url
+        self.output_path = Path(tempfile.mkdtemp(prefix="instagram_cache"))
+        self.loader = instaloader.Instaloader(
+            download_comments=False,
+            download_video_thumbnails=False,
+            save_metadata=False,
+            download_geotags=False,
+            post_metadata_txt_pattern="",
+            storyitem_metadata_txt_pattern="",
+        )
+        self.logger_handler = logger.LoggerHandler("Instagram")
+        self.logger = self.logger_handler.setup_logger_handler()
+        self.logger.info(f"Instagram Downloader Initialized With URL: {url}")
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+        return self
+
+    async def download(self) -> Union[Dict, List[Dict], None]:
+        try:
+            content_type = self._detect_content_type(self.url)
+            self.logger.info(f"Detected content type: {content_type}")
+
+            match content_type:
+                case "post":
+                    result = await self._handle_post()
+                case "story":
+                    result = await self._handle_story()
+                case "reel":
+                    result = await self._handle_reel()
+                case "profile":
+                    result = await self._handle_profile()
+                case _:
+                    raise ValueError(f"Unsupported content type: {content_type}")
+
+            if result is None:
+                self.logger.warning(f"No content found for {content_type} at {self.url}")
+                return None
+
+            self.logger.info(f"Successfully downloaded {content_type} content")
+            return result
+
+        except Exception as e:
+            self.logger.error(f"[ ERROR ] Downloading content: {e}", exc_info=True)
+            return None
+
+    def _detect_content_type(self, url: str) -> str:
+        try:
+            if "/p/" in url:
+                return "post"
+            elif "/stories/" in url:
+                return "story"
+            elif "/reel/" in url:
+                return "reel"
+            elif "/" in url and not any(x in url for x in ["/p/", "/stories/", "/reel/"]):
+                return "profile"
+            else:
+                raise ValueError(f"Unsupported URL format: {url}")
+        except Exception as e:
+            self.logger.error(f"Error detecting content type: {e}")
+            raise
+
+    async def _handle_post(self) -> Optional[Dict]:
+        try:
+            post = await self._get_post(self.url)
+            if not post:
+                self.logger.warning(f"Post not found for URL: {self.url}")
+                return None
+
+            files = await self._download_post(post)
+            if not files:
+                self.logger.warning(f"No files downloaded for post: {post.shortcode}")
+                return None
+
+            return {
+                "type": "post",
+                "files": files,
+                "caption": post.caption or "Instagram post",
+                "shortcode": post.shortcode,
+                "link": f"https://www.instagram.com/p/{post.shortcode}/"
+            }
+        except Exception as e:
+            self.logger.error(f"Error handling post: {e}", exc_info=True)
+            return None
+
+    async def _handle_reel(self) -> Optional[Dict]:
+        try:
+            post = await self._get_post(self.url)
+            if not post:
+                self.logger.warning(f"Reel not found for URL: {self.url}")
+                return None
+
+            if not post.is_video:
+                self.logger.warning(f"Post is not a video: {post.shortcode}")
+                return None
+
+            files = await self._download_post(post)
+            if not files:
+                self.logger.warning(f"No files downloaded for reel: {post.shortcode}")
+                return None
+
+            return {
+                "type": "reel",
+                "files": files,
+                "caption": post.caption or "Instagram reel",
+                "shortcode": post.shortcode,
+                "link": f"https://www.instagram.com/reel/{post.shortcode}/"
+            }
+        except Exception as e:
+            self.logger.error(f"Error handling reel: {e}", exc_info=True)
+            return None
+
+    async def _handle_story(self) -> Optional[List[Dict]]:
+        try:
+            username = self.url.split("/stories/")[1].split("/")[0]
+            self.logger.info(f"Processing story for user: {username}")
+
+            profile = await asyncio.to_thread(Profile.from_username, self.loader.context, username)
+            story_items = await asyncio.to_thread(lambda: list(self.loader.get_stories(userids=[profile.userid])))
+
+            if not story_items:
+                self.logger.warning(f"No stories found for user: {username}")
+                return None
+
+            all_stories = []
+            for story in story_items:
+                for item in story.get_items():
+                    file = await self._download_story(item)
+                    if file:
+                        all_stories.append({
+                            "type": "story",
+                            "file": file,
+                            "date": item.date,
+                            "link": f"https://www.instagram.com/stories/{username}/{item.mediaid}/"
+                        })
+
+            if not all_stories:
+                self.logger.warning(f"No stories downloaded for user: {username}")
+                return None
+
+            return all_stories
+        except Exception as e:
+            self.logger.error(f"Error handling story: {e}", exc_info=True)
+            return None
+
+    async def _handle_profile(self) -> Optional[List[Dict]]:
+        try:
+            username = self.url.rstrip("/").split("/")[-1]
+            self.logger.info(f"Processing profile: {username}")
+
+            profile = await asyncio.to_thread(Profile.from_username, self.loader.context, username)
+            downloaded_posts = []
+
+            for post in profile.get_posts():
+                files = await self._download_post(post)
+                if files:
+                    downloaded_posts.append({
+                        "type": "post",
+                        "files": files,
+                        "caption": post.caption or "Instagram post",
+                        "shortcode": post.shortcode,
+                        "link": f"https://www.instagram.com/p/{post.shortcode}/"
+                    })
+                    await self.cleanup()
+                    self.output_path = Path(tempfile.mkdtemp(prefix="instagram_cache"))
+
+            if not downloaded_posts:
+                self.logger.warning(f"No posts downloaded for profile: {username}")
+                return None
+
+            return downloaded_posts
+        except Exception as e:
+            self.logger.error(f"Error handling profile: {e}", exc_info=True)
+            return None
+
+    async def _get_post(self, url: str) -> Optional[Post]:
+        try:
+            path = urlparse(url).path
+            shortcode = path.rstrip("/").split("/")[-1]
+            self.logger.info(f"Extracting post with shortcode: {shortcode}")
+            return await asyncio.to_thread(Post.from_shortcode, self.loader.context, shortcode)
+        except Exception as e:
+            self.logger.error(f"Error getting post: {e}", exc_info=True)
+            return None
+
+    async def _download_post(self, post: Post) -> Optional[List[str]]:
+        try:
+            target_path = self.output_path / post.shortcode
+            target_path.mkdir(parents=True, exist_ok=True)
+
+            await asyncio.to_thread(self.loader.download_post, post, target_path)
+
+            # Удаление метаданных
+            for ext in (".json.xz", ".txt"):
+                for f in target_path.glob(f"*{ext}"):
+                    f.unlink()
+
+            files = [str(f) for f in target_path.glob("*") if f.suffix in (".jpg", ".jpeg", ".png", ".mp4")]
+            if not files:
+                self.logger.warning(f"No media files found for post: {post.shortcode}")
+                return None
+
+            return files
+        except Exception as e:
+            self.logger.error(f"Error downloading post: {e}", exc_info=True)
+            return None
+
+    async def _download_story(self, story_item: StoryItem) -> Optional[str]:
+        try:
+            target_path = self.output_path / "stories"
+            target_path.mkdir(parents=True, exist_ok=True)
+            await asyncio.to_thread(self.loader.download_storyitem, story_item, target=target_path)
+
+            # Удаление метаданных
+            for f in target_path.glob("*.txt"):
+                f.unlink()
+            for f in target_path.glob("*.json.xz"):
+                f.unlink()
+
+            media_file = next((str(f) for f in target_path.iterdir() if f.suffix in (".jpg", ".jpeg", ".png", ".mp4")), None)
+            if not media_file:
+                self.logger.warning(f"No media file found for story item: {story_item.mediaid}")
+                return None
+
+            return media_file
+        except Exception as e:
+            self.logger.error(f"Error downloading story: {e}", exc_info=True)
+            return None
+
+    async def cleanup(self):
+        try:
+            await asyncio.to_thread(shutil.rmtree, self.output_path, ignore_errors=True)
+            self.logger.info("Temporary files cleaned up")
+        except Exception as e:
+            self.logger.error(f"Error cleaning up: {e}", exc_info=True)
+
+
+
+
+
+
+
+# https://www.instagram.com/reel/DIyzo4-s5dB/
+
+# https://www.instagram.com/p/DI79iYGI7ue/?utm_source=ig_web_copy_link
+
+
+async def main():
+    url = "https://www.instagram.com/reel/DJZOF1Ui7JV/?utm_source=ig_web_copy_link"
+    ig = Instagram(url)
+    result = await ig.download()
+    print(result)
+    ig.logger.info(result)
+
+
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+

@@ -1,7 +1,7 @@
 from sqlalchemy import select, func
 from sqlalchemy.orm import selectinload
 from repositories.base import BaseRepository
-from models import Ad, AdBot, AdDelivery, AdStatus
+from models import Ad, AdBot, AdDelivery, AdStatus, AdType
 
 
 class AdRepository(BaseRepository[Ad]):
@@ -38,6 +38,35 @@ class AdRepository(BaseRepository[Ad]):
             limit=limit,
             order_by="created_at",
         ))
+
+    async def get_post_download_ad(self, bot_id: int) -> Ad | None:
+        """Get active post-download ad for a specific bot."""
+        from models import AdStatus
+        stmt = (
+            select(Ad)
+            .where(
+                Ad.ad_type == AdType.POST_DOWNLOAD,
+                Ad.is_active == True,
+                Ad.status.in_([AdStatus.DRAFT, AdStatus.SCHEDULED, AdStatus.SENDING]),
+            )
+            .options(
+                selectinload(Ad.target_bots).selectinload(AdBot.bot),
+            )
+            .order_by(Ad.created_at.desc())
+        )
+        result = await self.session.execute(stmt)
+        ads = result.scalars().all()
+
+        # Filter by bot_id (ads with no target_bots apply to all bots)
+        for ad in ads:
+            if not ad.target_bots:
+                # Applies to all bots
+                return ad
+            for tb in ad.target_bots:
+                if tb.bot_id == bot_id:
+                    return ad
+
+        return None
 
     async def add_target_bots(self, ad_id: int, bot_ids: list[int]) -> None:
         """Добавить боты для рассылки"""

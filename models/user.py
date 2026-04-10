@@ -5,7 +5,7 @@ from sqlalchemy import BigInteger, Boolean, ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from models.base import UUIDBase
+from models.base import Base, TimestampMixin
 
 if TYPE_CHECKING:
     from models.bot import Bot
@@ -19,7 +19,7 @@ class Language(StrEnum):
     EN = "en"
 
 
-class TelegramUser(UUIDBase):
+class TelegramUser(Base, TimestampMixin):
     """
     Telegram users. A user can exist in multiple bots (different records per bot).
     telegram_id + bot_id = unique pair.

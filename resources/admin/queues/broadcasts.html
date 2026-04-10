@@ -1,51 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}Active Broadcasts - Media Downloader Admin{% endblock %}
+{% block title %}Active Broadcasts - MediaFlow{% endblock %}
 {% block header %}Active Broadcasts{% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="p-4 border-b">
-        <h3 class="text-xl font-semibold text-gray-800">Currently Running Broadcasts</h3>
-        <p class="text-sm text-gray-500 mt-1">Real-time status of message distribution.</p>
+<div class="glass-panel rounded-2xl">
+    <div class="p-4 border-b border-white/5">
+        <h3 class="text-xl font-semibold text-white">Currently Running Broadcasts</h3>
+        <p class="text-sm text-slate-500 mt-1">Real-time status of message distribution.</p>
     </div>
 
     <table class="w-full text-left">
-        <thead class="bg-gray-50 uppercase text-xs text-gray-500 font-semibold border-b">
+        <thead class="border-b border-white/5">
             <tr>
-                <th class="px-6 py-3">Ad / Campaign</th>
-                <th class="px-6 py-3">Progress</th>
-                <th class="px-6 py-3">Speed</th>
-                <th class="px-6 py-3">Started</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Ad / Campaign</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Progress</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Speed</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Started</th>
             </tr>
         </thead>
-        <tbody class="divide-y text-sm">
+        <tbody class="divide-y divide-white/5">
             {% for b in broadcasts %}
-            <tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
                 <td class="px-6 py-4">
-                    <div class="font-medium text-gray-900">{{ b.ad_name }}</div>
-                    <div class="text-xs text-gray-500">Job ID: {{ b.job_id }}</div>
+                    <div class="font-medium text-slate-200">{{ b.ad_name }}</div>
+                    <div class="text-xs text-slate-500">Job ID: {{ b.job_id }}</div>
                 </td>
                 <td class="px-6 py-4">
-                    <div class="w-full bg-gray-200 rounded-full h-2 mb-1">
-                        <div class="bg-blue-600 h-2 rounded-full" style="width: {{ b.progress }}%"></div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 mb-1">
+                        <div class="bg-blue-500 h-2 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.3)]" style="width: {{ b.progress }}%"></div>
                     </div>
-                    <div class="text-xs text-gray-600 flex justify-between">
+                    <div class="text-xs text-slate-400 flex justify-between">
                         <span>{{ b.sent }} / {{ b.total }}</span>
                         <span>{{ b.progress }}%</span>
                     </div>
                 </td>
                 <td class="px-6 py-4">
-                    <span class="text-gray-900 font-medium">{{ b.speed }}</span>
-                    <span class="text-xs text-gray-500">msg/sec</span>
+                    <span class="text-white font-medium">{{ b.speed }}</span>
+                    <span class="text-xs text-slate-500">msg/sec</span>
                 </td>
-                <td class="px-6 py-4 text-gray-500">
+                <td class="px-6 py-4 text-slate-500">
                     {{ b.started_at.strftime('%H:%M:%S') if b.started_at else 'N/A' }}
                 </td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="4" class="px-6 py-10 text-center text-gray-500">No active broadcasts at the moment.</td>
+                <td colspan="4" class="px-6 py-10 text-center text-slate-500">No active broadcasts at the moment.</td>
             </tr>
             {% endfor %}
         </tbody>

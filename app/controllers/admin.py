@@ -26,8 +26,13 @@ class AdminController(Controller):
         return Template(
             template_name="admin/dashboard.html",
             context={
+                "stats": {
+                    "total_downloads": total_media,
+                    "total_users": total_users,
+                    "total_bots": len(bots),
+                },
+                "recent_downloads": [],
                 "bots": bots,
-                "total_users": total_users,
                 "total_media": total_media,
                 "source_stats": source_stats,
                 "language_stats": language_stats,

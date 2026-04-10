@@ -9,13 +9,11 @@ from app.logging import get_logger
 
 log = get_logger("service.cache")
 
-# Shared FakeServer for persistence across reconnections in tests
 _fake_server = None
 
 
 class CacheService:
     """
-
     Использование:
         cache = CacheService()
         await cache.connect()
@@ -53,14 +51,13 @@ class CacheService:
                 encoding="utf-8",
                 decode_responses=True,
             )
-            # Проверка подключения
             await self._redis.ping()
             log.info("Connected to Redis", url=str(settings.redis_url).split("@")[-1])
 
     async def disconnect(self) -> None:
         """Отключение"""
         if self._redis:
-            try:  # noqa: SIM105
+            try:
                 await self._redis.close()
             except Exception:
                 pass
@@ -70,7 +67,6 @@ class CacheService:
 
     @property
     def redis(self):
-        """Getter for internal redis client"""
         if self._redis is None:
             raise RuntimeError("Cache not connected. Call connect() first.")
         return self._redis
@@ -88,17 +84,24 @@ class CacheService:
                 return data
         return None
 
-    async def set(
-        self,
-        key: str,
-        value: Any,
-        ttl: int | None = None,
-    ) -> None:
+    async def set(self, key: str, value: Any, ttl: int | None = None) -> None:
         """Установить значение"""
         await self.connect()
         if isinstance(value, (dict, list)):
             value = json.dumps(value, ensure_ascii=False, default=str)
         await self.redis.set(key, value, ex=ttl)
+
+    async def set_nx(self, key: str, value: Any, ttl: int | None = None) -> bool:
+        """SET if Not eXists — атомарная операция для distributed locks.
+
+        Возвращает True если ключ создан (lock получен),
+        False если ключ уже существовал (другой worker успел раньше).
+        """
+        await self.connect()
+        if isinstance(value, (dict, list)):
+            value = json.dumps(value, ensure_ascii=False, default=str)
+        result = await self.redis.set(key, value, ex=ttl, nx=True)
+        return result is not None
 
     async def delete(self, key: str) -> bool:
         """Удалить ключ"""
@@ -123,18 +126,12 @@ class CacheService:
     # === Media Cache ===
 
     def _media_key(self, url: str, quality: str | None = None) -> str:
-        """Генерация ключа для медиа"""
-        url_hash = hashlib.md5(url.encode()).hexdigest()
+        url_hash = hashlib.sha256(url.encode()).hexdigest()
         if quality:
             return f"media:{url_hash}:{quality}"
         return f"media:{url_hash}"
 
-    async def get_cached_media(
-        self,
-        url: str,
-        quality: str | None = None,
-    ) -> dict | None:
-        """Получить закешированное медиа"""
+    async def get_cached_media(self, url: str, quality: str | None = None) -> dict | None:
         key = self._media_key(url, quality)
         data = await self.get(key)
         if data:
@@ -148,10 +145,9 @@ class CacheService:
         message_id: int,
         chat_id: int,
         quality: str | None = None,
-        ttl: int = 86400 * 30,  # 30 days
+        ttl: int = 86400 * 30,
         **extra,
     ) -> None:
-        """Закешировать медиа"""
         key = self._media_key(url, quality)
         data = {
             "file_id": file_id,
@@ -165,17 +161,10 @@ class CacheService:
 
     # === Rate Limiting ===
 
-    async def check_rate_limit(
-        self,
-        key: str,
-        limit: int,
-        window: int = 60,
-    ) -> tuple[bool, int]:
+    async def check_rate_limit(self, key: str, limit: int, window: int = 60) -> tuple[bool, int]:
         """
-        Проверить rate limit
-
-        Returns:
-            (allowed: bool, remaining: int)
+        Проверить rate limit.
+        Returns: (allowed: bool, remaining: int)
         """
         await self.connect()
         current = await self.redis.get(key)
@@ -187,42 +176,24 @@ class CacheService:
         current = int(current)
         if current >= limit:
             ttl = await self.redis.ttl(key)
-            return False, ttl  # False + seconds until reset
+            return False, ttl
 
         await self.redis.incr(key)
         return True, limit - current - 1
 
-    async def get_user_rate_limit(
-        self,
-        user_id: int,
-        action: str = "download",
-    ) -> tuple[bool, int]:
-        """Rate limit для пользователя"""
+    async def get_user_rate_limit(self, user_id: int, action: str = "download") -> tuple[bool, int]:
         key = f"simple_ratelimit:{action}:{user_id}"
-
         if action == "download":
-            return await self.check_rate_limit(
-                key,
-                limit=settings.downloads_per_user_hour,
-                window=3600,
-            )
-
+            return await self.check_rate_limit(key, limit=settings.downloads_per_user_hour, window=3600)
         return True, 999
 
     async def get_global_rate_limit(self) -> tuple[bool, int]:
-        """Глобальный rate limit"""
-        return await self.check_rate_limit(
-            "simple_ratelimit:global",
-            limit=settings.downloads_per_minute,
-            window=60,
-        )
+        return await self.check_rate_limit("simple_ratelimit:global", limit=settings.downloads_per_minute, window=60)
 
-    # === User State (для FSM без aiogram) ===
+    # === User State ===
 
     async def get_user_state(self, user_id: int, bot_id: int) -> dict | None:
-        """Получить состояние пользователя"""
-        key = f"state:{bot_id}:{user_id}"
-        return await self.get(key)
+        return await self.get(f"state:{bot_id}:{user_id}")
 
     async def set_user_state(
         self,
@@ -232,46 +203,23 @@ class CacheService:
         data: dict | None = None,
         ttl: int = 3600,
     ) -> None:
-        """Установить состояние пользователя"""
-        key = f"state:{bot_id}:{user_id}"
-        await self.set(key, {"state": state, "data": data or {}}, ttl=ttl)
+        await self.set(f"state:{bot_id}:{user_id}", {"state": state, "data": data or {}}, ttl=ttl)
 
     async def clear_user_state(self, user_id: int, bot_id: int) -> None:
-        """Очистить состояние"""
-        key = f"state:{bot_id}:{user_id}"
-        await self.delete(key)
+        await self.delete(f"state:{bot_id}:{user_id}")
 
-    async def update_state_data(
-        self,
-        user_id: int,
-        bot_id: int,
-        **data,
-    ) -> None:
-        """Обновить данные состояния"""
+    async def update_state_data(self, user_id: int, bot_id: int, **data) -> None:
         current = await self.get_user_state(user_id, bot_id) or {"state": None, "data": {}}
         current["data"].update(data)
-        await self.set_user_state(
-            user_id, bot_id,
-            current["state"],
-            current["data"],
-        )
+        await self.set_user_state(user_id, bot_id, current["state"], current["data"])
 
     # === Queue ===
 
-    async def add_to_queue(
-        self,
-        queue_name: str,
-        item: dict,
-    ) -> int:
-        """Добавить в очередь"""
+    async def add_to_queue(self, queue_name: str, item: dict) -> int:
         await self.connect()
-        return await self.redis.rpush(
-            f"queue:{queue_name}",
-            json.dumps(item, default=str),
-        )
+        return await self.redis.rpush(f"queue:{queue_name}", json.dumps(item, default=str))
 
     async def pop_from_queue(self, queue_name: str) -> dict | None:
-        """Забрать из очереди"""
         await self.connect()
         data = await self.redis.lpop(f"queue:{queue_name}")
         if data:
@@ -279,7 +227,6 @@ class CacheService:
         return None
 
     async def queue_length(self, queue_name: str) -> int:
-        """Длина очереди"""
         await self.connect()
         return await self.redis.llen(f"queue:{queue_name}")
 

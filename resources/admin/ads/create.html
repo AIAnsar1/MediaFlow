@@ -1,77 +1,131 @@
 {% extends "base.html" %}
 
-{% block title %}Create Ad - Media Downloader{% endblock %}
-{% block header %}Create Advertising Campaign{% endblock %}
+{% block title %}Create Campaign - MediaFlow{% endblock %}
+{% block header %}Create Campaign{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl">
-    <div class="bg-white rounded-lg shadow p-6">
-        <form action="/admin/ads/create" method="post">
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Name</label>
-                <input type="text" name="name" required
-                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="Summer Promo 2024">
-            </div>
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+        <a href="/admin/ads" class="text-slate-500 hover:text-white transition-colors flex items-center text-sm">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Campaigns
+        </a>
+    </div>
 
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Message Text</label>
-                <textarea name="content" rows="5" required
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="Your ad message..."></textarea>
+    <div class="card">
+        <div class="flex items-center space-x-4 mb-8">
+            <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20">
+                <i class="fas fa-bullhorn text-purple-400 text-xl"></i>
             </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
-                    <input type="text" name="button_text"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           placeholder="Learn More">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
-                    <input type="url" name="button_url"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                           placeholder="https://example.com">
-                </div>
+            <div>
+                <h3 class="text-xl font-bold text-white">Broadcast Campaign</h3>
+                <p class="text-slate-500 text-sm">Design and schedule a message for your bot users</p>
             </div>
+        </div>
 
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Target Language</label>
-                <select name="target_language" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                    <option value="">All Languages</option>
-                    {% for lang in languages %}
-                    <option value="{{ lang }}">
-                        {% if lang == "ru" %}🇷🇺 Russian
-                        {% elif lang == "en" %}🇺🇸 English
-                        {% elif lang == "uk" %}🇺🇦 Ukrainian
-                        {% else %}{{ lang }}
-                        {% endif %}
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Select Bots</label>
-                <div class="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
-                    {% for bot in bots %}
-                    <label class="flex items-center">
-                        <input type="checkbox" name="bot_ids" value="{{ bot.id }}"
-                               class="rounded border-gray-300 text-blue-600 mr-2">
-                        <span>{{ bot.name }} (@{{ bot.username }}) - {{ bot.total_users }} users</span>
+        <form action="/admin/ads/create" method="post" class="space-y-8">
+            <!-- Ad Type Selection -->
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-400 mb-3">Campaign Type</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="p-4 bg-slate-950/50 rounded-2xl border border-white/5 cursor-pointer hover:bg-white/5 transition-colors has-[:checked]:border-primary-500/30 has-[:checked]:bg-primary-500/5">
+                        <input type="radio" name="ad_type" value="broadcast" checked class="sr-only peer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-paper-plane text-primary-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Broadcast</h4>
+                                <p class="text-[10px] text-slate-500">Mass mail to all users</p>
+                            </div>
+                        </div>
                     </label>
-                    {% endfor %}
+                    <label class="p-4 bg-slate-950/50 rounded-2xl border border-white/5 cursor-pointer hover:bg-white/5 transition-colors has-[:checked]:border-emerald-500/30 has-[:checked]:bg-emerald-500/5">
+                        <input type="radio" name="ad_type" value="post_download" class="sr-only peer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-download text-emerald-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Post-Download Ad</h4>
+                                <p class="text-[10px] text-slate-500">Shown after each download</p>
+                            </div>
+                        </div>
+                    </label>
                 </div>
             </div>
 
-            <div class="flex space-x-4">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                    <i class="fas fa-save mr-2"></i> Create Draft
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- General Info -->
+                <div class="md:col-span-2 space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Internal Campaign Name</label>
+                        <input type="text" name="name" required class="input-field" placeholder="e.g. Summer Promo 2026">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Message Content</label>
+                        <textarea name="content" required rows="6" class="input-field font-mono text-sm" placeholder="HTML or Markdown supported depending on your bot settings..."></textarea>
+                        <p class="mt-2 text-[10px] text-slate-500 uppercase tracking-widest font-bold">Use {name} for personalization</p>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="md:col-span-2 border-t border-white/5 pt-8">
+                    <h4 class="text-sm font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-arrow-pointer mr-2 text-primary-500 text-xs"></i>
+                        Inline Button (Optional)
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Button Label</label>
+                            <input type="text" name="button_text" class="input-field" placeholder="e.g. Visit Website">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Destination URL</label>
+                            <input type="url" name="button_url" class="input-field" placeholder="https://...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Targeting -->
+                <div class="md:col-span-2 border-t border-white/5 pt-8">
+                    <h4 class="text-sm font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-crosshairs mr-2 text-rose-500 text-xs"></i>
+                        Targeting & Distribution
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Target Language</label>
+                            <select name="target_language" class="input-field">
+                                <option value="">All Languages</option>
+                                {% for lang in languages %}
+                                <option value="{{ lang }}">{{ lang|upper }} Users</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-4">Select Source Bots</label>
+                            <div class="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                                {% for bot in bots %}
+                                <label class="flex items-center p-3 bg-slate-950/50 rounded-xl border border-white/5 cursor-pointer hover:bg-white/5 transition-colors">
+                                    <input type="checkbox" name="bot_ids" value="{{ bot.id }}" checked class="w-4 h-4 rounded border-slate-800 bg-slate-900 text-primary-600 focus:ring-primary-500 focus:ring-offset-slate-950">
+                                    <span class="ml-3 text-sm text-slate-300">@{{ bot.username }}</span>
+                                    <span class="ml-auto badge badge-primary text-[10px]">{{ bot.total_users }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 flex justify-end space-x-3">
+                <a href="/admin/ads" class="btn-secondary">Save as Draft</a>
+                <button type="submit" class="btn-primary flex items-center">
+                    <i class="fas fa-paper-plane mr-2 text-xs"></i>
+                    Initialize Campaign
                 </button>
-                <a href="/admin/ads" class="px-6 py-2 border rounded-lg hover:bg-gray-50">
-                    Cancel
-                </a>
             </div>
         </form>
     </div>

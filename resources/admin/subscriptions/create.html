@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Add Subscription Channel - MediaFlow{% endblock %}
+{% block header %}Add Subscription Channel{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-8">
+        <a href="/admin/subscriptions" class="text-slate-500 hover:text-white transition-colors flex items-center text-sm">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Channels
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="flex items-center space-x-4 mb-8">
+            <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20">
+                <i class="fas fa-broadcast-tower text-blue-400 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold text-white">Add Required Channel</h3>
+                <p class="text-slate-500 text-sm">Users must subscribe to this channel to use the bot</p>
+            </div>
+        </div>
+
+        <form action="/admin/subscriptions/create" method="post" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Target Bot</label>
+                <select name="bot_id" required class="input-field">
+                    <option value="">Select a bot...</option>
+                    {% for bot in bots %}
+                    <option value="{{ bot.id }}">@{{ bot.username }} — {{ bot.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Channel Chat ID</label>
+                <input type="number" name="channel_chat_id" required class="input-field" placeholder="-1001234567890">
+                <p class="mt-2 text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                    Get from @RawDataBot or @getidsbot. Must start with -100 for channels.
+                </p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Channel Username (optional)</label>
+                <input type="text" name="channel_username" class="input-field" placeholder="my_channel (without @)">
+                <p class="mt-2 text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                    If set, the subscribe button will link to t.me/username
+                </p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Display Name (optional)</label>
+                <input type="text" name="channel_title" class="input-field" placeholder="My Awesome Channel">
+                <p class="mt-2 text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                    Shown to users in the subscribe prompt
+                </p>
+            </div>
+
+            <div class="pt-6 border-t border-white/5 flex justify-end space-x-3">
+                <a href="/admin/subscriptions" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save mr-2 text-xs"></i>
+                    Add Channel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

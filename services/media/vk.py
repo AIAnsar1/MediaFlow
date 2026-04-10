@@ -1,6 +1,8 @@
-import asyncio, re, shutil, yt_dlp
+import asyncio
+import re
+import shutil
+import yt_dlp
 
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 
@@ -11,14 +13,15 @@ log = get_logger("downloader.vk")
 
 
 class VKDownloader(BaseDownloader):
-    """Загрузчик для VK Video"""
+    """
+    Загрузчик для VK Video — Ultra Fast mode
+    """
 
     platform = MediaPlatform.OTHER  # или добавить VK в enum
 
     def __init__(self):
         super().__init__()
-        self.executor = ThreadPoolExecutor(max_workers=4)
-        self.semaphore = asyncio.Semaphore(2)
+        self.semaphore = asyncio.Semaphore(6)  # 6 concurrent VK downloads
 
     def match_url(self, url: str) -> bool:
         return "vk.com" in url or "vkvideo.ru" in url
@@ -34,34 +37,67 @@ class VKDownloader(BaseDownloader):
         return None
 
     async def download(self, request: DownloadRequest) -> DownloadResult:
-        """Скачать видео с VK"""
+        """Скачать видео с VK — Ultra Fast"""
         video_id = self.extract_id(request.url) or "unknown"
 
         async with self.semaphore:
             output_path = str(self.temp_dir / f"vk_{video_id}.%(ext)s")
 
             ydl_opts = {
-                'format': 'best[ext=mp4]/best',
-                'outtmpl': output_path,
-                'quiet': True,
-                'no_warnings': True,
-                'ignoreerrors': True,
-                'socket_timeout': 30,
-                'retries': 5,
+                "format": "best[ext=mp4]/best",
+                "outtmpl": output_path,
+                "quiet": True,
+                "no_warnings": True,
+                "ignoreerrors": True,
+                # Speed optimizations
+                "socket_timeout": 20,
+                "retries": 5,
+                "fragment_retries": 5,
+                "nocheckcertificate": True,
+                "noplaylist": True,
+                "writethumbnail": False,
+                "writeinfojson": False,
+                "concurrent_fragment_downloads": 4,
             }
 
             # FFmpeg
-            ffmpeg_path = shutil.which('ffmpeg')
+            ffmpeg_path = shutil.which("ffmpeg")
             if ffmpeg_path:
-                ydl_opts['ffmpeg_location'] = ffmpeg_path
-                ydl_opts['merge_output_format'] = 'mp4'
+                ydl_opts["ffmpeg_location"] = ffmpeg_path
+                ydl_opts["merge_output_format"] = "mp4"
+
+            # ARIA2C - Ultra Fast mode
+            if shutil.which("aria2c"):
+                ydl_opts["external_downloader"] = "aria2c"
+                ydl_opts["external_downloader_args"] = {
+                    "default": [
+                        "-x",
+                        "16",
+                        "-s",
+                        "16",
+                        "-k",
+                        "4M",
+                        "--min-split-size=4M",
+                        "--max-connection-per-server=16",
+                        "--max-concurrent-downloads=16",
+                        "--max-tries=5",
+                        "--retry-wait=1",
+                        "--timeout=15",
+                        "--connect-timeout=10",
+                        "--summary-interval=0",
+                        "--download-result=hide",
+                        "--quiet=true",
+                        "--file-allocation=none",
+                        "--disable-ipv6=true",
+                        "--stream-piece-selector=geom",
+                        "--async-dns=true",
+                        "--async-dns-server=8.8.8.8,1.1.1.1",
+                    ]
+                }
 
             try:
-                loop = asyncio.get_event_loop()
-                result = await loop.run_in_executor(
-                    self.executor,
-                    lambda: self._download_sync(request.url, ydl_opts)
-                )
+                # Use asyncio.to_thread for Python 3.12+
+                result = await asyncio.to_thread(self._download_sync, request.url, ydl_opts)
 
                 if not result["success"]:
                     return DownloadResult(success=False, error=result.get("error"))
@@ -96,11 +132,8 @@ class VKDownloader(BaseDownloader):
                 if not info:
                     return {"success": False, "error": "Failed to extract info"}
 
-                # Определяем путь
-                if "requested_downloads" in info and info["requested_downloads"]:
-                    file_path = info["requested_downloads"][0].get("filepath")
-                else:
-                    file_path = ydl.prepare_filename(info)
+                # Determine file path
+                file_path = info.get("requested_downloads", [{}])[0].get("filepath") or ydl.prepare_filename(info)
 
                 return {
                     "success": True,

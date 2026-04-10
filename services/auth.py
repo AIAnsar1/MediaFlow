@@ -3,7 +3,7 @@ import hmac
 import jwt
 import secrets
 import hashlib
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 
 from app.config import settings
@@ -62,7 +62,7 @@ class AuthService:
 
     def create_access_token(self, username: str) -> str:
         """Создать access token"""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         expire = now + timedelta(minutes=self.ACCESS_TOKEN_EXPIRE_MINUTES)
 
         payload = {
@@ -77,7 +77,7 @@ class AuthService:
 
     def create_refresh_token(self, username: str) -> str:
         """Создать refresh token"""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         expire = now + timedelta(days=self.REFRESH_TOKEN_EXPIRE_DAYS)
 
         payload = {
@@ -107,8 +107,8 @@ class AuthService:
             )
             return TokenPayload(
                 sub=payload["sub"],
-                exp=datetime.fromtimestamp(payload["exp"]),
-                iat=datetime.fromtimestamp(payload["iat"]),
+                exp=datetime.fromtimestamp(payload["exp"], tz=timezone.utc),
+                iat=datetime.fromtimestamp(payload["iat"], tz=timezone.utc),
                 type=payload["type"],
                 jti=payload["jti"],
             )
@@ -154,7 +154,7 @@ class AuthService:
         payload = self.decode_token(token)
         if payload:
             # Сохраняем в blacklist до истечения
-            ttl = int((payload.exp - datetime.utcnow()).total_seconds())
+            ttl = int((payload.exp - datetime.now(timezone.utc)).total_seconds())
             if ttl > 0:
                 await cache.set(f"revoked:{payload.jti}", "1", ttl=ttl)
 
@@ -169,7 +169,7 @@ class AuthService:
         session_id = secrets.token_hex(32)
         session_data = {
             "username": username,
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
         }
 
         # Сохраняем на 24 часа
@@ -199,7 +199,7 @@ class AuthService:
 
     def generate_csrf_token(self, session_id: str) -> str:
         """Генерация CSRF токена"""
-        return hmac.new(
+        return hmac.HMAC(
             self.secret_key.encode(),
             session_id.encode(),
             hashlib.sha256,

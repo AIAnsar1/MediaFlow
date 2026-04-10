@@ -1,0 +1,36 @@
+2026-04-11 00:15:20.514 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=fake_token | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:15:20.519 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=fake_token
+2026-04-11 00:16:06.790 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:16:06.797 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:06.978 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456790 | has_message=False | has_callback=True
+2026-04-11 00:16:06.983 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:07.167 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456791 | has_message=True | has_callback=False
+2026-04-11 00:16:07.173 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:07.359 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=invalid_to | update_id=123456792 | has_message=True | has_callback=False
+2026-04-11 00:16:07.366 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=invalid_to
+2026-04-11 00:16:07.540 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=None | has_message=False | has_callback=False
+2026-04-11 00:16:07.547 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:40.979 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=fake_token | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:16:40.987 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=fake_token
+2026-04-11 00:16:48.418 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:16:48.422 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:48.602 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456790 | has_message=False | has_callback=True
+2026-04-11 00:16:48.607 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:48.795 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456791 | has_message=True | has_callback=False
+2026-04-11 00:16:48.802 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:16:48.992 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=invalid_to | update_id=123456792 | has_message=True | has_callback=False
+2026-04-11 00:16:48.997 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=invalid_to
+2026-04-11 00:16:49.204 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=None | has_message=False | has_callback=False
+2026-04-11 00:16:49.209 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:22:01.482 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=fake_token | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:22:01.487 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=fake_token
+2026-04-11 00:22:08.540 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456789 | has_message=True | has_callback=False
+2026-04-11 00:22:08.545 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:22:08.705 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456790 | has_message=False | has_callback=True
+2026-04-11 00:22:08.711 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:22:08.889 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=123456791 | has_message=True | has_callback=False
+2026-04-11 00:22:08.895 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:
+2026-04-11 00:22:09.082 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=invalid_to | update_id=123456792 | has_message=True | has_callback=False
+2026-04-11 00:22:09.089 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=invalid_to
+2026-04-11 00:22:09.289 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=123456789: | update_id=None | has_message=False | has_callback=False
+2026-04-11 00:22:09.296 | WARNING  | bot.processor | bot.processor:process:88 | Bot not found | token=123456789:

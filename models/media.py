@@ -1,7 +1,7 @@
 from enum import StrEnum
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
-from sqlalchemy import String, Text, BigInteger, Integer, UniqueConstraint
+from sqlalchemy import String, Text, BigInteger, Integer, UniqueConstraint, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import Base, TimestampMixin
@@ -25,6 +25,7 @@ class MediaType(StrEnum):
     PHOTO = "photo"
     AUDIO = "audio"
     DOCUMENT = "document"
+    ALBUM = "album"  # For multiple files
 
 
 class MediaQuality(StrEnum):
@@ -49,6 +50,7 @@ class Media(Base, TimestampMixin):
 
     # Original source
     source: Mapped[MediaSource] = mapped_column(index=True)
+    platform_icon: Mapped[str | None] = mapped_column(String(50))  # e.g., "📸", "🎥", or icon name
     original_url: Mapped[str] = mapped_column(String(2048), index=True)
     original_id: Mapped[str | None] = mapped_column(String(256), index=True)  # ID from source platform
 
@@ -64,6 +66,8 @@ class Media(Base, TimestampMixin):
     quality: Mapped[str | None] = mapped_column(String(20), index=True)  # 360p, 720p, audio
 
     # File info
+    file_count: Mapped[int] = mapped_column(Integer, default=1)
+    media_info: Mapped[dict[str, Any] | None] = mapped_column(JSON)  # Detailed info (counts of photos, videos, etc.)
     duration: Mapped[int | None] = mapped_column(Integer)  # seconds
     file_size: Mapped[int | None] = mapped_column(BigInteger)  # bytes
     thumbnail_url: Mapped[str | None] = mapped_column(String(2048))

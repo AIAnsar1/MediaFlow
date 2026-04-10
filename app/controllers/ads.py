@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.connection import get_session
 from repositories import AdRepository, BotRepository, UserRepository
-from models import AdStatus, AdMediaType
+from models import AdStatus, AdMediaType, AdType
 
 
 class AdController(Controller):
@@ -56,28 +56,35 @@ class AdController(Controller):
 
         name = data.get("name", "").strip()
         content = data.get("content", "").strip()
+        ad_type = data.get("ad_type", "broadcast")
         button_text = data.get("button_text", "").strip() or None
         button_url = data.get("button_url", "").strip() or None
         target_language = data.get("target_language") or None
         bot_ids = data.getlist("bot_ids") if hasattr(data, 'getlist') else [data.get("bot_ids")]
         bot_ids = [int(bid) for bid in bot_ids if bid]
 
-        if not name or not content or not bot_ids:
+        if not name or not content:
             return Redirect(path="/admin/ads/create?error=Missing required fields")
+
+        # Post-download ads don't require bot_ids (they attach to the bot the user is using)
+        if ad_type == "broadcast" and not bot_ids:
+            return Redirect(path="/admin/ads/create?error=Select at least one bot for broadcast")
 
         # Create ad
         ad = await ad_repo.create(
             name=name,
             content=content,
-            media_type=AdMediaType.NONE,  # TODO: Handle media upload
+            media_type=AdMediaType.NONE,
+            ad_type=AdType(ad_type),
             button_text=button_text,
             button_url=button_url,
             target_language=target_language,
             status=AdStatus.DRAFT,
         )
 
-        # Add target bots
-        await ad_repo.add_target_bots(ad.id, bot_ids)
+        # Add target bots (only for broadcast)
+        if bot_ids:
+            await ad_repo.add_target_bots(ad.id, bot_ids)
 
         return Redirect(path=f"/admin/ads/{ad.id}")
 

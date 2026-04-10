@@ -325,7 +325,7 @@ class RateLimiter:
         key = self._get_key(limit_type, identifier)
         try:
             await cache.redis.delete(key)
-        except:
+        except Exception:
             if key in self._local_cache:
                 del self._local_cache[key]
 

@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from services.auth import auth_service, AuthUser
 
@@ -59,7 +59,8 @@ class TestAuthService:
         assert payload is not None
         assert payload.sub == "testuser"
         assert payload.type == "access"
-        assert payload.exp > datetime.utcnow()
+        # Use timezone-aware datetime to compare with token exp
+        assert payload.exp > datetime.now(timezone.utc)
 
     def test_authenticate_admin_success(self):
         """Test successful admin authentication"""

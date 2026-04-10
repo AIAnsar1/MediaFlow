@@ -1,5 +1,5 @@
-from litestar import Controller, get
-from litestar.response import Template
+from litestar import Controller, get, post
+from litestar.response import Template, Redirect
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -23,16 +23,14 @@ class UserController(Controller):
     ) -> Template:
         """User list with pagination and search"""
         repo = UserRepository(session)
-        
-        # Получаем пользователей
+
         users = await repo.get_all(
             offset=(page - 1) * limit,
             limit=limit,
         )
-        
-        # Общее количество
+
         total = await repo.count()
-        
+
         return Template(
             template_name="admin/users/list.html",
             context={
@@ -53,8 +51,28 @@ class UserController(Controller):
         """User details"""
         repo = UserRepository(session)
         user = await repo.get_by_id(user_id)
-        
+
         return Template(
             template_name="admin/users/detail.html",
             context={"user": user}
         )
+
+    @post("/{user_id:int}/toggle-ban", name="users:toggle_ban")
+    async def toggle_ban(self, session: AsyncSession, user_id: int) -> Redirect:
+        """Toggle user ban status"""
+        repo = UserRepository(session)
+        user = await repo.get_by_id(user_id)
+        if user:
+            new_state = not user.is_banned
+            await repo.update(user_id, is_banned=new_state)
+            await session.commit()
+            return Redirect(path=f"/admin/users?message=User {'banned' if new_state else 'unbanned'}")
+        return Redirect(path="/admin/users")
+
+    @post("/{user_id:int}/delete", name="users:delete")
+    async def delete_user(self, session: AsyncSession, user_id: int) -> Redirect:
+        """Delete a user"""
+        repo = UserRepository(session)
+        await repo.delete(user_id)
+        await session.commit()
+        return Redirect(path="/admin/users?message=User deleted")

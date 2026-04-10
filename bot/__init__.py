@@ -11,8 +11,6 @@ except ImportError:
 
 from bot.keyboards import (
     get_language_keyboard,
-    get_youtube_choice_keyboard,
-    get_youtube_formats_keyboard,
 )
 
 __all__ = [
@@ -21,6 +19,4 @@ __all__ = [
     "MESSAGES",
     "get_message",
     "get_language_keyboard",
-    "get_youtube_choice_keyboard",
-    "get_youtube_formats_keyboard",
 ]

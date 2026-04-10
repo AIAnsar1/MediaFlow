@@ -1,80 +1,98 @@
 {% extends "base.html" %}
 
-{% block title %}Advertising - Media Downloader{% endblock %}
-{% block header %}Advertising Campaigns{% endblock %}
+{% block title %}Advertising - MediaFlow{% endblock %}
+{% block header %}Ad Campaigns{% endblock %}
 
 {% block content %}
-<div class="mb-6">
-    <a href="/admin/ads/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-        <i class="fas fa-plus mr-2"></i> Create Ad
+<div class="flex justify-between items-center mb-8">
+    <div>
+        <h3 class="text-2xl font-bold text-white">Campaigns</h3>
+        <p class="text-slate-500 text-sm">Manage broadcast and inline advertising</p>
+    </div>
+    <a href="/admin/ads/create" class="btn-primary flex items-center">
+        <i class="fas fa-bullhorn mr-2 text-xs"></i>
+        Create Campaign
     </a>
 </div>
 
-<div class="bg-white rounded-lg shadow">
-    <table class="w-full">
-        <thead class="bg-gray-50">
+<div class="table-container">
+    <table class="w-full text-left">
+        <thead>
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Target</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sent</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th class="table-header">Campaign Name</th>
+                <th class="table-header">Type</th>
+                <th class="table-header">Status</th>
+                <th class="table-header">Performance</th>
+                <th class="table-header text-right">Actions</th>
             </tr>
         </thead>
-        <tbody class="divide-y">
+        <tbody class="divide-y divide-white/5">
             {% for ad in ads %}
-            <tr>
+            <tr class="table-row group">
                 <td class="px-6 py-4">
-                    <div class="font-medium">{{ ad.name }}</div>
-                    <div class="text-sm text-gray-500 truncate max-w-xs">{{ ad.content[:50] }}...</div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-rectangle-ad text-purple-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-white">{{ ad.name }}</div>
+                            <div class="text-[10px] text-slate-500 uppercase tracking-tighter">ID: {{ ad.id }}</div>
+                        </div>
+                    </div>
                 </td>
                 <td class="px-6 py-4">
-                    {% if ad.target_language %}
-                        🌍 {{ ad.target_language|upper }}
+                    <span class="text-xs font-medium text-slate-400 border border-white/10 px-2 py-0.5 rounded-md bg-white/5">
+                        {{ ad.media_type|upper }}
+                    </span>
+                </td>
+                <td class="px-6 py-4">
+                    {% if ad.status == 'active' %}
+                    <span class="badge badge-success">Running</span>
+                    {% elif ad.status == 'completed' %}
+                    <span class="badge badge-primary">Completed</span>
                     {% else %}
-                        🌐 All
+                    <span class="badge badge-warning">{{ ad.status }}</span>
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">
-                    {% if ad.status.value == "completed" %}
-                        <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Completed</span>
-                    {% elif ad.status.value == "sending" %}
-                        <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">Sending</span>
-                    {% else %}
-                        <span class="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded-full">{{ ad.status.value|capitalize }}</span>
-                    {% endif %}
+                    <div class="flex items-center space-x-4">
+                        <div>
+                            <div class="text-xs font-bold text-white">{{ ad.clicks }}</div>
+                            <div class="text-[10px] uppercase text-slate-500">Clicks</div>
+                        </div>
+                        <div class="w-px h-6 bg-white/5"></div>
+                        <div>
+                            <div class="text-xs font-bold text-white">{{ ad.views }}</div>
+                            <div class="text-[10px] uppercase text-slate-500">Views</div>
+                        </div>
+                    </div>
                 </td>
-                <td class="px-6 py-4">
-                    <span class="text-green-600">{{ ad.sent_count }}</span> /
-                    <span class="text-red-600">{{ ad.failed_count }}</span>
-                </td>
-                <td class="px-6 py-4 space-x-2">
-                    <a href="/admin/ads/{{ ad.id }}" class="text-blue-600 hover:underline">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    {% if ad.status.value == "draft" %}
-                    <form action="/admin/ads/{{ ad.id }}/send" method="post" class="inline">
-                        <button type="submit" class="text-green-600 hover:text-green-800">
-                            <i class="fas fa-paper-plane"></i>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex items-center justify-end space-x-2">
+                        <a href="/admin/ads/{{ ad.id }}" class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all border border-white/5">
+                            <i class="fas fa-edit text-xs"></i>
+                        </a>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-rose-400 transition-all border border-white/5">
+                            <i class="fas fa-trash-can text-xs"></i>
                         </button>
-                    </form>
-                    {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="px-6 py-12 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-slate-800/50 rounded-2xl flex items-center justify-center mb-4 border border-white/5">
+                            <i class="fas fa-rectangle-ad text-slate-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-white font-semibold">No active campaigns</h4>
+                        <p class="text-slate-500 text-sm max-w-xs mt-1">Start monetizing your bots by creating an advertising campaign.</p>
+                        <a href="/admin/ads/create" class="mt-6 btn-primary">New Campaign</a>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    {% if total_pages > 1 %}
-    <div class="px-6 py-4 border-t flex justify-center space-x-2">
-        {% for p in range(1, total_pages + 1) %}
-        <a href="?page={{ p }}"
-           class="px-3 py-1 rounded {% if p == page %}bg-blue-600 text-white{% else %}bg-gray-200{% endif %}">
-            {{ p }}
-        </a>
-        {% endfor %}
-    </div>
-    {% endif %}
 </div>
 {% endblock %}

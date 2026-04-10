@@ -9,7 +9,6 @@ from dataclasses import dataclass
 
 from services.downloader import BaseDownloader, DownloadRequest, DownloadResult, MediaPlatform
 from app.logging import get_logger
-from app.config import settings
 
 log = get_logger("downloader.youtube")
 
@@ -47,8 +46,8 @@ class YouTubeDownloader(BaseDownloader):
 
     def __init__(self):
         super().__init__()
-        self.executor = ThreadPoolExecutor(max_workers=8)
-        self.semaphore = asyncio.Semaphore(4)
+        self.executor = ThreadPoolExecutor(max_workers=16)
+        self.semaphore = asyncio.Semaphore(8)
 
         # Базовые настройки aria2c (если доступен)
         self.aria2c_args = [
@@ -56,7 +55,7 @@ class YouTubeDownloader(BaseDownloader):
             '--min-split-size=2M',
             '--max-connection-per-server=16',
             '--max-concurrent-downloads=16',
-            '--max-tries=10',
+            '--max-tries=3',
             '--retry-wait=1',
             '--timeout=10',
             '--summary-interval=0',
@@ -68,7 +67,7 @@ class YouTubeDownloader(BaseDownloader):
             '--no-conf=true',
         ]
 
-        # Проверяем наличие aria2c
+        # Проверяем наличие aria2c и ffmpeg
         self.has_aria2c = shutil.which('aria2c') is not None
         self.has_ffmpeg = shutil.which('ffmpeg') is not None
 
@@ -98,16 +97,16 @@ class YouTubeDownloader(BaseDownloader):
         return None
 
     def _get_base_opts(self, output_path: str) -> dict:
-        """Базовые настройки yt-dlp"""
+        """Базовые настройки yt-dlp — оптимизировано для скорости и совместимости"""
         opts = {
             'outtmpl': output_path,
             'quiet': True,
             'no_warnings': True,
             'ignoreerrors': True,
             'noprogress': True,
-            'socket_timeout': 30,
-            'retries': 10,
-            'fragment_retries': 10,
+            'socket_timeout': 15,
+            'retries': 3,
+            'fragment_retries': 3,
             'extractor_retries': 3,
             'http_chunk_size': 10 * 1024 * 1024,  # 10MB chunks
             'concurrent_fragments': 8,
@@ -116,7 +115,13 @@ class YouTubeDownloader(BaseDownloader):
             'writethumbnail': False,
             'writeinfojson': False,
             'writesubtitles': False,
+            'writeautomaticsub': False,
         }
+
+        # Подключаем cookies если есть
+        cookies_path = self._get_cookies_path()
+        if cookies_path:
+            opts['cookiefile'] = str(cookies_path)
 
         # Добавляем aria2c если доступен
         if self.has_aria2c:
@@ -130,6 +135,22 @@ class YouTubeDownloader(BaseDownloader):
                 opts['ffmpeg_location'] = ffmpeg_path
 
         return opts
+
+    def _get_cookies_path(self) -> Path | None:
+        """Получить путь к файлу cookies для YouTube"""
+        project_root = Path(__file__).resolve().parent.parent.parent
+        
+        possible_paths = [
+            project_root / "storage" / "cookies" / "youtube_cookies.txt",
+            project_root / "cookies" / "youtube_cookies.txt",
+            Path.home() / ".config" / "yt-dlp" / "cookies.txt",
+        ]
+        
+        for path in possible_paths:
+            if path.exists():
+                return path
+        
+        return None
 
     async def download(self, request: DownloadRequest) -> DownloadResult:
         """
@@ -156,7 +177,7 @@ class YouTubeDownloader(BaseDownloader):
     async def _download_audio(self, url: str, video_id: str) -> DownloadResult:
         """Скачать как MP3"""
         async with self.semaphore:
-            output_path = str(self.temp_dir / f"yt_{video_id}_audio.%(ext)s")
+            output_path = str(self.temp_dir / f"%(title)s [{video_id}].%(ext)s")
 
             ydl_opts = self._get_base_opts(output_path)
             ydl_opts.update({
@@ -176,20 +197,21 @@ class YouTubeDownloader(BaseDownloader):
                 )
 
                 if not result["success"]:
-                    return DownloadResult(success=False, error=result.get("error"))
+                    error = result.get("error", "")
+                    # Обработка DRM ошибки
+                    if "DRM" in error or "drm" in error:
+                        return DownloadResult(
+                            success=False,
+                            error="🔒 This video is DRM protected and cannot be downloaded.",
+                        )
+                    return DownloadResult(success=False, error=error)
 
                 # Ищем MP3 файл
                 file_path = result.get("file_path")
-                if file_path:
-                    # Меняем расширение на mp3
-                    mp3_path = Path(file_path).with_suffix('.mp3')
-                    if mp3_path.exists():
-                        file_path = str(mp3_path)
-                    elif not Path(file_path).exists():
-                        # Ищем любой mp3 в директории
-                        mp3_files = list(self.temp_dir.glob(f"yt_{video_id}*.mp3"))
-                        if mp3_files:
-                            file_path = str(mp3_files[0])
+                if not file_path or not Path(file_path).exists():
+                    mp3_files = list(self.temp_dir.glob(f"*[{video_id}]*.mp3"))
+                    if mp3_files:
+                        file_path = str(mp3_files[0])
 
                 if not file_path or not Path(file_path).exists():
                     return DownloadResult(success=False, error="Audio file not found")
@@ -202,6 +224,12 @@ class YouTubeDownloader(BaseDownloader):
                 )
 
             except Exception as e:
+                error_msg = str(e)
+                if "DRM" in error_msg or "drm" in error_msg:
+                    return DownloadResult(
+                        success=False,
+                        error="🔒 This video is DRM protected and cannot be downloaded.",
+                    )
                 self.log.exception("Audio download failed", error=str(e))
                 return DownloadResult(success=False, error=str(e))
 
@@ -211,13 +239,14 @@ class YouTubeDownloader(BaseDownloader):
         video_id: str,
         format_id: str
     ) -> DownloadResult:
-        """Скачать видео в конкретном формате"""
+        """Скачать видео в конкретном формате — строго выбранный format_id + лучшее аудио"""
         async with self.semaphore:
-            output_path = str(self.temp_dir / f"yt_{video_id}_{format_id}.%(ext)s")
+            output_path = str(self.temp_dir / f"%(title)s_({format_id})_[{video_id}].%(ext)s")
 
             ydl_opts = self._get_base_opts(output_path)
+            # Строго: выбранный формат + лучшее аудио, затем merged в mp4
             ydl_opts.update({
-                'format': f'{format_id}+bestaudio/best',
+                'format': f'{format_id}+bestaudio[ext=m4a]/{format_id}',
                 'merge_output_format': 'mp4',
                 'postprocessors': [{
                     'key': 'FFmpegVideoConvertor',
@@ -233,14 +262,23 @@ class YouTubeDownloader(BaseDownloader):
                 )
 
                 if not result["success"]:
-                    return DownloadResult(success=False, error=result.get("error"))
+                    error = result.get("error", "")
+                    # Обработка DRM ошибки
+                    if "DRM" in error or "drm" in error:
+                        return DownloadResult(
+                            success=False,
+                            error="🔒 This video is DRM protected and cannot be downloaded.",
+                        )
+                    return DownloadResult(success=False, error=error)
 
                 file_path = result.get("file_path")
                 if not file_path or not Path(file_path).exists():
-                    # Ищем mp4 файл
-                    mp4_files = list(self.temp_dir.glob(f"yt_{video_id}*.mp4"))
-                    if mp4_files:
-                        file_path = str(mp4_files[0])
+                    # Ищем файлы с нашим именем
+                    merged_files = list(self.temp_dir.glob(f"*[{video_id}]*.mp4"))
+                    if merged_files:
+                        # Берём самый большой файл (это будет merged)
+                        merged_files.sort(key=lambda p: p.stat().st_size, reverse=True)
+                        file_path = str(merged_files[0])
 
                 if not file_path or not Path(file_path).exists():
                     return DownloadResult(success=False, error="Video file not found")
@@ -253,12 +291,19 @@ class YouTubeDownloader(BaseDownloader):
                 )
 
             except Exception as e:
+                error_msg = str(e)
+                # Обработка DRM ошибки
+                if "DRM" in error_msg or "drm" in error_msg:
+                    return DownloadResult(
+                        success=False,
+                        error="🔒 This video is DRM protected and cannot be downloaded.",
+                    )
                 self.log.exception("Video download failed", error=str(e))
                 return DownloadResult(success=False, error=str(e))
 
     async def _download_video_best(self, url: str, video_id: str) -> DownloadResult:
         """Скачать лучшее качество"""
-        output_path = str(self.temp_dir / f"yt_{video_id}.%(ext)s")
+        output_path = str(self.temp_dir / f"%(title)s [{video_id}].%(ext)s")
 
         ydl_opts = self._get_base_opts(output_path)
         ydl_opts.update({
@@ -277,6 +322,12 @@ class YouTubeDownloader(BaseDownloader):
                 return DownloadResult(success=False, error=result.get("error"))
 
             file_path = result.get("file_path")
+            if not file_path or not Path(file_path).exists():
+                merged_files = list(self.temp_dir.glob(f"*[{video_id}]*.mp4"))
+                if merged_files:
+                    merged_files.sort(key=lambda p: p.stat().st_size, reverse=True)
+                    file_path = str(merged_files[0])
+
             if not file_path or not Path(file_path).exists():
                 return DownloadResult(success=False, error="Video file not found")
 
@@ -301,10 +352,21 @@ class YouTubeDownloader(BaseDownloader):
                     return {"success": False, "error": "Failed to extract info"}
 
                 # Определяем путь к файлу
-                if "requested_downloads" in info and info["requested_downloads"]:
-                    file_path = info["requested_downloads"][0].get("filepath")
-                else:
+                # При merge yt-dlp сохраняет merged файл последним в requested_downloads
+                # Ищем mp4 файл который больше по размеру (merged видео+аудио)
+                file_path = None
+                requested = info.get("requested_downloads", [])
+                if requested:
+                    # Берём последний файл (это merged после ffmpeg)
+                    file_path = requested[-1].get("filepath")
+
+                # Fallback: prepare_filename
+                if not file_path:
                     file_path = ydl.prepare_filename(info)
+                    # Для merged файлов yt-dlp может добавить f<id>+f<id> к имени
+                    # Заменяем расширение на mp4 если это видео
+                    if file_path and not file_path.endswith(".mp4"):
+                        file_path = file_path.rsplit(".", 1)[0] + ".mp4"
 
                 return {
                     "success": True,
@@ -341,12 +403,23 @@ class YouTubeDownloader(BaseDownloader):
             return None
 
     def _get_info_sync(self, url: str) -> dict | None:
-        """Синхронное получение информации"""
+        """Синхронное получение информации с метаданными"""
         ydl_opts = {
             'quiet': True,
             'no_warnings': True,
             'ignoreerrors': True,
+            'noprogress': True,
+            'socket_timeout': 15,
+            'retries': 3,
+            'extractor_retries': 3,
+            'nocheckcertificate': True,
+            'geo_bypass': True,
         }
+
+        # Подключаем cookies если есть
+        cookies_path = self._get_cookies_path()
+        if cookies_path:
+            ydl_opts['cookiefile'] = str(cookies_path)
 
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -358,17 +431,77 @@ class YouTubeDownloader(BaseDownloader):
                 # Парсим форматы
                 formats = self._parse_formats(info.get("formats", []))
 
+                # Форматируем длительность
+                duration = info.get("duration", 0)
+                duration_str = self._format_duration(duration)
+
+                # Форматируем дату
+                upload_date = info.get("upload_date", "")
+                date_str = self._format_date(upload_date)
+
+                # Просмотры
+                view_count = info.get("view_count", 0)
+                views_str = self._format_views(view_count)
+
+                # Лайки
+                like_count = info.get("like_count")
+                likes_str = f"👍 {self._format_number(like_count)}" if like_count else ""
+
                 return {
                     "id": info.get("id"),
                     "title": info.get("title"),
-                    "duration": info.get("duration"),
+                    "duration": duration,
+                    "duration_str": duration_str,
                     "thumbnail": info.get("thumbnail"),
+                    "uploader": info.get("uploader") or info.get("channel") or "",
+                    "view_count": view_count,
+                    "views_str": views_str,
+                    "like_count": like_count,
+                    "likes_str": likes_str,
+                    "upload_date": upload_date,
+                    "date_str": date_str,
                     "formats": formats,
                 }
 
         except Exception as e:
             self.log.error("Failed to extract info", error=str(e))
             return None
+
+    def _format_duration(self, seconds: int) -> str:
+        """Форматировать длительность в ММ:SS"""
+        if not seconds:
+            return "00:00"
+        m, s = divmod(seconds, 60)
+        h, m = divmod(m, 60)
+        if h:
+            return f"{h:02d}:{m:02d}:{s:02d}"
+        return f"{m:02d}:{s:02d}"
+
+    def _format_date(self, upload_date: str) -> str:
+        """Форматировать дату YYYYMMDD -> DD.MM.YYYY"""
+        if not upload_date or len(upload_date) != 8:
+            return ""
+        return f"{upload_date[6:8]}.{upload_date[4:6]}.{upload_date[:4]}"
+
+    def _format_views(self, count: int) -> str:
+        """Форматировать количество просмотров"""
+        if not count:
+            return "👁 0"
+        if count >= 1_000_000:
+            return f"👁 {count / 1_000_000:.1f}M"
+        if count >= 1_000:
+            return f"👁 {count / 1_000:.1f}K"
+        return f"👁 {count}"
+
+    def _format_number(self, count: int) -> str:
+        """Форматировать число"""
+        if not count:
+            return "0"
+        if count >= 1_000_000:
+            return f"{count / 1_000_000:.1f}M"
+        if count >= 1_000:
+            return f"{count / 1_000:.1f}K"
+        return str(count)
 
     def _parse_formats(self, raw_formats: list) -> list[dict]:
         """
@@ -388,6 +521,12 @@ class YouTubeDownloader(BaseDownloader):
         audio_size = 0
         if best_audio:
             audio_size = best_audio.get("filesize") or best_audio.get("filesize_approx") or 0
+
+        # Форматируем размер аудио
+        if audio_size < 1024 * 1024:
+            audio_size_str = f"{round(audio_size / 1024, 1)}KB"
+        else:
+            audio_size_str = f"{round(audio_size / (1024 * 1024), 1)}MB"
 
         # Собираем видео форматы
         seen_qualities = set()
@@ -428,9 +567,9 @@ class YouTubeDownloader(BaseDownloader):
 
             # Форматируем размер
             if total_size < 1024 * 1024:  # < 1MB
-                size_str = f"{round(total_size / 1024, 1)} KB"
+                size_str = f"{round(total_size / 1024, 1)}KB"
             else:
-                size_str = f"{round(total_size / (1024 * 1024), 1)} MB"
+                size_str = f"{round(total_size / (1024 * 1024), 1)}MB"
 
             formats.append({
                 "format_id": fmt.get("format_id"),
@@ -441,6 +580,7 @@ class YouTubeDownloader(BaseDownloader):
                 "filesize_str": size_str,
                 "format_note": fmt.get("format_note", ""),
                 "ext": fmt.get("ext", "mp4"),
+                "audio_size_str": audio_size_str,  # Добавляем размер аудио
             })
 
         # Сортируем по качеству (от низкого к высокому)

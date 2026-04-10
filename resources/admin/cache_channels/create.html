@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Add Cache Node - MediaFlow{% endblock %}
+{% block header %}Add Cache Node{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-8">
+        <a href="/admin/cache_channels" class="text-slate-500 hover:text-white transition-colors flex items-center text-sm">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Cache Nodes
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="flex items-center space-x-4 mb-8">
+            <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20">
+                <i class="fas fa-server text-blue-400 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold text-white">New Storage Node</h3>
+                <p class="text-slate-500 text-sm">Configure a private channel for media rotation</p>
+            </div>
+        </div>
+
+        <form action="/admin/cache_channels/create" method="post" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Node Name</label>
+                    <input type="text" name="name" required class="input-field" placeholder="e.g. Primary Cache Channel">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Telegram ID</label>
+                    <input type="number" name="telegram_id" required class="input-field" placeholder="-1001234567890">
+                    <p class="mt-1 text-[10px] text-slate-500 italic">Must be a negative number starting with -100</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Channel Username (Optional)</label>
+                    <div class="relative">
+                        <input type="text" name="username" class="input-field pl-8" placeholder="my_cache_channel">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 text-xs font-bold">@</div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Initial Status</label>
+                    <select name="is_active" class="input-field">
+                        <option value="true">Active (Enable for rotation)</option>
+                        <option value="false">Paused</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Internal Notes</label>
+                    <textarea name="description" rows="3" class="input-field" placeholder="Any details about this storage node..."></textarea>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/5 flex justify-end space-x-3">
+                <a href="/admin/cache_channels" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-plus-circle mr-2 text-xs"></i>
+                    Register Node
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Help Info -->
+    <div class="mt-8 p-6 bg-primary-500/5 border border-primary-500/10 rounded-3xl">
+        <div class="flex items-start">
+            <div class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mr-4 shrink-0 mt-1">
+                <i class="fas fa-circle-info text-primary-400 text-xs"></i>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold text-white mb-2 tracking-tight">How rotation works?</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">The system uses an <span class="text-primary-400 font-medium">LRU (Least Recently Used)</span> strategy. Every time a bot needs to cache new media, it selects the active node that hasn't been used for the longest time. This prevents hit-concentration on a single channel and improves reliability.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

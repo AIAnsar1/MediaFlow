@@ -8,6 +8,7 @@ from repositories import (
     MediaRepository,
     AdRepository,
     AdDeliveryRepository,
+    CacheChannelRepository,
 )
 from app.logging import get_logger
 
@@ -37,8 +38,16 @@ class UnitOfWork:
         self.media = MediaRepository(self._session)
         self.ads = AdRepository(self._session)
         self.ad_deliveries = AdDeliveryRepository(self._session)
+        self.cache_channels = CacheChannelRepository(self._session)
 
         return self
+
+    @property
+    def session(self) -> AsyncSession:
+        """Public access to the underlying session."""
+        if self._session is None:
+            raise RuntimeError("UnitOfWork is not initialized. Use 'async with UnitOfWork() as uow:'")
+        return self._session
 
     async def __aexit__(
         self,

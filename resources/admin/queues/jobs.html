@@ -1,72 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}Jobs List - Media Downloader Admin{% endblock %}
+{% block title %}Jobs List - MediaFlow{% endblock %}
 {% block header %}Jobs: {{ status_filter|capitalize }}{% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="flex justify-between items-center p-4 border-b">
-        <h3 class="text-xl font-semibold text-gray-800">Job History</h3>
+<div class="glass-panel rounded-2xl">
+    <div class="flex justify-between items-center p-4 border-b border-white/5">
+        <h3 class="text-xl font-semibold text-white">Job History</h3>
         <div class="flex space-x-2">
-            <a href="/admin/queues/jobs?status=all" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'all' else 'bg-gray-200 text-gray-700' }}">All</a>
-            <a href="/admin/queues/jobs?status=pending" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'pending' else 'bg-gray-200 text-gray-700' }}">Pending</a>
-            <a href="/admin/queues/jobs?status=running" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'running' else 'bg-gray-200 text-gray-700' }}">Running</a>
-            <a href="/admin/queues/jobs?status=failed" class="px-3 py-1 text-sm rounded {{ 'bg-blue-600 text-white' if status_filter == 'failed' else 'bg-gray-200 text-gray-700' }}">Failed</a>
+            <a href="/admin/queues/jobs?status=all" class="px-3 py-1 text-sm rounded-xl transition-colors {{ 'bg-primary-600 text-white' if status_filter == 'all' else 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5' }}">All</a>
+            <a href="/admin/queues/jobs?status=pending" class="px-3 py-1 text-sm rounded-xl transition-colors {{ 'bg-amber-500 text-white' if status_filter == 'pending' else 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5' }}">Pending</a>
+            <a href="/admin/queues/jobs?status=running" class="px-3 py-1 text-sm rounded-xl transition-colors {{ 'bg-blue-600 text-white' if status_filter == 'running' else 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5' }}">Running</a>
+            <a href="/admin/queues/jobs?status=failed" class="px-3 py-1 text-sm rounded-xl transition-colors {{ 'bg-rose-600 text-white' if status_filter == 'failed' else 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5' }}">Failed</a>
         </div>
     </div>
 
     <table class="w-full text-left">
-        <thead class="bg-gray-50 uppercase text-xs text-gray-500 font-semibold border-b">
+        <thead class="border-b border-white/5">
             <tr>
-                <th class="px-6 py-3">ID / Function</th>
-                <th class="px-6 py-3">Status</th>
-                <th class="px-6 py-3">Created / Finished</th>
-                <th class="px-6 py-3">Actions</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">ID / Function</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Status</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Created / Finished</th>
+                <th class="px-6 py-3 text-xs font-semibold uppercase text-slate-500">Actions</th>
             </tr>
         </thead>
-        <tbody class="divide-y">
+        <tbody class="divide-y divide-white/5">
             {% for job in jobs %}
-            <tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
                 <td class="px-6 py-4">
-                    <div class="text-sm font-medium text-gray-900">{{ job.job_id }}</div>
-                    <div class="text-xs text-gray-500">{{ job.function }}</div>
+                    <div class="text-sm font-medium text-slate-200 font-mono">{{ job.job_id[:20] }}...</div>
+                    <div class="text-xs text-slate-500">{{ job.function }}</div>
                 </td>
                 <td class="px-6 py-4">
-                    <span class="px-2 py-1 rounded-full text-xs font-semibold
-                        {{ 'bg-gray-100 text-gray-800' if job.status == JobState.deferred }}
-                        {{ 'bg-blue-100 text-blue-800' if job.status == JobState.queued }}
-                        {{ 'bg-indigo-100 text-indigo-800' if job.status == JobState.in_progress }}
-                        {{ 'bg-green-100 text-green-800' if job.status == JobState.complete }}
-                        {{ 'bg-red-100 text-red-800' if job.status == JobState.not_found }}">
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold border
+                        {{ 'bg-slate-500/10 text-slate-400 border-slate-500/20' if job.status == JobState.deferred }}
+                        {{ 'bg-blue-500/10 text-blue-400 border-blue-500/20' if job.status == JobState.queued }}
+                        {{ 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' if job.status == JobState.in_progress }}
+                        {{ 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' if job.status == JobState.complete }}
+                        {{ 'bg-rose-500/10 text-rose-400 border-rose-500/20' if job.status == JobState.not_found }}">
                         {{ job.status.name|capitalize }}
                     </span>
                 </td>
-                <td class="px-6 py-4 text-sm text-gray-500">
+                <td class="px-6 py-4 text-sm text-slate-500">
                     <div class="text-xs">{{ job.enqueue_time.strftime('%Y-%m-%d %H:%M') if job.enqueue_time else 'N/A' }}</div>
                     {% if job.finish_time %}
-                    <div class="text-xs text-gray-400">{{ job.finish_time.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div class="text-xs text-slate-600">{{ job.finish_time.strftime('%Y-%m-%d %H:%M') }}</div>
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="/admin/queues/jobs/{{ job.job_id }}" class="text-blue-600 hover:text-blue-900 text-sm font-medium">Details</a>
+                    <a href="/admin/queues/jobs/{{ job.job_id }}" class="text-primary-400 hover:text-primary-300 text-sm font-medium">Details</a>
                 </td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="4" class="px-6 py-10 text-center text-gray-500">No jobs found in this category.</td>
+                <td colspan="4" class="px-6 py-10 text-center text-slate-500">No jobs found in this category.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <div class="p-4 border-t bg-gray-50 flex justify-between items-center text-sm">
-        <p class="text-gray-500">Showing 20 items per page</p>
+    <div class="p-4 border-t border-white/5 flex justify-between items-center text-sm">
+        <p class="text-slate-500">Showing 20 items per page</p>
         <div class="flex space-x-2">
             {% if page > 1 %}
-            <a href="?status={{ status_filter }}&page={{ page - 1 }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Prev</a>
+            <a href="?status={{ status_filter }}&page={{ page - 1 }}" class="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 rounded-xl hover:bg-white/10 transition-colors">Prev</a>
             {% endif %}
-            <span class="px-3 py-1 bg-white border border-gray-300 rounded font-medium">{{ page }}</span>
-            <a href="?status={{ status_filter }}&page={{ page + 1 }}" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-50">Next</a>
+            <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-xl font-medium text-slate-200">{{ page }}</span>
+            <a href="?status={{ status_filter }}&page={{ page + 1 }}" class="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 rounded-xl hover:bg-white/10 transition-colors">Next</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,102 @@
+2026-04-10 23:34:06.666 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713560 | has_message=True | has_callback=False
+2026-04-10 23:34:06.666 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:34:06.753 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=asd
+2026-04-10 23:34:06.791 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713561 | has_message=True | has_callback=False
+2026-04-10 23:34:06.791 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:34:06.832 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=sad
+2026-04-10 23:38:08.493 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713563 | has_message=True | has_callback=False
+2026-04-10 23:38:08.493 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:08.525 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:38:13.768 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713564 | has_message=True | has_callback=False
+2026-04-10 23:38:13.768 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:13.794 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:38:15.629 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713565 | has_message=True | has_callback=False
+2026-04-10 23:38:15.630 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:15.662 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://www.instagram.com/reel/DUs-pPCgkvO/?igsh=MWQ5eTBsb2xoMHVweA==
+2026-04-10 23:38:15.825 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.instagram.com/reel/DUs-pPCgkvO/?igsh=MWQ5eTBsb2xoMHVweA== | platform=instagram
+2026-04-10 23:38:15.952 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:38:17.620 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713566 | has_message=True | has_callback=False
+2026-04-10 23:38:17.621 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:17.649 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=ыфв
+2026-04-10 23:38:18.366 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713567 | has_message=True | has_callback=False
+2026-04-10 23:38:18.367 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:18.394 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://www.instagram.com/reel/DUs-pPCgkvO/?igsh=MWQ5eTBsb2xoMHVweA==
+2026-04-10 23:38:18.514 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.instagram.com/reel/DUs-pPCgkvO/?igsh=MWQ5eTBsb2xoMHVweA== | platform=instagram
+2026-04-10 23:38:18.638 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:38:36.648 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713568 | has_message=True | has_callback=False
+2026-04-10 23:38:36.648 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:38:36.675 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k=
+2026-04-10 23:38:37.004 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k= | platform=instagram
+2026-04-10 23:38:49.818 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:40:44.301 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713569 | has_message=True | has_callback=False
+2026-04-10 23:40:44.301 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:40:44.331 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:40:44.431 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713570 | has_message=True | has_callback=False
+2026-04-10 23:40:44.432 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:40:44.465 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=ыфв
+2026-04-10 23:40:44.554 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713571 | has_message=True | has_callback=False
+2026-04-10 23:40:44.554 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:40:44.581 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:40:44.675 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713572 | has_message=True | has_callback=False
+2026-04-10 23:40:44.676 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:40:44.716 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:40:44.794 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713573 | has_message=True | has_callback=False
+2026-04-10 23:40:44.795 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:40:44.833 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k=
+2026-04-10 23:40:44.961 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k= | platform=instagram
+2026-04-10 23:40:45.087 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:45:55.611 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713574 | has_message=True | has_callback=False
+2026-04-10 23:45:55.611 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:55.638 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=фыв
+2026-04-10 23:45:55.738 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713577 | has_message=True | has_callback=False
+2026-04-10 23:45:55.739 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:55.769 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=asd
+2026-04-10 23:45:55.920 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713578 | has_message=True | has_callback=False
+2026-04-10 23:45:55.920 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:55.946 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=asd
+2026-04-10 23:45:57.548 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713575 | has_message=True | has_callback=False
+2026-04-10 23:45:57.548 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:57.673 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=1271868935 | chat_id=1271868935 | text=/start
+2026-04-10 23:45:57.673 | INFO     | bot.processor | bot.processor:_handle_message:166 | 🚀 Handling /start command
+2026-04-10 23:45:57.674 | INFO     | bot.processor | bot.processor:_handle_start:212 | 📤 Sending start message | user_id=1271868935 | language=en
+2026-04-10 23:45:57.690 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713576 | has_message=True | has_callback=False
+2026-04-10 23:45:57.691 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:57.723 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=1271868935 | chat_id=1271868935 | text=s
+2026-04-10 23:45:57.806 | INFO     | bot.processor | bot.processor:_handle_start:221 | ✅ Start message sent | user_id=1271868935
+2026-04-10 23:45:58.860 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713579 | has_message=True | has_callback=False
+2026-04-10 23:45:58.860 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:45:58.890 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k=
+2026-04-10 23:45:59.022 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k= | platform=instagram
+2026-04-10 23:45:59.161 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:46:05.399 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713580 | has_message=True | has_callback=False
+2026-04-10 23:46:05.399 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:46:05.435 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=1271868935 | chat_id=1271868935 | text=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k=
+2026-04-10 23:46:05.559 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=1271868935 | url=https://www.instagram.com/reel/DW3rhxICEFY/?igsh=aWlxYWNqNHk1M3k= | platform=instagram
+2026-04-10 23:46:05.691 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=1271868935 | success=True | error=None
+2026-04-10 23:46:10.892 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713581 | has_message=True | has_callback=False
+2026-04-10 23:46:10.892 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:46:10.927 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=asd
+2026-04-10 23:46:31.805 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713582 | has_message=True | has_callback=False
+2026-04-10 23:46:31.807 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:46:31.955 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://pin.it/7BbEPly69
+2026-04-10 23:46:32.291 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://pin.it/7BbEPly69 | platform=pinterest
+2026-04-10 23:46:32.438 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:50:23.078 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713583 | has_message=True | has_callback=False
+2026-04-10 23:50:23.078 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:50:23.105 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://youtu.be/tatl88fpcgU?si=TnPXVKQ5JrmWh3iS
+2026-04-10 23:50:36.484 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713584 | has_message=False | has_callback=True
+2026-04-10 23:50:36.484 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:50:36.765 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.youtube.com/watch?v=tatl88fpcgU | platform=youtube
+2026-04-10 23:50:36.890 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:50:39.164 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713585 | has_message=True | has_callback=False
+2026-04-10 23:50:39.164 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:50:39.200 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://youtu.be/tatl88fpcgU?si=TnPXVKQ5JrmWh3iS
+2026-04-10 23:50:41.872 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713586 | has_message=False | has_callback=True
+2026-04-10 23:50:41.873 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:50:42.168 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://www.youtube.com/watch?v=tatl88fpcgU | platform=youtube
+2026-04-10 23:50:42.363 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None
+2026-04-10 23:59:18.798 | INFO     | bot.processor | bot.processor:process:77 | 📥 UpdateProcessor.process called | token=7039033833 | update_id=689713587 | has_message=True | has_callback=False
+2026-04-10 23:59:18.798 | INFO     | bot.processor | bot.processor:process:91 | ✅ Bot instance acquired | username=testingmodeonbot
+2026-04-10 23:59:18.830 | INFO     | bot.processor | bot.processor:_handle_message:157 | 💬 Handling message | user_id=6597464835 | chat_id=6597464835 | text=https://youtube.com/shorts/1BatQCn2Z2E?si=sgZqorOOJuZrEk-y
+2026-04-10 23:59:19.186 | INFO     | bot.processor | bot.processor:_process_download:573 | ⬇️ Starting download | user_id=6597464835 | url=https://youtube.com/shorts/1BatQCn2Z2E?si=sgZqorOOJuZrEk-y | platform=youtube
+2026-04-10 23:59:38.457 | INFO     | bot.processor | bot.processor:_process_download:587 | ✅ Download completed | user_id=6597464835 | success=True | error=None

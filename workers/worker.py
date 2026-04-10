@@ -70,7 +70,7 @@ class WorkerSettings:
     # Cron задачи
     cron_jobs = [
         # Очистка temp файлов каждый час
-        cron(cleanup_temp_files, hour={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23}, minute=0),
+        cron(cleanup_temp_files, minute=0),
 
         # Обновление статистики каждые 15 минут
         cron(update_bot_stats, minute={0, 15, 30, 45}),
@@ -82,7 +82,7 @@ class WorkerSettings:
         cron(cleanup_old_downloads, hour=3, minute=0),
 
         # Health check каждые 5 минут
-        cron(health_check, minute={0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55}),
+        cron(health_check, minute={i for i in range(0, 60, 5)}),
     ]
 
     on_startup = startup

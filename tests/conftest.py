@@ -19,7 +19,7 @@ os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///:memory:"
 os.environ["SECRET_KEY"] = "test-secret-key-minimum-32-characters-long"
 os.environ["ADMIN_USERNAME"] = "admin"
 os.environ["ADMIN_PASSWORD"] = "testpassword123"
-os.environ["STORAGE_CHANNEL_ID"] = "-1001234567890"
+os.environ["STORAGE_CHANNEL_ID"] = "-1001234567890"  # Optional: fallback for caching
 os.environ["TEMP_DOWNLOAD_PATH"] = "/tmp/mediadownloader_test"
 
 from app.lifecycle import create_app

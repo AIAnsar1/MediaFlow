@@ -34,7 +34,7 @@ class TestBotsAPI:
         response = await auth_client.get("/admin/bots/create")
 
         assert response.status_code == 200
-        assert b"Add" in response.content or b"Create" in response.content
+        assert b"Registration" in response.content or b"Register" in response.content
 
 
 @pytest.mark.asyncio

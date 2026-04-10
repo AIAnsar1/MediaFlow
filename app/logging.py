@@ -140,7 +140,7 @@ class LoggerManager:
 
         # Логируем старт
         app_logger = cls.get_logger("app")
-        app_logger.info(f"Logger initialized | Level: {log_level} | Path: {cls._log_dir}")
+        app_logger.info("Logger initialized", level=log_level, path=str(cls._log_dir))
 
     @classmethod
     def get_logger(cls, name: str = "app") -> "BoundLogger":

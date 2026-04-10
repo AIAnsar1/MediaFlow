@@ -445,24 +445,25 @@ async def health_check(ctx: dict) -> dict[str, Any]:
 
     try:
         # Проверяем БД
+        from sqlalchemy import text as sa_text
         async with db.session() as session:
-            await session.execute("SELECT 1")
+            await session.execute(sa_text("SELECT 1"))
             status["database"] = True
-    except:
+    except Exception:
         pass
 
     try:
         # Проверяем Redis
         await cache.redis.ping()
         status["redis"] = True
-    except:
+    except Exception:
         pass
 
     try:
         # Считаем активные боты
         bots = await bot_manager.get_all_active_bots()
         status["bots"] = len(bots)
-    except:
+    except Exception:
         pass
 
     log.debug("Health check", **status)

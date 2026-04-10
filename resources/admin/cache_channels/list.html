@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Cache Nodes - MediaFlow{% endblock %}
+{% block header %}Cache Nodes{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-8">
+    <div>
+        <h3 class="text-2xl font-bold text-white">Storage Network</h3>
+        <p class="text-slate-500 text-sm">Manage rotated Telegram channels for media caching</p>
+    </div>
+    <a href="/admin/cache_channels/create" class="btn-primary flex items-center">
+        <i class="fas fa-plus mr-2 text-xs"></i>
+        Add Cache Node
+    </a>
+</div>
+
+<div class="table-container">
+    <table class="w-full text-left">
+        <thead>
+            <tr>
+                <th class="table-header">Node Name</th>
+                <th class="table-header">Telegram ID</th>
+                <th class="table-header">Status</th>
+                <th class="table-header">Last Used</th>
+                <th class="table-header text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5">
+            {% for channel in channels %}
+            <tr class="table-row group">
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-server text-blue-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-white">{{ channel.name }}</div>
+                            <div class="text-xs text-slate-500">@{{ channel.username or 'private' }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    <code class="text-xs text-primary-400 bg-primary-400/5 px-2 py-1 rounded border border-primary-400/10">{{ channel.telegram_id }}</code>
+                </td>
+                <td class="px-6 py-4">
+                    {% if channel.is_active %}
+                    <span class="badge badge-success">Active</span>
+                    {% else %}
+                    <span class="badge badge-warning">Paused</span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 text-xs text-slate-500">
+                    {{ channel.last_used_at.strftime('%d %b, %H:%M') if channel.last_used_at else 'Never' }}
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex items-center justify-end space-x-2">
+                        <form action="/admin/cache_channels/{{ channel.id }}/toggle" method="post" class="inline">
+                            <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-primary-400 transition-all border border-white/5">
+                                <i class="fas fa-power-off text-xs"></i>
+                            </button>
+                        </form>
+                        <form action="/admin/cache_channels/{{ channel.id }}/delete" method="post" class="inline" onsubmit="return confirm('Delete this cache node?')">
+                            <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-rose-400 transition-all border border-white/5">
+                                <i class="fas fa-trash-can text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="px-6 py-12 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-slate-800/50 rounded-2xl flex items-center justify-center mb-4 border border-white/5">
+                            <i class="fas fa-server text-slate-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-white font-semibold">No cache nodes</h4>
+                        <p class="text-slate-500 text-sm max-w-xs mt-1">Add a private Telegram channel to enable media caching and rotation.</p>
+                        <a href="/admin/cache_channels/create" class="mt-6 btn-primary">Add Node</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

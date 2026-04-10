@@ -1,0 +1,384 @@
+{% extends "base.html" %}
+
+{% block title %}System Telemetry - MediaFlow{% endblock %}
+{% block header %}System Telemetry{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<!-- System Uptime & Host Info -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="card group">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-primary-500/10 rounded-2xl flex items-center justify-center border border-primary-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-clock text-primary-400"></i>
+            </div>
+            <div>
+                <h4 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Uptime</h4>
+                <div class="text-xl font-bold text-white">{{ uptime_str }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card group">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-microchip text-amber-400"></i>
+            </div>
+            <div>
+                <h4 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">CPU Cores</h4>
+                <div class="text-xl font-bold text-white">{{ snapshot.cpu.cores_logical }} logical / {{ snapshot.cpu.cores_physical }} physical</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card group">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-memory text-emerald-400"></i>
+            </div>
+            <div>
+                <h4 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Total RAM</h4>
+                <div class="text-xl font-bold text-white">{{ snapshot.memory.total_gb }} GB</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card group">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-violet-500/10 rounded-2xl flex items-center justify-center border border-violet-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-temperature-half text-violet-400"></i>
+            </div>
+            <div>
+                <h4 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">CPU Load Avg</h4>
+                <div class="text-xl font-bold text-white">{{ snapshot.cpu.load_avg_1 or 'N/A' }} / {{ snapshot.cpu.load_avg_5 or 'N/A' }} / {{ snapshot.cpu.load_avg_15 or 'N/A' }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CPU & Memory Row -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+    <!-- CPU Usage -->
+    <div class="card">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-white"><i class="fas fa-microchip mr-2 text-primary-400"></i>CPU Usage</h3>
+            <span class="text-2xl font-bold {% if snapshot.cpu.percent > 80 %}text-rose-400{% elif snapshot.cpu.percent > 50 %}text-amber-400{% else %}text-emerald-400{% endif %}">{{ snapshot.cpu.percent|round(1) }}%</span>
+        </div>
+
+        <!-- Overall bar -->
+        <div class="mb-6">
+            <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                <span>Overall</span>
+                <span class="text-white">{{ snapshot.cpu.percent|round(0) }}%</span>
+            </div>
+            <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-primary-600 to-primary-400 rounded-full transition-all duration-500 {% if snapshot.cpu.percent > 80 %}from-rose-600 to-rose-400{% elif snapshot.cpu.percent > 50 %}from-amber-600 to-amber-400{% endif %}"
+                     style="width: {{ snapshot.cpu.percent }}%"></div>
+            </div>
+        </div>
+
+        <!-- Per-core bars -->
+        <div class="space-y-2">
+            {% for cpu_pct in snapshot.cpu.per_cpu[:8] %}
+            <div class="flex items-center space-x-3">
+                <span class="text-[10px] font-bold text-slate-500 w-12">Core {{ loop.index0 }}</span>
+                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full transition-all duration-500 {% if cpu_pct > 80 %}bg-rose-500{% elif cpu_pct > 50 %}bg-amber-500{% else %}bg-primary-500{% endif %}"
+                         style="width: {{ cpu_pct }}%"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 w-10 text-right">{{ cpu_pct|round(0) }}%</span>
+            </div>
+            {% endfor %}
+            {% if snapshot.cpu.per_cpu|length > 8 %}
+            <div class="text-center text-slate-600 text-xs mt-2">... +{{ snapshot.cpu.per_cpu|length - 8 }} more cores</div>
+            {% endif %}
+        </div>
+
+        {% if snapshot.cpu.freq_current %}
+        <div class="mt-6 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+            <div class="text-center">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest">Frequency</div>
+                <div class="text-sm font-bold text-white">{{ snapshot.cpu.freq_current }} MHz</div>
+            </div>
+            {% if snapshot.cpu.freq_max %}
+            <div class="text-center">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest">Max Freq</div>
+                <div class="text-sm font-bold text-white">{{ snapshot.cpu.freq_max }} MHz</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Memory Usage -->
+    <div class="card">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-white"><i class="fas fa-memory mr-2 text-emerald-400"></i>Memory</h3>
+            <span class="text-2xl font-bold {% if snapshot.memory.percent > 80 %}text-rose-400{% elif snapshot.memory.percent > 50 %}text-amber-400{% else %}text-emerald-400{% endif %}">{{ snapshot.memory.percent|round(0) }}%</span>
+        </div>
+
+        <!-- RAM bar -->
+        <div class="mb-6">
+            <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                <span>RAM — {{ snapshot.memory.used_gb }} / {{ snapshot.memory.total_gb }} GB</span>
+                <span class="text-white">{{ snapshot.memory.percent|round(0) }}%</span>
+            </div>
+            <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-full transition-all duration-500 {% if snapshot.memory.percent > 80 %}from-rose-600 to-rose-400{% elif snapshot.memory.percent > 50 %}from-amber-600 to-amber-400{% endif %}"
+                     style="width: {{ snapshot.memory.percent }}%"></div>
+            </div>
+        </div>
+
+        <!-- Swap bar -->
+        {% if snapshot.memory.swap_total_gb > 0 %}
+        <div class="mb-6">
+            <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                <span>Swap — {{ snapshot.memory.swap_used_gb }} / {{ snapshot.memory.swap_total_gb }} GB</span>
+                <span class="text-white">{{ snapshot.memory.swap_percent|round(0) }}%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-slate-600 to-slate-400 rounded-full"
+                     style="width: {{ snapshot.memory.swap_percent }}%"></div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Memory details -->
+        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+            <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest">Used</div>
+                <div class="text-sm font-bold text-white">{{ snapshot.memory.used_gb }} GB</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest">Available</div>
+                <div class="text-sm font-bold text-emerald-400">{{ snapshot.memory.available_gb }} GB</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Disk & Network Row -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+    <!-- Disk Partitions -->
+    <div class="card">
+        <h3 class="text-lg font-bold text-white mb-6"><i class="fas fa-hard-drive mr-2 text-amber-400"></i>Disk Partitions</h3>
+
+        {% if snapshot.disks %}
+        <div class="space-y-4">
+            {% for disk in snapshot.disks %}
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <div class="text-sm font-bold text-white">{{ disk.mountpoint }}</div>
+                        <div class="text-[10px] text-slate-500">{{ disk.device }} — {{ disk.fstype }}</div>
+                    </div>
+                    <span class="text-lg font-bold {% if disk.percent > 80 %}text-rose-400{% elif disk.percent > 50 %}text-amber-400{% else %}text-emerald-400{% endif %}">{{ disk.percent|round(0) }}%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-2">
+                    <div class="h-full rounded-full {% if disk.percent > 80 %}bg-rose-500{% elif disk.percent > 50 %}bg-amber-500{% else %}bg-amber-400{% endif %}"
+                         style="width: {{ disk.percent }}%"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-500">
+                    <span>Used: {{ disk.used_gb }} GB</span>
+                    <span>Free: {{ disk.free_gb }} GB</span>
+                    <span>Total: {{ disk.total_gb }} GB</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center text-slate-500 py-8">No disk data available</div>
+        {% endif %}
+
+        <!-- Disk I/O -->
+        {% if snapshot.disk_io.read_rate or snapshot.disk_io.write_rate %}
+        <div class="mt-6 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+            <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest"><i class="fas fa-arrow-down mr-1"></i>Read</div>
+                <div class="text-sm font-bold text-blue-400">{{ snapshot.disk_io.read_rate }}</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest"><i class="fas fa-arrow-up mr-1"></i>Write</div>
+                <div class="text-sm font-bold text-purple-400">{{ snapshot.disk_io.write_rate }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Network -->
+    <div class="card">
+        <h3 class="text-lg font-bold text-white mb-6"><i class="fas fa-network-wired mr-2 text-blue-400"></i>Network Interfaces</h3>
+
+        {% if snapshot.network %}
+        <div class="space-y-4">
+            {% for net in snapshot.network %}
+            {% if net.is_up %}
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
+                        <span class="text-sm font-bold text-white">{{ net.name }}</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                        <div class="text-[10px] text-slate-500 uppercase tracking-widest"><i class="fas fa-arrow-up mr-1 text-blue-400"></i>Sent</div>
+                        <div class="text-sm font-bold text-white">{{ net.bytes_sent | format_bytes }}</div>
+                        <div class="text-[10px] text-slate-600">{{ net.packets_sent }} pkts</div>
+                    </div>
+                    <div class="text-center p-3 rounded-xl bg-white/[0.02]">
+                        <div class="text-[10px] text-slate-500 uppercase tracking-widest"><i class="fas fa-arrow-down mr-1 text-emerald-400"></i>Recv</div>
+                        <div class="text-sm font-bold text-white">{{ net.bytes_recv | format_bytes }}</div>
+                        <div class="text-[10px] text-slate-600">{{ net.packets_recv }} pkts</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center text-slate-500 py-8">No network data available</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- GPU Section (only if GPUs detected) -->
+{% if snapshot.gpus %}
+<div class="card mb-8">
+    <h3 class="text-lg font-bold text-white mb-6"><i class="fas fa-tv mr-2 text-violet-400"></i>GPU Status</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {% for gpu in snapshot.gpus %}
+        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h4 class="text-base font-bold text-white">{{ gpu.name }}</h4>
+                    <span class="text-[10px] text-slate-500">GPU #{{ gpu.index }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    {% if gpu.temperature > 80 %}
+                    <span class="text-rose-400 text-sm"><i class="fas fa-temperature-full mr-1"></i>{{ gpu.temperature }}°C</span>
+                    {% elif gpu.temperature > 60 %}
+                    <span class="text-amber-400 text-sm"><i class="fas fa-temperature-half mr-1"></i>{{ gpu.temperature }}°C</span>
+                    {% else %}
+                    <span class="text-emerald-400 text-sm"><i class="fas fa-temperature-low mr-1"></i>{{ gpu.temperature }}°C</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- GPU Utilization -->
+            <div class="mb-4">
+                <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                    <span>GPU Util</span>
+                    <span class="text-white">{{ gpu.utilization_gpu }}%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-violet-600 to-violet-400 rounded-full"
+                         style="width: {{ gpu.utilization_gpu }}%"></div>
+                </div>
+            </div>
+
+            <!-- VRAM -->
+            <div class="mb-4">
+                <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                    <span>VRAM — {{ gpu.memory_used_mb }} / {{ gpu.memory_total_mb }} MB</span>
+                    <span class="text-white">{{ ((gpu.memory_used_mb / gpu.memory_total_mb * 100) if gpu.memory_total_mb > 0 else 0)|round(0) }}%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"
+                         style="width: {{ (gpu.memory_used_mb / gpu.memory_total_mb * 100) if gpu.memory_total_mb > 0 else 0 }}%"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-3 border-t border-white/5">
+                {% if gpu.power_usage_w is not none %}
+                <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+                    <div class="text-[10px] text-slate-500 uppercase">Power</div>
+                    <div class="text-xs font-bold text-white">{{ gpu.power_usage_w }}W / {{ gpu.power_limit_w }}W</div>
+                </div>
+                {% endif %}
+                <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+                    <div class="text-[10px] text-slate-500 uppercase">Mem Util</div>
+                    <div class="text-xs font-bold text-white">{{ gpu.utilization_memory }}%</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Top Processes -->
+<div class="card">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-bold text-white"><i class="fas fa-list mr-2 text-slate-400"></i>Top Processes (by CPU)</h3>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">PID</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">Name</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">CPU %</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">Memory %</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">RSS</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">Status</th>
+                    <th class="text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-white/5 px-4">Threads</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+                {% for proc in snapshot.processes %}
+                <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="px-4 py-3 text-sm font-mono text-slate-400">{{ proc.pid }}</td>
+                    <td class="px-4 py-3 text-sm font-semibold text-white truncate max-w-[200px]">{{ proc.name }}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-16 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full {% if proc.cpu_percent > 50 %}bg-rose-500{% elif proc.cpu_percent > 10 %}bg-amber-500{% else %}bg-primary-500{% endif %}"
+                                     style="width: {{ proc.cpu_percent|round(0) if proc.cpu_percent < 100 else 100 }}%"></div>
+                            </div>
+                            <span class="text-xs font-bold {% if proc.cpu_percent > 50 %}text-rose-400{% elif proc.cpu_percent > 10 %}text-amber-400{% else %}text-slate-300{% endif %}">{{ proc.cpu_percent|round(1) }}%</span>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm font-bold {% if proc.memory_percent > 5 %}text-amber-400{% else %}text-slate-300{% endif %}">{{ proc.memory_percent|round(1) }}%</td>
+                    <td class="px-4 py-3 text-sm text-slate-400">{{ proc.memory_rss_mb }} MB</td>
+                    <td class="px-4 py-3">
+                        <span class="badge {% if proc.status == 'running' %}badge-success{% elif proc.status == 'sleeping' %}badge-primary{% else %}badge-warning{% endif %}">{{ proc.status }}</span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-slate-400 text-center">{{ proc.threads }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="px-4 py-12 text-center text-slate-500">No process data available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Auto-refresh -->
+<script>
+    // Auto-refresh every 5 seconds
+    let refreshInterval;
+    function startAutoRefresh() {
+        refreshInterval = setInterval(() => {
+            fetch('/admin/telemetry/api/snapshot')
+                .then(r => r.json())
+                .then(data => {
+                    // For a full DOM update, just reload the page
+                    // A more advanced approach would use WebSocket / Server-Sent Events
+                    location.reload();
+                })
+                .catch(() => {});
+        }, 5000);
+    }
+    startAutoRefresh();
+</script>
+
+{% endblock %}

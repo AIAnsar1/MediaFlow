@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Statistics - Media Downloader{% endblock %}
+{% block title %}Statistics - MediaFlow{% endblock %}
 {% block header %}Statistics{% endblock %}
 
 {% block head %}
@@ -10,50 +10,50 @@
 {% block content %}
 <!-- Stats Cards -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="glass-panel rounded-2xl p-4">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm text-gray-500">Downloads Today</p>
-                <p class="text-2xl font-bold text-blue-600">{{ dashboard_stats.downloads_today }}</p>
+                <p class="text-sm text-slate-500">Downloads Today</p>
+                <p class="text-2xl font-bold text-blue-400">{{ dashboard_stats.downloads_today }}</p>
             </div>
-            <div class="p-3 bg-blue-100 rounded-full">
-                <i class="fas fa-download text-blue-600"></i>
+            <div class="p-3 bg-blue-500/10 rounded-full border border-blue-500/20">
+                <i class="fas fa-download text-blue-400"></i>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="glass-panel rounded-2xl p-4">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm text-gray-500">Active Users</p>
-                <p class="text-2xl font-bold text-green-600">{{ dashboard_stats.unique_users_today }}</p>
+                <p class="text-sm text-slate-500">Active Users</p>
+                <p class="text-2xl font-bold text-emerald-400">{{ dashboard_stats.unique_users_today }}</p>
             </div>
-            <div class="p-3 bg-green-100 rounded-full">
-                <i class="fas fa-users text-green-600"></i>
+            <div class="p-3 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                <i class="fas fa-users text-emerald-400"></i>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="glass-panel rounded-2xl p-4">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm text-gray-500">Cache Hit Rate</p>
-                <p class="text-2xl font-bold text-purple-600">{{ dashboard_stats.cache_hit_rate }}%</p>
+                <p class="text-sm text-slate-500">Cache Hit Rate</p>
+                <p class="text-2xl font-bold text-purple-400">{{ dashboard_stats.cache_hit_rate }}%</p>
             </div>
-            <div class="p-3 bg-purple-100 rounded-full">
-                <i class="fas fa-bolt text-purple-600"></i>
+            <div class="p-3 bg-purple-500/10 rounded-full border border-purple-500/20">
+                <i class="fas fa-bolt text-purple-400"></i>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="glass-panel rounded-2xl p-4">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm text-gray-500">Avg Time</p>
-                <p class="text-2xl font-bold text-orange-600">{{ dashboard_stats.avg_download_time_ms }}ms</p>
+                <p class="text-sm text-slate-500">Avg Time</p>
+                <p class="text-2xl font-bold text-amber-400">{{ dashboard_stats.avg_download_time_ms }}ms</p>
             </div>
-            <div class="p-3 bg-orange-100 rounded-full">
-                <i class="fas fa-clock text-orange-600"></i>
+            <div class="p-3 bg-amber-500/10 rounded-full border border-amber-500/20">
+                <i class="fas fa-clock text-amber-400"></i>
             </div>
         </div>
     </div>
@@ -61,37 +61,37 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     <!-- Downloads Chart -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <h3 class="text-lg font-semibold mb-4">📈 Downloads (Last 24 Hours)</h3>
+    <div class="glass-panel rounded-2xl p-4">
+        <h3 class="text-lg font-semibold text-white mb-4">📈 Downloads (Last 24 Hours)</h3>
         <canvas id="downloadsChart" height="200"></canvas>
     </div>
 
     <!-- Platform Distribution -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <h3 class="text-lg font-semibold mb-4">🥧 By Platform</h3>
+    <div class="glass-panel rounded-2xl p-4">
+        <h3 class="text-lg font-semibold text-white mb-4">🥧 By Platform</h3>
         <canvas id="platformChart" height="200"></canvas>
     </div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     <!-- Language Distribution -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <h3 class="text-lg font-semibold mb-4">🌍 Users by Language</h3>
+    <div class="glass-panel rounded-2xl p-4">
+        <h3 class="text-lg font-semibold text-white mb-4">🌍 Users by Language</h3>
         <div class="space-y-3">
             {% for lang, count in language_stats.items() %}
             <div class="flex items-center justify-between">
-                <span class="flex items-center">
+                <span class="flex items-center text-slate-200">
                     {% if lang == 'ru' %}🇷🇺 Russian
                     {% elif lang == 'en' %}🇺🇸 English
                     {% elif lang == 'uk' %}🇺🇦 Ukrainian
                     {% else %}{{ lang }}{% endif %}
                 </span>
                 <div class="flex items-center">
-                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                        <div class="bg-blue-600 h-2 rounded-full"
+                    <div class="w-32 bg-slate-800 rounded-full h-2 mr-3">
+                        <div class="bg-primary-500 h-2 rounded-full shadow-[0_0_8px_rgba(14,165,233,0.3)]"
                              style="width: {{ (count / total_users * 100) if total_users > 0 else 0 }}%"></div>
                     </div>
-                    <span class="font-bold">{{ count }}</span>
+                    <span class="font-bold text-slate-200">{{ count }}</span>
                 </div>
             </div>
             {% endfor %}
@@ -99,52 +99,52 @@
     </div>
 
     <!-- Quick Stats -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <h3 class="text-lg font-semibold mb-4">📊 Quick Stats</h3>
+    <div class="glass-panel rounded-2xl p-4">
+        <h3 class="text-lg font-semibold text-white mb-4">📊 Quick Stats</h3>
         <div class="space-y-4">
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span class="text-gray-600">Total Bots</span>
-                <span class="font-bold text-lg">{{ total_bots }}</span>
+            <div class="flex justify-between items-center p-3 bg-white/[0.02] rounded-lg border border-white/5">
+                <span class="text-slate-400">Total Bots</span>
+                <span class="font-bold text-lg text-white">{{ total_bots }}</span>
             </div>
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span class="text-gray-600">Total Users</span>
-                <span class="font-bold text-lg">{{ total_users }}</span>
+            <div class="flex justify-between items-center p-3 bg-white/[0.02] rounded-lg border border-white/5">
+                <span class="text-slate-400">Total Users</span>
+                <span class="font-bold text-lg text-white">{{ total_users }}</span>
             </div>
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span class="text-gray-600">Cached Media</span>
-                <span class="font-bold text-lg">{{ total_media }}</span>
+            <div class="flex justify-between items-center p-3 bg-white/[0.02] rounded-lg border border-white/5">
+                <span class="text-slate-400">Cached Media</span>
+                <span class="font-bold text-lg text-white">{{ total_media }}</span>
             </div>
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span class="text-gray-600">Success Rate</span>
-                <span class="font-bold text-lg text-green-600">{{ dashboard_stats.success_rate }}%</span>
+            <div class="flex justify-between items-center p-3 bg-white/[0.02] rounded-lg border border-white/5">
+                <span class="text-slate-400">Success Rate</span>
+                <span class="font-bold text-lg text-emerald-400">{{ dashboard_stats.success_rate }}%</span>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Daily Downloads Table -->
-<div class="bg-white rounded-lg shadow">
-    <div class="p-4 border-b">
-        <h3 class="text-lg font-semibold">📅 Last 7 Days</h3>
+<div class="glass-panel rounded-2xl">
+    <div class="p-4 border-b border-white/5">
+        <h3 class="text-lg font-semibold text-white">📅 Last 7 Days</h3>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Downloads</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Trend</th>
+            <thead>
+                <tr class="border-b border-white/5">
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Date</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Downloads</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Trend</th>
                 </tr>
             </thead>
-            <tbody class="divide-y">
+            <tbody class="divide-y divide-white/5">
                 {% for day in daily_stats %}
-                <tr>
-                    <td class="px-4 py-3 font-medium">{{ day.date }}</td>
-                    <td class="px-4 py-3">{{ day.downloads }}</td>
+                <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="px-4 py-3 font-medium text-slate-200">{{ day.date }}</td>
+                    <td class="px-4 py-3 text-slate-300">{{ day.downloads }}</td>
                     <td class="px-4 py-3">
-                        <div class="w-24 bg-gray-200 rounded-full h-2">
+                        <div class="w-24 bg-slate-800 rounded-full h-2">
                             {% set max_downloads = daily_stats|map(attribute='downloads')|max %}
-                            <div class="bg-blue-600 h-2 rounded-full"
+                            <div class="bg-primary-500 h-2 rounded-full shadow-[0_0_8px_rgba(14,165,233,0.3)]"
                                  style="width: {{ (day.downloads / max_downloads * 100) if max_downloads > 0 else 0 }}%"></div>
                         </div>
                     </td>
@@ -177,7 +177,15 @@ new Chart(downloadsCtx, {
             legend: { display: false }
         },
         scales: {
-            y: { beginAtZero: true }
+            y: {
+                beginAtZero: true,
+                ticks: { color: '#64748b' },
+                grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            x: {
+                ticks: { color: '#64748b' },
+                grid: { color: 'rgba(255,255,255,0.05)' }
+            }
         }
     }
 });
@@ -204,6 +212,7 @@ new Chart(platformCtx, {
         plugins: {
             legend: {
                 position: 'right',
+                labels: { color: '#cbd5e1' }
             }
         }
     }

@@ -1,0 +1,130 @@
+2026-04-10 14:52:09.590 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 14:52:09.594 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 17:04:48.073 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 17:04:50.996 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 17:08:25.642 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 17:08:25.969 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 17:11:57.944 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 17:11:58.933 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 17:31:08.920 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 17:31:09.234 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 17:36:36.198 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 17:36:36.519 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 19:15:02.108 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 19:15:02.519 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 19:53:22.002 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 19:53:22.955 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:00:47.436 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:00:47.767 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:15:46.465 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:15:46.891 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:21:07.613 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:21:07.987 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:26:50.788 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:26:51.093 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:32:59.649 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:33:00.194 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:34:43.220 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:34:43.554 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:38:51.035 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 20:38:51.036 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 20:39:38.041 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:39:38.383 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:42:46.646 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:42:47.074 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:52:30.698 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:52:30.995 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 20:59:09.133 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 20:59:10.248 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 21:04:46.715 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 21:04:47.128 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 21:28:49.679 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:28:49.680 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:29:41.108 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 21:29:41.928 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 21:33:42.361 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 21:33:42.499 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:42.520 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:43.838 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 21:33:42.499 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:42.520 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:42.565 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:43.451 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:43.825 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:43.826 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:42.569 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:43.456 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:45.771 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:45.772 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:45.778 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:45.779 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:33:46.057 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:33:46.062 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:34:48.110 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:34:57.137 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:37:26.346 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:38:06.942 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:38:54.138 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:39:10.698 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:39:48.292 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:40:37.159 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:43:52.248 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:44:16.535 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:44:27.332 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:44:35.798 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:45:01.476 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:45:09.309 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:56:46.808 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 21:56:46.808 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 21:57:49.796 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 21:57:50.141 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:18:45.203 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:18:45.773 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:30:04.620 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:30:04.780 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:34:09.445 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:34:09.585 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:37:50.280 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 22:37:50.281 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 22:38:04.279 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:38:04.609 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:42:12.508 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 22:42:12.509 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 22:42:21.437 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:42:21.595 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:47:09.404 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 22:47:09.404 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 22:47:23.931 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:47:24.206 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 22:49:59.796 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 22:49:59.796 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 22:50:10.737 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 22:50:10.892 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:11:10.619 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:11:10.816 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:13:24.451 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:13:24.452 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:13:32.853 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:13:33.022 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:14:16.580 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:14:16.581 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:14:27.006 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:14:27.146 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:18:57.292 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:18:57.293 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:19:08.219 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:19:08.385 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:23:26.401 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:23:27.211 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:27:27.794 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:27:27.795 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:28:04.892 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:28:05.212 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:31:40.614 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:31:40.614 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:32:02.285 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:32:02.423 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully
+2026-04-10 23:37:39.634 | INFO     | database | database.connection:disconnect:85 | Disconnecting from database...
+2026-04-10 23:37:39.634 | INFO     | database | database.connection:disconnect:92 | Database disconnected
+2026-04-10 23:38:07.319 | INFO     | database | database.connection:connect:56 | Connecting to database... | url=localhost:5432/mediaflow
+2026-04-10 23:38:07.457 | SUCCESS  | database | database.connection:connect:76 | Database connected successfully

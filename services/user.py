@@ -88,6 +88,42 @@ class UserService:
 
         return UserDTO.from_model(user), created
 
+    async def get_or_create_fast(
+        self,
+        telegram_user: AiogramUser,
+        bot_id: int,
+    ) -> UserDTO:
+        """
+        Быстрое получение/создание пользователя БЕЗ commit
+        Используется при каждом сообщении для скорости
+        """
+        user = await self.repo.get_by_telegram_id(telegram_user.id, bot_id)
+
+        if not user:
+            # Создаём без commit — он будет позже при обновлении статистики
+            user = await self.repo.create(
+                telegram_id=telegram_user.id,
+                bot_id=bot_id,
+                username=telegram_user.username,
+                first_name=telegram_user.first_name,
+                last_name=telegram_user.last_name,
+                language=telegram_user.language_code or "en",
+            )
+            log.info(
+                "New user registered",
+                telegram_id=telegram_user.id,
+                bot_id=bot_id,
+                language=user.language,
+            )
+        else:
+            # Update profile data if changed (SQLAlchemy dirty-tracks, so no
+            # UPDATE is issued when values are unchanged)
+            user.username = telegram_user.username
+            user.first_name = telegram_user.first_name
+            user.last_name = telegram_user.last_name
+
+        return UserDTO.from_model(user)
+
     async def get_by_telegram_id(
         self,
         telegram_id: int,

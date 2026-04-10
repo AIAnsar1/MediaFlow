@@ -5,6 +5,7 @@ from litestar.params import Body
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession
 from aiogram import Bot as AiogramBot
+import re
 
 from database.connection import get_session
 from repositories import BotRepository
@@ -39,6 +40,16 @@ class BotController(Controller):
         token = data.get("token", "").strip()
         name = data.get("name", "").strip()
         description = data.get("description", "").strip() or None
+        status = data.get("status", BotStatus.ACTIVE)
+        is_webhook = data.get("is_webhook") == "true"
+        webhook_url = data.get("webhook_url", "").strip() or None
+        webhook_secret = data.get("webhook_secret", "").strip() or None
+
+        # Validate webhook secret (Telegram only allows A-Z, a-z, 0-9, -, _)
+        if webhook_secret and not re.match(r'^[A-Za-z0-9_-]+$', webhook_secret):
+            return Redirect(path="/admin/bots/create?error=Webhook secret can only contain letters, numbers, hyphens and underscores")
+        if webhook_secret and len(webhook_secret) > 256:
+            return Redirect(path="/admin/bots/create?error=Webhook secret must be 256 characters or less")
 
         # Validate token with Telegram
         try:
@@ -60,10 +71,13 @@ class BotController(Controller):
             username=bot_info.username,
             name=name or bot_info.first_name,
             description=description,
-            status=BotStatus.ACTIVE,
+            status=status,
+            is_webhook=is_webhook,
+            webhook_url=webhook_url,
+            webhook_secret=webhook_secret,
         )
 
-        return Redirect(path="/admin/bots")
+        return Redirect(path="/admin/bots?message=Bot registered successfully")
 
     @get("/{bot_id:int}", name="bots:detail")
     async def bot_detail(self, session: AsyncSession, bot_id: int) -> Template:

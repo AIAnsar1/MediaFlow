@@ -70,3 +70,7 @@ pdm.toml
 .cursor
 .antigravity
 .env
+
+# Cookies
+storage/cookies/*.txt
+cookies/*.txt

@@ -52,7 +52,10 @@ class BotManager:
             )
             log.info("Using custom Telegram API server", url=settings.telegram_api_server)
         else:
-            self._session = AiohttpSession()
+            from aiohttp import ClientTimeout
+            self._session = AiohttpSession(
+                timeout=ClientTimeout(total=600)  # 10 minutes
+            )
 
         # Загружаем активные боты из БД
         await self._preload_active_bots()
@@ -178,7 +181,7 @@ class BotManager:
                 self._bots_by_id.pop(instance.model.bot_id, None)
                 try:
                     await instance.bot.session.close()
-                except:
+                except Exception:
                     pass
 
         if to_remove:
@@ -213,8 +216,19 @@ class BotManager:
             bots = await repo.get_active_bots()
 
             results = {}
-            for bot_model in bots:
-                results[bot_model.username] = await self.setup_webhook(bot_model, base_url)
+            for i, bot_model in enumerate(bots):
+                # Задержка между ботами чтобы не попасть в flood control
+                if i > 0:
+                    await asyncio.sleep(1)
+
+                success = await self.setup_webhook(bot_model, base_url)
+                results[bot_model.username] = success
+
+                # Если flood control — ждём и пробуем снова
+                if not success:
+                    await asyncio.sleep(2)
+                    success = await self.setup_webhook(bot_model, base_url)
+                    results[bot_model.username] = success
 
             return results
 

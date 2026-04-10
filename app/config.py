@@ -27,7 +27,7 @@ class Settings(BaseSettings):
 
     # Telegram
     telegram_api_server: str | None = None  # Custom Bot API Server
-    storage_channel_id: int = Field(...)  # Channel for caching media
+    storage_channel_id: int | None = Field(default=None)  # Fallback for caching media (deprecated: use CacheChannel CRUD)
 
     # Admin
     admin_username: str = "admin"

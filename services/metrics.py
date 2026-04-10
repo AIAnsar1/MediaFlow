@@ -1,3 +1,4 @@
+import json
 import time
 from datetime import datetime, date, timedelta
 from typing import Any
@@ -140,7 +141,7 @@ class MetricsService:
             "timestamp": now.isoformat(),
             "labels": labels,
         }
-        await cache.redis.rpush(key, str(data))
+        await cache.redis.rpush(key, json.dumps(data, default=str))
         await cache.redis.expire(key, self.HOURLY_RETENTION * 3600)
 
     async def get_timeseries(
@@ -161,7 +162,7 @@ class MetricsService:
 
             # Агрегируем по часу
             if values:
-                total = sum(float(eval(v).get("value", 0)) for v in values)
+                total = sum(float(json.loads(v).get("value", 0)) for v in values)
                 result.append({
                     "hour": hour.strftime("%Y-%m-%d %H:00"),
                     "value": total,

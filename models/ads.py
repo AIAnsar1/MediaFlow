@@ -27,6 +27,11 @@ class AdStatus(StrEnum):
     CANCELLED = "cancelled"
 
 
+class AdType(StrEnum):
+    BROADCAST = "broadcast"           # Mass mailing to all users
+    POST_DOWNLOAD = "post_download"    # Shown after each download
+
+
 class Ad(Base, TimestampMixin):
     __tablename__ = "ads"
 
@@ -44,6 +49,7 @@ class Ad(Base, TimestampMixin):
     target_language: Mapped[str | None] = mapped_column(String(10), index=True)  # None = all languages
 
     status: Mapped[AdStatus] = mapped_column(default=AdStatus.DRAFT)
+    ad_type: Mapped[AdType] = mapped_column(default=AdType.BROADCAST)
     is_active: Mapped[bool] = mapped_column(default=True)
 
     scheduled_at: Mapped[datetime | None] = mapped_column()

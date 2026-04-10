@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}Job Details - Media Downloader Admin{% endblock %}
-{% block header %}Job: {{ job.job_id }}{% endblock %}
+{% block title %}Job Details - MediaFlow{% endblock %}
+{% block header %}Job: {{ job.job_id[:20] }}...{% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-lg shadow p-6">
-    <div class="flex justify-between items-start mb-6 border-b pb-4">
+<div class="glass-panel rounded-2xl p-6">
+    <div class="flex justify-between items-start mb-6 border-b border-white/5 pb-4">
         <div>
-            <h3 class="text-2xl font-bold text-gray-800">Job: {{ job.job_id }}</h3>
-            <p class="text-gray-500">Status: 
-                <span class="px-2 py-1 rounded-full text-xs font-semibold
-                    {{ 'bg-gray-100 text-gray-800' if job.status == JobState.deferred }}
-                    {{ 'bg-blue-100 text-blue-800' if job.status == JobState.queued }}
-                    {{ 'bg-indigo-100 text-indigo-800' if job.status == JobState.in_progress }}
-                    {{ 'bg-green-100 text-green-800' if job.status == JobState.complete }}
-                    {{ 'bg-red-100 text-red-800' if job.status == JobState.not_found }}">
+            <h3 class="text-2xl font-bold text-white font-mono">Job: {{ job.job_id }}</h3>
+            <p class="text-slate-500 mt-1">Status:
+                <span class="px-2 py-1 rounded-full text-xs font-semibold border
+                    {{ 'bg-slate-500/10 text-slate-400 border-slate-500/20' if job.status == JobState.deferred }}
+                    {{ 'bg-blue-500/10 text-blue-400 border-blue-500/20' if job.status == JobState.queued }}
+                    {{ 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' if job.status == JobState.in_progress }}
+                    {{ 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' if job.status == JobState.complete }}
+                    {{ 'bg-rose-500/10 text-rose-400 border-rose-500/20' if job.status == JobState.not_found }}">
                     {{ job.status.name|capitalize }}
                 </span>
             </p>
         </div>
         <div class="flex space-x-2">
             <form action="/admin/queues/jobs/{{ job.job_id }}/retry" method="post">
-                <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded {{ 'opacity-50 cursor-not-allowed' if job.status != JobState.not_found }}">
+                <button type="submit" class="px-4 py-2 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl transition-colors {{ 'opacity-50 cursor-not-allowed' if job.status != JobState.not_found }}">
                     Retry Job
                 </button>
             </form>
             <form action="/admin/queues/jobs/{{ job.job_id }}/delete" method="post" onsubmit="return confirm('Delete job?')">
-                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded">
+                <button type="submit" class="px-4 py-2 bg-rose-600/80 hover:bg-rose-500 text-white rounded-xl transition-colors">
                     Delete
                 </button>
             </form>
@@ -35,35 +35,35 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         <div>
-            <h4 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">Job Details</h4>
-            <div class="bg-gray-50 rounded p-4 border text-sm space-y-3">
-                <div class="flex justify-between"><span class="text-gray-500">Function:</span> <span class="font-mono bg-blue-100 px-1 rounded">{{ job.function }}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">Enqueued:</span> <span>{{ job.enqueue_time.strftime('%Y-%m-%d %H:%M:%S') if job.enqueue_time else 'N/A' }}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">Started:</span> <span>{{ job.start_time.strftime('%Y-%m-%d %H:%M:%S') if job.start_time else 'N/A' }}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">Finished:</span> <span>{{ job.finish_time.strftime('%Y-%m-%d %H:%M:%S') if job.finish_time else 'N/A' }}</span></div>
-                <div class="flex justify-between font-medium"><span class="text-gray-500">Execution time:</span> <span>{{ job.duration }}s</span></div>
+            <h4 class="text-lg font-semibold text-white mb-4 border-l-4 border-primary-500 pl-3">Job Details</h4>
+            <div class="bg-white/[0.02] rounded-xl p-4 border border-white/5 text-sm space-y-3">
+                <div class="flex justify-between"><span class="text-slate-500">Function:</span> <span class="font-mono bg-primary-500/10 px-1 rounded text-primary-300">{{ job.function }}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Enqueued:</span> <span class="text-slate-200">{{ job.enqueue_time.strftime('%Y-%m-%d %H:%M:%S') if job.enqueue_time else 'N/A' }}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Started:</span> <span class="text-slate-200">{{ job.start_time.strftime('%Y-%m-%d %H:%M:%S') if job.start_time else 'N/A' }}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Finished:</span> <span class="text-slate-200">{{ job.finish_time.strftime('%Y-%m-%d %H:%M:%S') if job.finish_time else 'N/A' }}</span></div>
+                <div class="flex justify-between font-medium"><span class="text-slate-500">Execution time:</span> <span class="text-white">{{ job.duration }}s</span></div>
             </div>
         </div>
 
         <div>
-            <h4 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">Input Arguments</h4>
-            <div class="bg-gray-50 rounded p-4 border overflow-x-auto">
-                <pre class="text-xs text-blue-800 font-mono">{% if job.args %}{{ job.args|tojson(indent=2) }}{% else %}No arguments.{% endif %}</pre>
+            <h4 class="text-lg font-semibold text-white mb-4 border-l-4 border-primary-500 pl-3">Input Arguments</h4>
+            <div class="bg-white/[0.02] rounded-xl p-4 border border-white/5 overflow-x-auto">
+                <pre class="text-xs text-primary-300 font-mono">{% if job.args %}{{ job.args|tojson(indent=2) }}{% else %}No arguments.{% endif %}</pre>
             </div>
         </div>
     </div>
 
     {% if job.result %}
     <div class="mb-8">
-        <h4 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-green-500 pl-3">Result / Output</h4>
-        <div class="bg-gray-50 rounded p-4 border overflow-x-auto text-xs font-mono whitespace-pre-wrap">{{ job.result|string }}</div>
+        <h4 class="text-lg font-semibold text-white mb-4 border-l-4 border-emerald-500 pl-3">Result / Output</h4>
+        <div class="bg-white/[0.02] rounded-xl p-4 border border-white/5 overflow-x-auto text-xs font-mono text-emerald-300 whitespace-pre-wrap">{{ job.result|string }}</div>
     </div>
     {% endif %}
 
     {% if job.error %}
     <div class="mb-8">
-        <h4 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-red-500 pl-3">Error / Stacktrace</h4>
-        <div class="bg-red-50 text-red-700 rounded p-4 border border-red-200 overflow-x-auto text-xs font-mono whitespace-pre-wrap">{{ job.error }}</div>
+        <h4 class="text-lg font-semibold text-white mb-4 border-l-4 border-rose-500 pl-3">Error / Stacktrace</h4>
+        <div class="bg-rose-500/5 text-rose-300 rounded-xl p-4 border border-rose-500/20 overflow-x-auto text-xs font-mono whitespace-pre-wrap">{{ job.error }}</div>
     </div>
     {% endif %}
 </div>

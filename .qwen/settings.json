@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python *)",
+      "Bash(uv *)",
+      "Bash(find *)",
+      "Bash(mkdir *)",
+      "Bash(yt-dlp *)",
+      "Bash(curl *)",
+      "Bash(python3 *)",
+      "Bash(date *)",
+      "Bash(date)",
+      "Bash(echo *)",
+      "Bash(rm *)",
+      "Bash(ffmpeg *)",
+      "Bash(pkill *)",
+      "Bash(sleep *)"
+    ]
+  },
+  "$version": 3
+}
